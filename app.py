@@ -1,10 +1,8 @@
 import streamlit as st
 
-
-# ============================================================
-# GRAMVYAPAR AI
-# Know Before You Borrow
-# ============================================================
+# =========================================================
+# PAGE CONFIG
+# =========================================================
 
 st.set_page_config(
     page_title="GramVyapar AI",
@@ -13,27 +11,20 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-
-# ============================================================
-# COLOUR THEME
-# ============================================================
+# =========================================================
+# COLOR PALETTE
+# =========================================================
 
 PRIMARY = "#526A3A"
 SECONDARY = "#7D9A55"
 ACCENT = "#C88A3D"
 BACKGROUND = "#FAF8F1"
 TEXT = "#33352C"
-CARD = "#FFFFFF"
-LIGHT_TEXT = "#F8F7F0"
-MUTED = "#6F7466"
-BORDER = "#D9DED1"
+WHITE = "#FFFFFF"
 
-
-# ============================================================
-# LANGUAGE SYSTEM
-# Backend-ready: UI text can be translated without changing
-# business logic, calculations, APIs, or database structures.
-# ============================================================
+# =========================================================
+# LANGUAGE
+# =========================================================
 
 LANGUAGES = {
     "English": "en",
@@ -42,134 +33,86 @@ LANGUAGES = {
 
 TEXTS = {
     "en": {
+        "brand": "GramVyapar AI",
         "tagline": "Know Before You Borrow",
-        "step": "Step 1 of 6",
-        "intro_title": "Tell us about yourself",
-        "intro_description": (
-            "This helps us understand which business opportunities "
-            "may fit you best."
-        ),
-        "skills": "Your skills",
-        "skills_desc": "Choose the skills you already have.",
-        "skills_placeholder": "Select your skills",
+        "step": "Step 1 of 10",
+        "title": "Tell us about yourself",
+        "subtitle": "Help us understand your skills, capital and business interests.",
+        "skills": "Skills",
+        "select_skills": "Select your skills",
         "custom_skill": "Add a custom skill",
         "custom_skill_placeholder": "Example: Mobile repair",
         "experience": "Years of experience",
-        "experience_caption": (
-            "Enter the number of years you have worked in your main skill."
-        ),
         "capital": "Available capital",
-        "capital_desc": "How much of your own money can you invest?",
-        "capital_caption": (
-            "Your own funds available for starting or expanding the business."
-        ),
         "interests": "Business interests",
-        "interests_desc": (
-            "Choose the types of businesses you are interested in."
-        ),
-        "interests_placeholder": "Select your interests",
+        "select_interests": "Select your interests",
         "custom_interest": "Add a custom business interest",
-        "custom_interest_placeholder": "Example: Mobile accessories",
+        "custom_interest_placeholder": "Example: Fresh juice shop",
         "risk": "Risk preference",
-        "risk_desc": (
-            "How comfortable are you with uncertainty when starting a business?"
-        ),
         "low": "Low",
         "medium": "Medium",
         "high": "High",
-        "low_description": "Prefer stable and predictable businesses.",
-        "medium_description": "Comfortable with some uncertainty.",
-        "high_description": "Willing to accept more uncertainty for higher potential.",
-        "existing": "Existing business",
-        "existing_toggle": "I already have a business",
+        "low_desc": "Prefer safer and more predictable businesses",
+        "medium_desc": "Comfortable with moderate uncertainty",
+        "high_desc": "Open to higher risk for higher potential",
+        "existing": "I already have a business",
         "existing_placeholder": "Example: Small tailoring shop",
-        "continue": "Continue →",
-        "local_dashboard": "Local Dashboard",
-        "local_description": (
-            "Your Kerala locality will be analyzed using available local evidence."
-        ),
-        "local_info": (
-            "Frame 2 will connect to the Kerala location and local-data engine."
-        ),
-        "back": "← Back to Profile",
+        "continue": "Continue",
+        "profile_saved": "Profile saved successfully.",
+        "dashboard": "Local Dashboard",
+        "dashboard_subtitle": "Your local business intelligence will appear here.",
     },
 
     "ml": {
-        "tagline": "വായ്പ എടുക്കും മുമ്പ് അറിയുക",
-        "step": "ഘട്ടം 1 / 6",
-        "intro_title": "നിങ്ങളെക്കുറിച്ച് പറയൂ",
-        "intro_description": (
-            "നിങ്ങൾക്ക് അനുയോജ്യമായ ബിസിനസ് അവസരങ്ങൾ കണ്ടെത്താൻ "
-            "ഇത് ഞങ്ങളെ സഹായിക്കും."
-        ),
-        "skills": "നിങ്ങളുടെ കഴിവുകൾ",
-        "skills_desc": "നിങ്ങൾക്ക് നിലവിൽ ഉള്ള കഴിവുകൾ തിരഞ്ഞെടുക്കുക.",
-        "skills_placeholder": "കഴിവുകൾ തിരഞ്ഞെടുക്കുക",
+        "brand": "ഗ്രാംവ്യാപാർ AI",
+        "tagline": "വായ്പ എടുക്കുന്നതിന് മുമ്പ് അറിയുക",
+        "step": "ഘട്ടം 1 / 10",
+        "title": "നിങ്ങളെക്കുറിച്ച് പറയൂ",
+        "subtitle": "നിങ്ങളുടെ കഴിവുകൾ, മൂലധനം, ബിസിനസ് താൽപര്യങ്ങൾ എന്നിവ മനസ്സിലാക്കാൻ സഹായിക്കൂ.",
+        "skills": "കഴിവുകൾ",
+        "select_skills": "നിങ്ങളുടെ കഴിവുകൾ തിരഞ്ഞെടുക്കുക",
         "custom_skill": "മറ്റൊരു കഴിവ് ചേർക്കുക",
-        "custom_skill_placeholder": "ഉദാ: മൊബൈൽ റിപ്പയർ",
-        "experience": "പ്രവൃത്തി പരിചയം",
-        "experience_caption": (
-            "നിങ്ങളുടെ പ്രധാന കഴിവിൽ എത്ര വർഷത്തെ പരിചയമുണ്ടെന്ന് നൽകുക."
-        ),
+        "custom_skill_placeholder": "ഉദാഹരണം: മൊബൈൽ റിപ്പയർ",
+        "experience": "പരിചയമുള്ള വർഷങ്ങൾ",
         "capital": "ലഭ്യമായ മൂലധനം",
-        "capital_desc": "നിങ്ങൾക്ക് നിക്ഷേപിക്കാൻ കഴിയുന്ന സ്വന്തം തുക എത്രയാണ്?",
-        "capital_caption": (
-            "ബിസിനസ് ആരംഭിക്കാനോ വികസിപ്പിക്കാനോ ലഭ്യമായ സ്വന്തം പണം."
-        ),
         "interests": "ബിസിനസ് താൽപര്യങ്ങൾ",
-        "interests_desc": "നിങ്ങൾക്ക് താൽപര്യമുള്ള ബിസിനസുകൾ തിരഞ്ഞെടുക്കുക.",
-        "interests_placeholder": "ബിസിനസുകൾ തിരഞ്ഞെടുക്കുക",
+        "select_interests": "താൽപര്യങ്ങൾ തിരഞ്ഞെടുക്കുക",
         "custom_interest": "മറ്റൊരു ബിസിനസ് താൽപര്യം ചേർക്കുക",
-        "custom_interest_placeholder": "ഉദാ: മൊബൈൽ ആക്സസറീസ്",
-        "risk": "അപകടസാധ്യതയോടുള്ള സമീപനം",
-        "risk_desc": (
-            "ബിസിനസ് ആരംഭിക്കുമ്പോൾ അനിശ്ചിതത്വം സ്വീകരിക്കാൻ നിങ്ങൾ എത്രത്തോളം തയ്യാറാണ്?"
-        ),
+        "custom_interest_placeholder": "ഉദാഹരണം: ഫ്രഷ് ജ്യൂസ് കട",
+        "risk": "റിസ്ക് മുൻഗണന",
         "low": "കുറവ്",
-        "medium": "മിതമായത്",
+        "medium": "ഇടത്തരം",
         "high": "കൂടുതൽ",
-        "low_description": "സ്ഥിരതയും പ്രവചനീയതയും ഉള്ള ബിസിനസുകൾ ഇഷ്ടപ്പെടുന്നു.",
-        "medium_description": "ചില അനിശ്ചിതത്വങ്ങൾ സ്വീകരിക്കാൻ തയ്യാറാണ്.",
-        "high_description": "കൂടുതൽ സാധ്യതയ്ക്കായി കൂടുതൽ അനിശ്ചിതത്വം സ്വീകരിക്കാൻ തയ്യാറാണ്.",
-        "existing": "നിലവിലുള്ള ബിസിനസ്",
-        "existing_toggle": "എനിക്ക് ഇതിനകം ഒരു ബിസിനസ് ഉണ്ട്",
-        "existing_placeholder": "ഉദാ: ചെറിയ തയ്യൽക്കട",
-        "continue": "തുടരുക →",
-        "local_dashboard": "പ്രാദേശിക ഡാഷ്ബോർഡ്",
-        "local_description": (
-            "ലഭ്യമായ പ്രാദേശിക വിവരങ്ങൾ ഉപയോഗിച്ച് നിങ്ങളുടെ കേരള പ്രദേശം വിശകലനം ചെയ്യും."
-        ),
-        "local_info": (
-            "ഘട്ടം 2 കേരള ലൊക്കേഷൻ, പ്രാദേശിക ഡാറ്റാ സംവിധാനവുമായി ബന്ധിപ്പിക്കും."
-        ),
-        "back": "← പ്രൊഫൈലിലേക്ക് മടങ്ങുക",
+        "low_desc": "കൂടുതൽ സുരക്ഷിതവും സ്ഥിരതയുള്ളതുമായ ബിസിനസുകൾ",
+        "medium_desc": "മിതമായ അനിശ്ചിതത്വം സ്വീകരിക്കാൻ തയ്യാറാണ്",
+        "high_desc": "കൂടുതൽ സാധ്യതയ്ക്കായി കൂടുതൽ റിസ്ക് സ്വീകരിക്കാൻ തയ്യാറാണ്",
+        "existing": "എനിക്ക് ഇതിനകം ഒരു ബിസിനസ് ഉണ്ട്",
+        "existing_placeholder": "ഉദാഹരണം: ചെറിയ തയ്യൽക്കട",
+        "continue": "തുടരുക",
+        "profile_saved": "പ്രൊഫൈൽ വിജയകരമായി സേവ് ചെയ്തു.",
+        "dashboard": "പ്രാദേശിക ഡാഷ്ബോർഡ്",
+        "dashboard_subtitle": "നിങ്ങളുടെ പ്രാദേശിക ബിസിനസ് വിവരങ്ങൾ ഇവിടെ കാണിക്കും.",
     },
 }
 
 
-# ============================================================
-# LANGUAGE STATE
-# ============================================================
-
-if "language" not in st.session_state:
-    st.session_state.language = "en"
-
-
 def t(key):
-    return TEXTS[st.session_state.language][key]
+    """Return translated text."""
+    language = st.session_state.get("language", "en")
+    return TEXTS[language].get(key, key)
 
 
-# ============================================================
+# =========================================================
 # CUSTOM CSS
-# ============================================================
+# =========================================================
 
 st.markdown(
     f"""
     <style>
 
-    /* ==============================
-       PAGE
-       ============================== */
+    /* =====================================================
+       MAIN APP
+       ===================================================== */
 
     .stApp {{
         background-color: {BACKGROUND};
@@ -177,17 +120,16 @@ st.markdown(
     }}
 
     .block-container {{
-        max-width: 1180px;
-        padding-top: 30px;
-        padding-bottom: 60px;
+        max-width: 1200px;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
     }}
 
+    /* =====================================================
+       GENERAL TEXT
+       ===================================================== */
 
-    /* ==============================
-       TEXT
-       ============================== */
-
-    h1, h2, h3, h4, h5, h6 {{
+    h1, h2, h3, h4 {{
         color: {TEXT} !important;
     }}
 
@@ -195,282 +137,299 @@ st.markdown(
         color: {TEXT};
     }}
 
-
-    /* ==============================
+    /* =====================================================
        BRAND
-       ============================== */
+       ===================================================== */
 
     .brand {{
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 5px;
-    }}
-
-    .brand-icon {{
-        font-size: 38px;
-    }}
-
-    .brand-name {{
-        font-size: 32px;
-        font-weight: 750;
+        font-size: 28px;
+        font-weight: 800;
         color: {PRIMARY};
-        letter-spacing: -0.5px;
+        margin-bottom: 2px;
     }}
 
     .tagline {{
-        color: {MUTED};
-        font-size: 16px;
-        margin-left: 51px;
-        margin-bottom: 25px;
+        font-size: 14px;
+        color: {SECONDARY};
+        font-weight: 500;
     }}
 
+    /* =====================================================
+       TOP LANGUAGE SELECTOR
+       ===================================================== */
 
-    /* ==============================
-       LANGUAGE SELECTOR
-       ============================== */
-
-    .language-label {{
-        font-size: 12px;
-        font-weight: 700;
-        color: {MUTED};
-        margin-bottom: 3px;
+    div[data-testid="stSelectbox"] {{
+        margin-top: 0px;
     }}
 
+    div[data-testid="stSelectbox"] > div {{
+        background-color: {WHITE} !important;
+    }}
 
-    /* ==============================
+    div[data-baseweb="select"] {{
+        background-color: {WHITE} !important;
+        border-radius: 12px !important;
+        border: 1px solid #D8DCCF !important;
+    }}
+
+    div[data-baseweb="select"] * {{
+        color: {TEXT} !important;
+        -webkit-text-fill-color: {TEXT} !important;
+    }}
+
+    div[data-baseweb="select"] input {{
+        color: {TEXT} !important;
+        -webkit-text-fill-color: {TEXT} !important;
+        background-color: {WHITE} !important;
+    }}
+
+    /* Dropdown selected value */
+    div[data-baseweb="select"] [role="button"] {{
+        color: {TEXT} !important;
+        -webkit-text-fill-color: {TEXT} !important;
+    }}
+
+    /* =====================================================
        PROGRESS
-       ============================== */
+       ===================================================== */
 
-    .progress-text {{
-        text-align: center;
+    .progress-container {{
+        width: 100%;
+        height: 7px;
+        background-color: #E5E8DD;
+        border-radius: 10px;
+        margin: 25px 0 35px 0;
+        overflow: hidden;
+    }}
+
+    .progress-bar {{
+        width: 10%;
+        height: 100%;
+        background-color: {PRIMARY};
+        border-radius: 10px;
+    }}
+
+    .step-text {{
+        color: {SECONDARY};
         font-size: 14px;
         font-weight: 600;
-        color: {PRIMARY};
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }}
 
-    [data-testid="stProgress"] > div > div {{
-        background-color: {SECONDARY};
-    }}
-
-
-    /* ==============================
+    /* =====================================================
        INTRO
-       ============================== */
+       ===================================================== */
 
     .intro-title {{
-        font-size: 30px;
-        font-weight: 750;
+        font-size: 34px;
+        font-weight: 800;
         color: {TEXT};
-        margin-top: 25px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }}
 
-    .intro-description {{
+    .intro-subtitle {{
         font-size: 16px;
-        color: {MUTED};
+        color: #6C6F65;
         margin-bottom: 30px;
     }}
 
-
-    /* ==============================
+    /* =====================================================
        FIELD LABELS
-       ============================== */
+       ===================================================== */
 
     .field-label {{
-        font-size: 17px;
+        font-size: 16px;
         font-weight: 700;
         color: {TEXT};
-        margin-top: 20px;
+        margin-top: 15px;
         margin-bottom: 8px;
     }}
 
-    .field-description {{
-        font-size: 13px;
-        color: {MUTED};
-        margin-bottom: 8px;
+    /* =====================================================
+       MULTISELECT
+       ===================================================== */
+
+    div[data-baseweb="select"] {{
+        border-radius: 12px !important;
     }}
 
-
-    /* ==============================
-       ALL INPUT TEXT
-       ============================== */
-
-    label {{
-        color: {TEXT} !important;
+    div[data-baseweb="tag"] {{
+        background-color: {PRIMARY} !important;
+        border-radius: 8px !important;
     }}
 
-    [data-testid="stWidgetLabel"] {{
-        color: {TEXT} !important;
+    div[data-baseweb="tag"] span {{
+        color: {WHITE} !important;
     }}
 
-    [data-testid="stWidgetLabel"] p {{
-        color: {TEXT} !important;
-    }}
+    /* =====================================================
+       NORMAL TEXT INPUTS
+       ===================================================== */
 
-    /* Normal text / number inputs */
+    /*
+       This fixes:
+       - Custom skill
+       - Custom business interest
+       - Existing business
+    */
 
-    input[type="text"],
-    input[type="number"] {{
-        color: {TEXT} !important;
-        -webkit-text-fill-color: {TEXT} !important;
+    div[data-testid="stTextInput"] input,
+    div[data-testid="stTextInputRootElement"] input,
+    div[data-testid="stTextInput"] input[type="text"],
+    div[data-testid="stTextInputRootElement"] input[type="text"] {{
+        background-color: {PRIMARY} !important;
+        color: {WHITE} !important;
+        -webkit-text-fill-color: {WHITE} !important;
+        caret-color: {WHITE} !important;
+
+        border: 1px solid {PRIMARY} !important;
+        border-radius: 12px !important;
+
+        font-size: 16px !important;
         font-weight: 600 !important;
-        caret-color: {PRIMARY} !important;
     }}
 
-    input::placeholder {{
-        color: #85897E !important;
-        -webkit-text-fill-color: #85897E !important;
+    /* Placeholder */
+    div[data-testid="stTextInput"] input::placeholder,
+    div[data-testid="stTextInputRootElement"] input::placeholder {{
+        color: #E8EDE1 !important;
+        -webkit-text-fill-color: #E8EDE1 !important;
         opacity: 1 !important;
     }}
 
-    textarea {{
-        color: {TEXT} !important;
-        -webkit-text-fill-color: {TEXT} !important;
-    }}
-
-
-    /* ==============================
-       NUMBER INPUT
-       ============================== */
-
-    [data-testid="stNumberInput"] {{
-        background-color: {PRIMARY};
-        border-radius: 12px;
-        padding: 2px;
-    }}
-
-    [data-testid="stNumberInput"] input {{
+    /* When clicked/focused */
+    div[data-testid="stTextInput"] input:focus,
+    div[data-testid="stTextInputRootElement"] input:focus {{
         background-color: {PRIMARY} !important;
-        color: {LIGHT_TEXT} !important;
-        -webkit-text-fill-color: {LIGHT_TEXT} !important;
-        font-size: 19px !important;
-        font-weight: 700 !important;
+        color: {WHITE} !important;
+        -webkit-text-fill-color: {WHITE} !important;
+        border-color: {SECONDARY} !important;
+        caret-color: {WHITE} !important;
+        box-shadow: 0 0 0 1px {SECONDARY} !important;
     }}
 
-    [data-testid="stNumberInput"] button {{
-        color: {PRIMARY} !important;
-        background-color: #F0F3E9 !important;
-    }}
+    /* =====================================================
+       NUMBER INPUT
+       ===================================================== */
 
+    div[data-testid="stNumberInput"] input {{
+        background-color: {PRIMARY} !important;
+        color: {WHITE} !important;
+        -webkit-text-fill-color: {WHITE} !important;
+        caret-color: {WHITE} !important;
 
-    /* ==============================
-       SELECT / MULTISELECT
-       ============================== */
-
-    [data-baseweb="select"] {{
-        color: {TEXT} !important;
-    }}
-
-    [data-baseweb="select"] > div {{
-        background-color: {CARD};
-        border-radius: 12px;
-        border: 1px solid {BORDER};
-        min-height: 48px;
-    }}
-
-    [data-baseweb="select"] input {{
-        color: {TEXT} !important;
-        -webkit-text-fill-color: {TEXT} !important;
-    }}
-
-    [data-baseweb="tag"] {{
-        background-color: #E8EEDC !important;
-        color: {PRIMARY} !important;
-        border-radius: 20px !important;
-    }}
-
-    [data-baseweb="tag"] span {{
-        color: {PRIMARY} !important;
-    }}
-
-
-    /* ==============================
-       CUSTOM TEXT INPUTS
-       ============================== */
-
-    .custom-input {{
-        margin-top: 7px;
-        margin-bottom: 5px;
-    }}
-
-    .custom-input input {{
-        background-color: #EEF2E7 !important;
-        border: 1px solid #C7D0BA !important;
+        border: 1px solid {PRIMARY} !important;
         border-radius: 12px !important;
-        color: {PRIMARY} !important;
-        -webkit-text-fill-color: {PRIMARY} !important;
+
+        font-size: 16px !important;
         font-weight: 600 !important;
     }}
 
-
-    /* ==============================
-       SLIDER
-       ============================== */
-
-    [data-testid="stSlider"] {{
-        padding-top: 5px;
-        padding-bottom: 5px;
+    div[data-testid="stNumberInput"] input:focus {{
+        background-color: {PRIMARY} !important;
+        color: {WHITE} !important;
+        -webkit-text-fill-color: {WHITE} !important;
+        border-color: {SECONDARY} !important;
     }}
 
-
-    /* ==============================
-       RISK DESCRIPTION
-       ============================== */
-
-    .risk-description {{
-        background-color: {CARD};
-        border: 1px solid #E1E3DB;
-        border-radius: 14px;
-        padding: 14px 16px;
-        margin-top: 10px;
-        color: {TEXT} !important;
-        font-size: 14px;
-    }}
-
-    .risk-description b {{
+    /* Number input buttons */
+    div[data-testid="stNumberInput"] button {{
         color: {PRIMARY} !important;
     }}
 
+    /* =====================================================
+       SLIDER
+       ===================================================== */
 
-    /* ==============================
-       CONTINUE BUTTON
-       ============================== */
+    div[data-testid="stSlider"] {{
+        padding-top: 5px;
+    }}
 
-    div.stButton > button {{
-        background-color: {PRIMARY};
-        color: white;
-        border: none;
-        border-radius: 12px;
-        min-height: 52px;
+    div[data-testid="stSlider"] p {{
+        color: {TEXT} !important;
+    }}
+
+    /* =====================================================
+       RISK DESCRIPTION CARDS
+       ===================================================== */
+
+    .risk-card {{
+        background-color: {WHITE};
+        border: 1px solid #E1E4D9;
+        border-radius: 14px;
+        padding: 15px;
+        min-height: 85px;
+        margin-top: 5px;
+    }}
+
+    .risk-title {{
         font-size: 16px;
         font-weight: 700;
-        transition: 0.2s;
+        color: {TEXT};
+        margin-bottom: 5px;
+    }}
+
+    .risk-description {{
+        font-size: 13px;
+        color: #70736A;
+        line-height: 1.4;
+    }}
+
+    /* =====================================================
+       RADIO BUTTON
+       ===================================================== */
+
+    div[data-testid="stRadio"] label {{
+        color: {TEXT} !important;
+    }}
+
+    /* =====================================================
+       TOGGLE
+       ===================================================== */
+
+    div[data-testid="stToggle"] label {{
+        color: {TEXT} !important;
+        font-weight: 600 !important;
+    }}
+
+    /* =====================================================
+       BUTTON
+       ===================================================== */
+
+    div.stButton > button {{
+        background-color: {PRIMARY} !important;
+        color: {WHITE} !important;
+        border: none !important;
+        border-radius: 12px !important;
+
+        font-size: 16px !important;
+        font-weight: 700 !important;
+
+        padding: 12px 28px !important;
+        min-height: 48px !important;
     }}
 
     div.stButton > button:hover {{
-        background-color: #43572F;
-        color: white;
-        border: none;
+        background-color: {SECONDARY} !important;
+        color: {WHITE} !important;
     }}
 
-
-    /* ==============================
+    /* =====================================================
        DIVIDER
-       ============================== */
+       ===================================================== */
 
     hr {{
-        border-color: #E4E5DD;
+        border: none !important;
+        border-top: 1px solid #E1E4D9 !important;
+        margin: 30px 0 !important;
     }}
 
+    /* =====================================================
+       SUCCESS MESSAGE
+       ===================================================== */
 
-    /* ==============================
-       INFO / WARNING
-       ============================== */
-
-    [data-testid="stAlert"] {{
-        border-radius: 12px;
+    div[data-testid="stAlert"] {{
+        border-radius: 12px !important;
     }}
 
     </style>
@@ -479,343 +438,314 @@ st.markdown(
 )
 
 
-# ============================================================
+# =========================================================
 # SESSION STATE
-# ============================================================
+# =========================================================
 
-if "current_screen" not in st.session_state:
-    st.session_state.current_screen = "profile"
+if "language" not in st.session_state:
+    st.session_state.language = "en"
+
+if "page" not in st.session_state:
+    st.session_state.page = 1
 
 if "profile" not in st.session_state:
     st.session_state.profile = {}
 
 
-# ============================================================
-# BACKEND-READY PROFILE STORAGE
-# ============================================================
+# =========================================================
+# SAVE PROFILE
+# =========================================================
 
-def save_profile(profile_data):
-    """
-    Temporary frontend storage.
+def save_profile(
+    skills,
+    custom_skill,
+    experience,
+    capital,
+    interests,
+    custom_interest,
+    risk,
+    existing_business,
+    existing_details,
+):
 
-    Later this same structured object can be sent to:
-    Python backend → API → database → decision engine.
-    """
-    st.session_state.profile = profile_data
+    final_skills = list(skills)
+
+    if custom_skill.strip():
+        final_skills.append(custom_skill.strip())
+
+    final_interests = list(interests)
+
+    if custom_interest.strip():
+        final_interests.append(custom_interest.strip())
+
+    st.session_state.profile = {
+        "skills": final_skills,
+        "experience_years": experience,
+        "available_capital": capital,
+        "business_interests": final_interests,
+        "risk_preference": risk,
+        "existing_business": existing_business,
+        "existing_business_details": existing_details.strip(),
+    }
+
+    st.session_state.page = 2
 
 
-# ============================================================
+# =========================================================
+# HEADER
+# =========================================================
+
+def render_header():
+
+    col1, col2 = st.columns([7, 2])
+
+    with col1:
+        st.markdown(
+            f"""
+            <div class="brand">{t("brand")}</div>
+            <div class="tagline">{t("tagline")}</div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col2:
+
+        language_options = list(LANGUAGES.keys())
+
+        current_language_name = (
+            "English"
+            if st.session_state.language == "en"
+            else "മലയാളം"
+        )
+
+        selected_language = st.selectbox(
+            "Language",
+            language_options,
+            index=language_options.index(current_language_name),
+            label_visibility="collapsed",
+            key="language_selector",
+        )
+
+        new_language = LANGUAGES[selected_language]
+
+        if new_language != st.session_state.language:
+            st.session_state.language = new_language
+            st.rerun()
+
+
+# =========================================================
 # FRAME 1 — PROFILE INPUT
-# ============================================================
+# =========================================================
 
 def render_profile():
 
-    # --------------------------------------------------------
-    # LANGUAGE SELECTOR
-    # --------------------------------------------------------
-
-    language_options = list(LANGUAGES.keys())
-
-    current_language_name = (
-        "English"
-        if st.session_state.language == "en"
-        else "മലയാളം"
-    )
-
-    selected_language = st.selectbox(
-        "Language",
-        language_options,
-        index=language_options.index(current_language_name),
-        label_visibility="collapsed",
-        key="language_selector",
-    )
-
-    st.session_state.language = LANGUAGES[selected_language]
-
-    # --------------------------------------------------------
-    # BRAND
-    # --------------------------------------------------------
+    render_header()
 
     st.markdown(
         """
-        <div class="brand">
-            <div class="brand-icon">🌾</div>
-            <div class="brand-name">GramVyapar AI</div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        f'<div class="tagline">{t("tagline")}</div>',
-        unsafe_allow_html=True,
-    )
-
-
-    # --------------------------------------------------------
-    # PROGRESS
-    # --------------------------------------------------------
-
-    st.markdown(
-        f'<div class="progress-text">{t("step")}</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.progress(1 / 6)
-
-
-    # --------------------------------------------------------
-    # INTRO
-    # --------------------------------------------------------
-
-    st.markdown(
-        f'<div class="intro-title">{t("intro_title")}</div>',
+        f'<div class="step-text">{t("step")}</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        f'<div class="intro-description">{t("intro_description")}</div>',
+        f'<div class="intro-title">{t("title")}</div>',
         unsafe_allow_html=True,
     )
 
+    st.markdown(
+        f'<div class="intro-subtitle">{t("subtitle")}</div>',
+        unsafe_allow_html=True,
+    )
 
-    # --------------------------------------------------------
+    # =====================================================
     # SKILLS
-    # --------------------------------------------------------
+    # =====================================================
 
     st.markdown(
-        f'<div class="field-label">🛠️ {t("skills")}</div>',
+        f'<div class="field-label">{t("skills")}</div>',
         unsafe_allow_html=True,
     )
-
-    st.markdown(
-        f'<div class="field-description">{t("skills_desc")}</div>',
-        unsafe_allow_html=True,
-    )
-
-    skill_options = [
-        "Tailoring",
-        "Cooking",
-        "Carpentry",
-        "Farming",
-        "Dairy",
-        "Poultry",
-        "Repair",
-        "Food Processing",
-        "Other",
-    ]
 
     skills = st.multiselect(
         "Skills",
-        skill_options,
-        placeholder=t("skills_placeholder"),
+        [
+            "Tailoring",
+            "Cooking",
+            "Carpentry",
+            "Farming",
+            "Dairy",
+            "Poultry",
+            "Repair",
+            "Food Processing",
+            "Other",
+        ],
+        placeholder=t("select_skills"),
         label_visibility="collapsed",
-        key="skills_selector",
-    )
-
-    st.markdown(
-        f'<div class="custom-input">',
-        unsafe_allow_html=True,
+        key="skills",
     )
 
     custom_skill = st.text_input(
         t("custom_skill"),
         placeholder=t("custom_skill_placeholder"),
-        label_visibility="visible",
-        key="custom_skill_input",
+        label_visibility="collapsed",
+        key="custom_skill",
     )
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
-
-    # --------------------------------------------------------
+    # =====================================================
     # EXPERIENCE
-    # --------------------------------------------------------
+    # =====================================================
 
     st.markdown(
-        f'<div class="field-label">🧑‍🔧 {t("experience")}</div>',
+        f'<div class="field-label">{t("experience")}</div>',
         unsafe_allow_html=True,
     )
 
     experience = st.number_input(
-        "Experience",
+        t("experience"),
         min_value=0,
         max_value=50,
         value=0,
         step=1,
         label_visibility="collapsed",
-        key="experience_input",
+        key="experience",
     )
 
-    st.caption(t("experience_caption"))
-
-
-    # --------------------------------------------------------
+    # =====================================================
     # CAPITAL
-    # --------------------------------------------------------
+    # =====================================================
 
     st.markdown(
-        f'<div class="field-label">💰 {t("capital")}</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        f'<div class="field-description">{t("capital_desc")}</div>',
+        f'<div class="field-label">{t("capital")}</div>',
         unsafe_allow_html=True,
     )
 
     capital = st.slider(
-        "Capital",
+        t("capital"),
         min_value=0,
         max_value=500000,
-        value=100000,
+        value=50000,
         step=5000,
         format="₹%d",
         label_visibility="collapsed",
-        key="capital_slider",
+        key="capital",
     )
 
-    st.markdown(
-        f"""
-        <div style="
-            font-size: 26px;
-            font-weight: 750;
-            color: {PRIMARY};
-            margin-top: -5px;
-        ">
-            ₹{capital:,.0f}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.caption(t("capital_caption"))
-
-
-    # --------------------------------------------------------
+    # =====================================================
     # BUSINESS INTERESTS
-    # --------------------------------------------------------
+    # =====================================================
 
     st.markdown(
-        f'<div class="field-label">💡 {t("interests")}</div>',
+        f'<div class="field-label">{t("interests")}</div>',
         unsafe_allow_html=True,
     )
-
-    st.markdown(
-        f'<div class="field-description">{t("interests_desc")}</div>',
-        unsafe_allow_html=True,
-    )
-
-    interest_options = [
-        "Dairy",
-        "Bakery",
-        "Tailoring",
-        "Grocery",
-        "Poultry",
-        "Food Processing",
-        "Repair Services",
-        "Other",
-    ]
 
     interests = st.multiselect(
-        "Interests",
-        interest_options,
-        placeholder=t("interests_placeholder"),
+        "Business Interests",
+        [
+            "Dairy",
+            "Bakery",
+            "Tailoring",
+            "Grocery",
+            "Poultry",
+            "Food Processing",
+            "Repair Services",
+            "Other",
+        ],
+        placeholder=t("select_interests"),
         label_visibility="collapsed",
-        key="interests_selector",
+        key="interests",
     )
 
     custom_interest = st.text_input(
         t("custom_interest"),
         placeholder=t("custom_interest_placeholder"),
-        label_visibility="visible",
-        key="custom_interest_input",
+        label_visibility="collapsed",
+        key="custom_interest",
     )
 
-
-    # --------------------------------------------------------
+    # =====================================================
     # RISK PREFERENCE
-    # --------------------------------------------------------
+    # =====================================================
 
     st.markdown(
-        f'<div class="field-label">⚖️ {t("risk")}</div>',
+        f'<div class="field-label">{t("risk")}</div>',
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        f'<div class="field-description">{t("risk_desc")}</div>',
-        unsafe_allow_html=True,
-    )
-
-    risk_options = [
-        ("Low", t("low")),
-        ("Medium", t("medium")),
-        ("High", t("high")),
-    ]
-
-    risk_display = st.radio(
+    risk = st.radio(
         "Risk",
-        [item[1] for item in risk_options],
+        [
+            t("low"),
+            t("medium"),
+            t("high"),
+        ],
         index=1,
         horizontal=True,
         label_visibility="collapsed",
-        key="risk_selector",
+        key="risk",
     )
 
-    risk_lookup = {
-        t("low"): "Low",
-        t("medium"): "Medium",
-        t("high"): "High",
-    }
+    # Risk descriptions
 
-    risk = risk_lookup[risk_display]
+    risk_col1, risk_col2, risk_col3 = st.columns(3)
 
-    if risk == "Low":
-
+    with risk_col1:
         st.markdown(
             f"""
-            <div class="risk-description">
-                🟢 <b>{t("low")}</b> — {t("low_description")}
+            <div class="risk-card">
+                <div class="risk-title">🟢 {t("low")}</div>
+                <div class="risk-description">
+                    {t("low_desc")}
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    elif risk == "Medium":
-
+    with risk_col2:
         st.markdown(
             f"""
-            <div class="risk-description">
-                🟠 <b>{t("medium")}</b> — {t("medium_description")}
+            <div class="risk-card">
+                <div class="risk-title">🟠 {t("medium")}</div>
+                <div class="risk-description">
+                    {t("medium_desc")}
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    else:
-
+    with risk_col3:
         st.markdown(
             f"""
-            <div class="risk-description">
-                🔴 <b>{t("high")}</b> — {t("high_description")}
+            <div class="risk-card">
+                <div class="risk-title">🔴 {t("high")}</div>
+                <div class="risk-description">
+                    {t("high_desc")}
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-
-    # --------------------------------------------------------
+    # =====================================================
     # EXISTING BUSINESS
-    # --------------------------------------------------------
+    # =====================================================
 
-    st.markdown(
-        f'<div class="field-label">🏪 {t("existing")}</div>',
-        unsafe_allow_html=True,
-    )
+    st.markdown("---")
 
     existing_business = st.toggle(
-        t("existing_toggle"),
-        key="existing_business_toggle",
+        t("existing"),
+        value=False,
+        key="existing_business",
     )
 
     existing_details = ""
@@ -826,107 +756,124 @@ def render_profile():
             "Existing business",
             placeholder=t("existing_placeholder"),
             label_visibility="collapsed",
-            key="existing_business_details",
+            key="existing_details",
         )
 
-
-    # --------------------------------------------------------
+    # =====================================================
     # CONTINUE
-    # --------------------------------------------------------
+    # =====================================================
 
-    st.divider()
+    st.markdown("<br>", unsafe_allow_html=True)
 
-    if st.button(
-        t("continue"),
-        type="primary",
-        use_container_width=True,
-    ):
+    button_col1, button_col2, button_col3 = st.columns([5, 2, 5])
 
-        final_skills = list(skills)
+    with button_col2:
 
-        if custom_skill.strip():
-            final_skills.append(custom_skill.strip())
+        if st.button(
+            t("continue"),
+            use_container_width=True,
+        ):
 
-        final_interests = list(interests)
+            save_profile(
+                skills=skills,
+                custom_skill=custom_skill,
+                experience=experience,
+                capital=capital,
+                interests=interests,
+                custom_interest=custom_interest,
+                risk=risk,
+                existing_business=existing_business,
+                existing_details=existing_details,
+            )
 
-        if custom_interest.strip():
-            final_interests.append(custom_interest.strip())
-
-        profile_data = {
-            "language": st.session_state.language,
-            "skills": final_skills,
-            "experience_years": experience,
-            "available_capital": capital,
-            "business_interests": final_interests,
-            "risk_preference": risk,
-            "existing_business": existing_business,
-            "existing_business_details": existing_details,
-        }
-
-        save_profile(profile_data)
-
-        st.session_state.current_screen = "local_dashboard"
-
-        st.rerun()
+            st.rerun()
 
 
-# ============================================================
-# FRAME 2 — TEMPORARY PLACEHOLDER
-# ============================================================
+# =========================================================
+# FRAME 2 — LOCAL DASHBOARD
+# =========================================================
 
 def render_local_dashboard():
 
+    render_header()
+
     st.markdown(
         """
-        <div class="brand">
-            <div class="brand-icon">🌾</div>
-            <div class="brand-name">GramVyapar AI</div>
+        <div class="progress-container">
+            <div class="progress-bar" style="width:20%;"></div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        f'<div class="tagline">{t("tagline")}</div>',
+        f'<div class="step-text">Step 2 of 10</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        f'<div class="intro-title">{t("local_dashboard")}</div>',
+        f'<div class="intro-title">{t("dashboard")}</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        f'<div class="intro-description">{t("local_description")}</div>',
+        f'<div class="intro-subtitle">{t("dashboard_subtitle")}</div>',
         unsafe_allow_html=True,
     )
 
-    st.info(t("local_info"))
+    st.info(
+        "Frame 2 will contain the Kerala local market dashboard."
+    )
 
-    if st.button(t("back")):
+    # Temporary profile display for testing
 
-        st.session_state.current_screen = "profile"
+    if st.session_state.profile:
 
-        st.rerun()
+        st.markdown("### Profile received")
+
+        profile = st.session_state.profile
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.write("**Skills:**", ", ".join(profile["skills"]))
+            st.write(
+                "**Experience:**",
+                profile["experience_years"],
+                "years",
+            )
+            st.write(
+                "**Available capital:**",
+                f'₹{profile["available_capital"]:,}',
+            )
+
+        with col2:
+            st.write(
+                "**Business interests:**",
+                ", ".join(profile["business_interests"]),
+            )
+            st.write(
+                "**Risk preference:**",
+                profile["risk_preference"],
+            )
+            st.write(
+                "**Existing business:**",
+                "Yes" if profile["existing_business"] else "No",
+            )
+
+            if profile["existing_business_details"]:
+                st.write(
+                    "**Business details:**",
+                    profile["existing_business_details"],
+                )
 
 
-# ============================================================
-# APPLICATION ROUTER
-# ============================================================
+# =========================================================
+# ROUTER
+# =========================================================
 
-def main():
+if st.session_state.page == 1:
+    render_profile()
 
-    if st.session_state.current_screen == "profile":
-
-        render_profile()
-
-    elif st.session_state.current_screen == "local_dashboard":
-
-        render_local_dashboard()
-
-
-# ============================================================
-# START APPLICATION
-# ============================================================
-
-main()
+elif st.session_state.page == 2:
+    render_local_dashboard()
