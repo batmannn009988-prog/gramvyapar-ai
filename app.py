@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+from frames.frame3_opportunity import render_frame3
 
 # ============================================================
 # PAGE CONFIG
