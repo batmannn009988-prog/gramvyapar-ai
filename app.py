@@ -854,32 +854,59 @@ def render_steps():
 # FRAME 1 — PROFILE INPUT
 # ============================================================
 
+# ============================================================
+# FRAME 1 — PROFILE INPUT
+# ============================================================
+
 def render_frame_1():
+
+    # --------------------------------------------------------
+    # TITLE CARD
+    # --------------------------------------------------------
 
     st.markdown(
         f"""
         <div class="gv-card">
-            <div class="gv-card-title">{t("profile_title")}</div>
-            <div class="gv-card-subtitle">{t("profile_subtitle")}</div>
+            <div class="gv-card-title">
+                {t("profile_title")}
+            </div>
+
+            <div class="gv-card-subtitle">
+                {t("profile_subtitle")}
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
+    # --------------------------------------------------------
+    # TWO-COLUMN LAYOUT
+    # --------------------------------------------------------
+
     col1, col2 = st.columns(2)
+
+    # ========================================================
+    # LEFT COLUMN
+    # ========================================================
 
     with col1:
 
-        st.markdown(f"### {t('skills')}")
+        st.markdown(
+            f"### {t('skills')}"
+        )
 
         skills = st.multiselect(
             t("skills"),
-            SKILL_KEYS,
+            options=SKILL_KEYS,
             default=st.session_state.skills,
             key="skills_input",
         )
 
         st.session_state.skills = skills
+
+        # ----------------------------------------------------
+        # EXPERIENCE
+        # ----------------------------------------------------
 
         experience = st.number_input(
             t("experience"),
@@ -891,6 +918,10 @@ def render_frame_1():
         )
 
         st.session_state.experience = experience
+
+        # ----------------------------------------------------
+        # CAPITAL
+        # ----------------------------------------------------
 
         capital = st.slider(
             t("capital"),
@@ -904,40 +935,74 @@ def render_frame_1():
 
         st.session_state.capital = capital
 
+    # ========================================================
+    # RIGHT COLUMN
+    # ========================================================
+
     with col2:
+
+        # ----------------------------------------------------
+        # BUSINESS INTERESTS
+        # ----------------------------------------------------
+
+        st.markdown(
+            f"### {t('interests')}"
+        )
 
         interests = st.multiselect(
             t("interests"),
-            INTEREST_KEYS,
+            options=INTEREST_KEYS,
             default=st.session_state.interests,
             key="interests_input",
         )
 
         st.session_state.interests = interests
 
+        # ----------------------------------------------------
+        # RISK PREFERENCE
+        # ----------------------------------------------------
+
+        risk_options = ["Low", "Medium", "High"]
+
+        current_risk = st.session_state.risk
+
+        if current_risk not in risk_options:
+            current_risk = "Medium"
+
         risk = st.radio(
             t("risk_preference"),
-            ["Low", "Medium", "High"],
-            index=["Low", "Medium", "High"].index(
-                st.session_state.risk
-            ),
+            options=risk_options,
+            index=risk_options.index(current_risk),
             horizontal=True,
             key="risk_input",
         )
 
         st.session_state.risk = risk
 
+        # ----------------------------------------------------
+        # EXISTING BUSINESS
+        # ----------------------------------------------------
+
+        business_options = ["No", "Yes"]
+
+        current_business = st.session_state.existing_business
+
+        if current_business not in business_options:
+            current_business = "No"
+
         existing_business = st.radio(
             t("existing_business"),
-            ["No", "Yes"],
-            index=["No", "Yes"].index(
-                st.session_state.existing_business
-            ),
+            options=business_options,
+            index=business_options.index(current_business),
             horizontal=True,
             key="existing_business_input",
         )
 
         st.session_state.existing_business = existing_business
+
+        # ----------------------------------------------------
+        # EXISTING BUSINESS NAME
+        # ----------------------------------------------------
 
         if existing_business == "Yes":
 
@@ -949,6 +1014,10 @@ def render_frame_1():
 
             st.session_state.business_name = business_name
 
+    # --------------------------------------------------------
+    # CONTINUE BUTTON
+    # --------------------------------------------------------
+
     st.write("")
 
     if st.button(
@@ -956,7 +1025,9 @@ def render_frame_1():
         use_container_width=True,
         key="continue_frame1",
     ):
+
         st.session_state.page = 2
+
         st.rerun()
 
 
@@ -1031,7 +1102,15 @@ def generate_business_points(
 # FRAME 2 — LOCAL DASHBOARD
 # ============================================================
 
+# ============================================================
+# FRAME 2 — LOCAL DASHBOARD
+# ============================================================
+
 def render_frame_2():
+
+    # --------------------------------------------------------
+    # TITLE CARD
+    # --------------------------------------------------------
 
     st.markdown(
         f"""
@@ -1048,48 +1127,79 @@ def render_frame_2():
         unsafe_allow_html=True,
     )
 
+    # ========================================================
+    # LOCATION SELECTORS
+    # ========================================================
+
     col1, col2, col3 = st.columns(3)
+
+    # --------------------------------------------------------
+    # DISTRICT
+    # --------------------------------------------------------
 
     with col1:
 
+        current_district = st.session_state.get(
+            "district",
+            "Kozhikode",
+        )
+
+        if current_district not in KERALA_DISTRICTS:
+            current_district = "Kozhikode"
+
         district = st.selectbox(
             t("district"),
-            KERALA_DISTRICTS,
+            options=KERALA_DISTRICTS,
             index=KERALA_DISTRICTS.index(
-                st.session_state.district
+                current_district
             ),
             key="district_selector",
         )
 
         st.session_state.district = district
 
+    # --------------------------------------------------------
+    # LOCAL BODY
+    # --------------------------------------------------------
+
     available_local_bodies = LOCAL_BODIES.get(
         district,
         [],
     )
 
-    if (
-        st.session_state.local_body
-        not in available_local_bodies
-    ):
-        st.session_state.local_body = (
-            available_local_bodies[0]
-            if available_local_bodies
-            else ""
-        )
+    if not available_local_bodies:
+        available_local_bodies = [
+            "Local Body"
+        ]
+
+    current_local_body = st.session_state.get(
+        "local_body",
+        available_local_bodies[0],
+    )
+
+    if current_local_body not in available_local_bodies:
+        current_local_body = available_local_bodies[0]
 
     with col2:
 
+        # A district-specific widget key prevents
+        # Streamlit from keeping the previous district's
+        # local-body selection.
+
         local_body = st.selectbox(
             t("local_body"),
-            available_local_bodies,
+            options=available_local_bodies,
             index=available_local_bodies.index(
-                st.session_state.local_body
+                current_local_body
             ),
-            key="local_body_selector",
+            key=f"local_body_selector_{district}",
         )
 
         st.session_state.local_body = local_body
+
+    # --------------------------------------------------------
+    # WARD
+    # --------------------------------------------------------
 
     with col3:
 
@@ -1097,7 +1207,12 @@ def render_frame_2():
             t("ward"),
             min_value=1,
             max_value=100,
-            value=int(st.session_state.ward),
+            value=int(
+                st.session_state.get(
+                    "ward",
+                    1,
+                )
+            ),
             step=1,
             key="ward_selector",
         )
@@ -1106,11 +1221,19 @@ def render_frame_2():
 
     st.write("")
 
+    # ========================================================
+    # GENERATE LOCAL DATA
+    # ========================================================
+
     data = generate_location_data(
-        district,
-        local_body,
-        ward,
+        district=district,
+        local_body=local_body,
+        ward=ward,
     )
+
+    # ========================================================
+    # DATA INFORMATION
+    # ========================================================
 
     info_col1, info_col2 = st.columns(2)
 
@@ -1148,7 +1271,15 @@ def render_frame_2():
 
     st.write("")
 
+    # ========================================================
+    # METRIC CARDS
+    # ========================================================
+
     metric1, metric2, metric3, metric4 = st.columns(4)
+
+    # --------------------------------------------------------
+    # BUSINESS DENSITY
+    # --------------------------------------------------------
 
     with metric1:
 
@@ -1173,6 +1304,10 @@ def render_frame_2():
             unsafe_allow_html=True,
         )
 
+    # --------------------------------------------------------
+    # POPULATION
+    # --------------------------------------------------------
+
     with metric2:
 
         st.markdown(
@@ -1196,6 +1331,10 @@ def render_frame_2():
             unsafe_allow_html=True,
         )
 
+    # --------------------------------------------------------
+    # SEASONAL DEMAND
+    # --------------------------------------------------------
+
     with metric3:
 
         st.markdown(
@@ -1218,6 +1357,10 @@ def render_frame_2():
             """,
             unsafe_allow_html=True,
         )
+
+    # --------------------------------------------------------
+    # RESOURCE AVAILABILITY
+    # --------------------------------------------------------
 
     with metric4:
 
@@ -1244,6 +1387,10 @@ def render_frame_2():
 
     st.write("")
 
+    # ========================================================
+    # MAP CARD
+    # ========================================================
+
     st.markdown(
         f"""
         <div class="gv-card">
@@ -1261,10 +1408,14 @@ def render_frame_2():
         unsafe_allow_html=True,
     )
 
+    # --------------------------------------------------------
+    # MAP DATA
+    # --------------------------------------------------------
+
     map_data = generate_business_points(
-        district,
-        local_body,
-        ward,
+        district=district,
+        local_body=local_body,
+        ward=ward,
     )
 
     st.map(
@@ -1273,6 +1424,10 @@ def render_frame_2():
         longitude="lon",
         size=80,
     )
+
+    # --------------------------------------------------------
+    # MAP NOTE
+    # --------------------------------------------------------
 
     st.markdown(
         f"""
@@ -1285,7 +1440,15 @@ def render_frame_2():
 
     st.write("")
 
+    # ========================================================
+    # NAVIGATION
+    # ========================================================
+
     col_back, col_continue = st.columns(2)
+
+    # --------------------------------------------------------
+    # BACK
+    # --------------------------------------------------------
 
     with col_back:
 
@@ -1294,8 +1457,14 @@ def render_frame_2():
             use_container_width=True,
             key="back_frame2",
         ):
+
             st.session_state.page = 1
+
             st.rerun()
+
+    # --------------------------------------------------------
+    # CONTINUE
+    # --------------------------------------------------------
 
     with col_continue:
 
@@ -1304,12 +1473,10 @@ def render_frame_2():
             use_container_width=True,
             key="continue_frame2",
         ):
+
             st.session_state.page = 3
+
             st.rerun()
-
-
-
-
 
 # ============================================================
 # MAIN APP
