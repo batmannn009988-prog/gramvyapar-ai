@@ -9,248 +9,234 @@ import numpy as np
 
 st.set_page_config(
     page_title="GramVyapar AI",
-    page_icon="🌾",
+    page_icon="🌱",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
 
 # ============================================================
-# GRAMVYAPAR PALETTE
+# GRAMVYAPAR COLOR PALETTE
 # ============================================================
 
-OLIVE = "#526A3A"
-GREEN = "#7D9A55"
-ORANGE = "#C88A3D"
-CREAM = "#FAF8F1"
-BROWN = "#33352C"
+PRIMARY_GREEN = "#526A3A"
+SECONDARY_GREEN = "#7D9A55"
+EARTH_ORANGE = "#C88A3D"
+WARM_CREAM = "#FAF8F1"
+DARK_BROWN = "#33352C"
 WHITE = "#FFFFFF"
 
+LIGHT_GREEN = "#EAF0E3"
+LIGHT_ORANGE = "#F5E8D5"
+LIGHT_BLUE = "#E7F1F7"
+
 
 # ============================================================
-# LANGUAGE TEXT
+# TRANSLATIONS
 # ============================================================
 
 TEXT = {
-    "English": {
-        "app_name": "GramVyapar AI",
+    "en": {
+        "app_title": "GramVyapar AI",
         "tagline": "Know Before You Borrow",
-        "language": "Language",
 
-        "step_profile": "Profile",
-        "step_local": "Local Area",
-        "step_opportunity": "Opportunity",
-        "step_finance": "Finance",
+        "step1": "1. Your Profile",
+        "step2": "2. Local Dashboard",
+        "step3": "3. Opportunity Radar",
 
         "profile_title": "Tell us about yourself",
-        "profile_subtitle": "This helps GramVyapar AI identify businesses that fit your skills, capital and risk comfort.",
+        "profile_subtitle": "This helps us understand which businesses may fit you best.",
 
-        "skills": "Your skills",
-        "skills_help": "Select all skills that apply.",
-        "experience": "Years of business experience",
-        "capital": "Available own capital",
-        "interests": "Business interests",
-        "risk": "Risk comfort",
-        "existing_business": "Do you already run a business?",
+        "skills_title": "What skills do you have?",
+        "select_skills": "Select your skills",
+
+        "experience_title": "How much experience do you have?",
+        "experience_help": "Years of relevant experience",
+        "years": "years",
+
+        "capital_title": "How much capital can you invest?",
+        "capital_help": "Your available own contribution",
+
+        "business_interest_question": "Which business areas interest you?",
+
+        "risk_title": "What level of business risk are you comfortable with?",
+
+        "existing_business_question": "Do you already have a business?",
+        "yes": "Yes",
+        "no": "No",
+
+        "business_name": "Business name (optional)",
 
         "continue": "Continue",
         "back": "Back",
 
-        "location_title": "Understand your local market",
-        "location_subtitle": "Select your district and local body to explore the available prototype market intelligence.",
+        "local_title": "Your Local Business Dashboard",
+        "local_subtitle": "Understand the business environment around you before investing.",
 
         "district": "District",
         "local_body": "Local Body",
         "ward": "Ward Number",
 
-        "data_level": "Data level",
-        "district_fallback": "District-level fallback",
-        "prototype_data": "Prototype / demo",
+        "ward_data": "Ward-level data",
+        "district_data": "District-level fallback",
+
+        "location_note": "Data availability varies by location. Some values are prototype estimates until verified local data is connected.",
 
         "business_density": "Business Density",
         "population": "Population",
         "seasonal_demand": "Seasonal Demand",
         "resource_availability": "Resource Availability",
 
-        "reference_map": "Selected Area Reference",
-        "map_note": "This marker represents the selected area reference point. It is not an individual business location.",
+        "business_density_help": "Estimated businesses per 1,000 people",
+        "population_help": "Reference population",
+        "seasonal_demand_help": "Estimated local demand strength",
+        "resource_help": "Estimated availability of relevant resources",
 
-        "data_status": "Data status",
-        "source": "Source",
+        "map_title": "Local Business Map",
+        "map_caption": "Prototype business locations for the selected area.",
+
+        "data_source": "Source",
         "prototype_source": "Prototype / demo estimate",
 
-        "market_snapshot": "Local Market Snapshot",
-        "opportunity_title": "Opportunity Radar",
-        "opportunity_subtitle": "Potential business opportunities based on your profile and local conditions.",
+        "language": "Language",
 
-        "bakery": "Bakery / Snacks",
-        "dairy": "Dairy",
-        "tailoring": "Tailoring",
-        "grocery": "Neighbourhood Grocery",
-        "food_processing": "Food Processing",
+        "profile_complete": "Profile saved successfully.",
 
-        "demand": "Demand",
-        "competition": "Competition Fit",
-        "skill": "Skill Fit",
-        "capital_fit": "Capital Fit",
-        "risk_fit": "Risk Fit",
+        "malayalam": "Malayalam",
+        "english": "English",
 
-        "why_fit": "Why this may fit",
-        "confidence": "Confidence",
+        "skill_tailoring": "Tailoring",
+        "skill_baking": "Baking",
+        "skill_cooking": "Cooking",
+        "skill_farming": "Farming",
+        "skill_dairy": "Dairy",
+        "skill_handicraft": "Handicrafts",
+        "skill_repair": "Repair & Maintenance",
+        "skill_sales": "Sales",
+        "skill_digital": "Digital Skills",
+        "skill_driving": "Driving",
+        "skill_food_processing": "Food Processing",
 
-        "business_detail": "Business Detail",
-        "local_evidence": "Local Evidence",
-        "caveats": "Important caveats",
+        "interest_food": "Food & Bakery",
+        "interest_dairy": "Dairy",
+        "interest_tailoring": "Tailoring",
+        "interest_farming": "Agriculture",
+        "interest_repair": "Repair Services",
+        "interest_handicraft": "Handicrafts",
 
-        "financial": "Financial Plan",
-        "startup_cost": "Startup Cost",
-        "monthly_revenue": "Monthly Revenue Estimate",
-        "monthly_surplus": "Monthly Surplus",
-        "break_even": "Break-even Quantity",
-        "working_capital": "Working Capital",
-        "financial_confidence": "Financial Confidence",
+        "risk_low": "Low",
+        "risk_medium": "Medium",
+        "risk_high": "High",
 
-        "risk_dashboard": "Risk Dashboard",
-        "overall_risk": "Overall Risk",
-
-        "what_if": "What-if Simulator",
-        "sales_change": "Sales change",
-        "raw_material_change": "Raw material cost change",
-
-        "base": "Base Case",
-        "scenario": "Scenario",
-
-        "financing": "Financing Guidance",
-        "funding_gap": "Funding Gap",
-        "eligibility": "Eligibility",
-        "verify_source": "Verify with official source",
-        "no_guarantee": "Loan approval is not guaranteed. Final eligibility depends on the lender and current scheme rules.",
-
-        "action_plan": "Action Plan",
-        "monitoring": "Monitoring",
-
-        "data_insufficient": "Insufficient data",
-        "derived": "Derived",
-        "estimate": "Estimate",
-        "verified": "Verified",
-
-        "profile_saved": "Profile saved successfully.",
-        "location_saved": "Local area selected successfully.",
+        "risk_low_desc": "Prefer stable and predictable businesses.",
+        "risk_medium_desc": "Comfortable with moderate uncertainty.",
+        "risk_high_desc": "Comfortable with higher uncertainty for higher potential returns.",
     },
 
-    "Malayalam": {
-        "app_name": "ഗ്രാംവ്യാപാർ AI",
-        "tagline": "വായ്പ എടുക്കുന്നതിന് മുമ്പ് അറിയുക",
-        "language": "ഭാഷ",
+    "ml": {
+        "app_title": "ഗ്രാംവ്യാപാർ AI",
+        "tagline": "വായ്പ എടുക്കുന്നതിന് മുമ്പ് അറിയൂ",
 
-        "step_profile": "പ്രൊഫൈൽ",
-        "step_local": "പ്രാദേശിക മേഖല",
-        "step_opportunity": "അവസരം",
-        "step_finance": "ധനകാര്യം",
+        "step1": "1. നിങ്ങളുടെ പ്രൊഫൈൽ",
+        "step2": "2. പ്രാദേശിക ഡാഷ്ബോർഡ്",
+        "step3": "3. അവസര റഡാർ",
 
         "profile_title": "നിങ്ങളെക്കുറിച്ച് പറയൂ",
-        "profile_subtitle": "നിങ്ങളുടെ കഴിവുകൾ, മൂലധനം, റിസ്ക് സൗകര്യം എന്നിവയ്ക്ക് അനുയോജ്യമായ ബിസിനസുകൾ കണ്ടെത്താൻ ഇത് സഹായിക്കും.",
+        "profile_subtitle": "നിങ്ങൾക്ക് അനുയോജ്യമായ ബിസിനസുകൾ കണ്ടെത്താൻ ഇത് സഹായിക്കും.",
 
-        "skills": "നിങ്ങളുടെ കഴിവുകൾ",
-        "skills_help": "ബാധകമായ എല്ലാ കഴിവുകളും തിരഞ്ഞെടുക്കുക.",
-        "experience": "ബിസിനസ് പരിചയം (വർഷം)",
-        "capital": "ലഭ്യമായ സ്വന്തം മൂലധനം",
-        "interests": "ബിസിനസ് താൽപര്യങ്ങൾ",
-        "risk": "റിസ്ക് സ്വീകരിക്കുന്ന തോത്",
-        "existing_business": "നിങ്ങൾക്ക് ഇതിനകം ഒരു ബിസിനസ് ഉണ്ടോ?",
+        "skills_title": "നിങ്ങൾക്ക് എന്തെല്ലാം കഴിവുകളുണ്ട്?",
+        "select_skills": "നിങ്ങളുടെ കഴിവുകൾ തിരഞ്ഞെടുക്കുക",
+
+        "experience_title": "നിങ്ങൾക്ക് എത്ര പരിചയമുണ്ട്?",
+        "experience_help": "ബന്ധപ്പെട്ട ജോലി പരിചയം",
+        "years": "വർഷം",
+
+        "capital_title": "നിങ്ങൾക്ക് എത്ര മൂലധനം നിക്ഷേപിക്കാനാകും?",
+        "capital_help": "നിങ്ങളുടെ സ്വന്തം നിക്ഷേപ തുക",
+
+        "business_interest_question": "ഏത് ബിസിനസ് മേഖലകളിലാണ് നിങ്ങൾക്ക് താൽപ്പര്യം?",
+
+        "risk_title": "എത്രത്തോളം ബിസിനസ് റിസ്ക് നിങ്ങൾ സ്വീകരിക്കും?",
+
+        "existing_business_question": "നിങ്ങൾക്ക് ഇതിനകം ഒരു ബിസിനസ് ഉണ്ടോ?",
+        "yes": "അതെ",
+        "no": "ഇല്ല",
+
+        "business_name": "ബിസിനസ് പേര് (ഓപ്ഷണൽ)",
 
         "continue": "തുടരുക",
-        "back": "തിരികെ",
+        "back": "പിന്നോട്ട്",
 
-        "location_title": "നിങ്ങളുടെ പ്രാദേശിക വിപണി മനസ്സിലാക്കുക",
-        "location_subtitle": "ലഭ്യമായ പ്രോട്ടോടൈപ്പ് വിപണി വിവരങ്ങൾ പരിശോധിക്കാൻ ജില്ലയും പ്രാദേശിക സ്ഥാപനവും തിരഞ്ഞെടുക്കുക.",
+        "local_title": "നിങ്ങളുടെ പ്രാദേശിക ബിസിനസ് ഡാഷ്ബോർഡ്",
+        "local_subtitle": "നിക്ഷേപിക്കുന്നതിന് മുമ്പ് നിങ്ങളുടെ പ്രദേശത്തെ ബിസിനസ് സാഹചര്യം മനസ്സിലാക്കുക.",
 
         "district": "ജില്ല",
-        "local_body": "പ്രാദേശിക സ്ഥാപനം",
+        "local_body": "തദ്ദേശ സ്ഥാപനം",
         "ward": "വാർഡ് നമ്പർ",
 
-        "data_level": "ഡാറ്റാ നില",
-        "district_fallback": "ജില്ലാ തലത്തിലുള്ള പകരം ഡാറ്റ",
-        "prototype_data": "പ്രോട്ടോടൈപ്പ് / ഡെമോ",
+        "ward_data": "വാർഡ് തല ഡാറ്റ",
+        "district_data": "ജില്ലാ തല ഡാറ്റ",
+
+        "location_note": "ഡാറ്റ ലഭ്യത സ്ഥലത്തിനനുസരിച്ച് വ്യത്യാസപ്പെടാം. യഥാർത്ഥ പ്രാദേശിക ഡാറ്റ ബന്ധിപ്പിക്കുന്നതുവരെ ചില മൂല്യങ്ങൾ പ്രോട്ടോടൈപ്പ് കണക്കുകളാണ്.",
 
         "business_density": "ബിസിനസ് സാന്ദ്രത",
         "population": "ജനസംഖ്യ",
-        "seasonal_demand": "കാലാവസ്ഥാനുസൃത ആവശ്യം",
+        "seasonal_demand": "കാലാനുസൃത ആവശ്യം",
         "resource_availability": "വിഭവ ലഭ്യത",
 
-        "reference_map": "തിരഞ്ഞെടുത്ത മേഖലയുടെ സ്ഥാനം",
-        "map_note": "ഈ അടയാളം തിരഞ്ഞെടുത്ത പ്രദേശത്തിന്റെ റഫറൻസ് പോയിന്റാണ്. ഇത് ഒരു വ്യക്തിഗത ബിസിനസ് ലൊക്കേഷൻ അല്ല.",
+        "business_density_help": "1,000 ആളുകളിൽ കണക്കാക്കിയ ബിസിനസുകൾ",
+        "population_help": "റഫറൻസ് ജനസംഖ്യ",
+        "seasonal_demand_help": "കണക്കാക്കിയ പ്രാദേശിക ആവശ്യത്തിന്റെ ശക്തി",
+        "resource_help": "ബന്ധപ്പെട്ട വിഭവങ്ങളുടെ കണക്കാക്കിയ ലഭ്യത",
 
-        "data_status": "ഡാറ്റാ നില",
-        "source": "ഉറവിടം",
+        "map_title": "പ്രാദേശിക ബിസിനസ് മാപ്പ്",
+        "map_caption": "തിരഞ്ഞെടുത്ത പ്രദേശത്തിനുള്ള പ്രോട്ടോടൈപ്പ് ബിസിനസ് ലൊക്കേഷനുകൾ.",
+
+        "data_source": "ഉറവിടം",
         "prototype_source": "പ്രോട്ടോടൈപ്പ് / ഡെമോ കണക്ക്",
 
-        "market_snapshot": "പ്രാദേശിക വിപണി അവലോകനം",
-        "opportunity_title": "അവസര റഡാർ",
-        "opportunity_subtitle": "നിങ്ങളുടെ പ്രൊഫൈലും പ്രാദേശിക സാഹചര്യങ്ങളും അടിസ്ഥാനമാക്കിയുള്ള സാധ്യതയുള്ള ബിസിനസ് അവസരങ്ങൾ.",
+        "language": "ഭാഷ",
 
-        "bakery": "ബേക്കറി / പലഹാരം",
-        "dairy": "ക്ഷീര ബിസിനസ്",
-        "tailoring": "തയ്യൽ",
-        "grocery": "അയൽപക്ക പലചരക്ക് കട",
-        "food_processing": "ഭക്ഷ്യ സംസ്കരണം",
+        "profile_complete": "പ്രൊഫൈൽ വിജയകരമായി സംരക്ഷിച്ചു.",
 
-        "demand": "ആവശ്യം",
-        "competition": "മത്സര അനുയോജ്യത",
-        "skill": "കഴിവ് അനുയോജ്യത",
-        "capital_fit": "മൂലധന അനുയോജ്യത",
-        "risk_fit": "റിസ്ക് അനുയോജ്യത",
+        "malayalam": "മലയാളം",
+        "english": "ഇംഗ്ലീഷ്",
 
-        "why_fit": "എന്തുകൊണ്ട് ഇത് അനുയോജ്യമാകാം",
-        "confidence": "വിശ്വാസനില",
+        "skill_tailoring": "തയ്യൽ",
+        "skill_baking": "ബേക്കിംഗ്",
+        "skill_cooking": "പാചകം",
+        "skill_farming": "കൃഷി",
+        "skill_dairy": "ക്ഷീര മേഖല",
+        "skill_handicraft": "കൈത്തൊഴിൽ",
+        "skill_repair": "റിപ്പയർ & മെയിന്റനൻസ്",
+        "skill_sales": "വിൽപ്പന",
+        "skill_digital": "ഡിജിറ്റൽ കഴിവുകൾ",
+        "skill_driving": "ഡ്രൈവിംഗ്",
+        "skill_food_processing": "ഭക്ഷ്യ സംസ്കരണം",
 
-        "business_detail": "ബിസിനസ് വിശദാംശങ്ങൾ",
-        "local_evidence": "പ്രാദേശിക തെളിവുകൾ",
-        "caveats": "പ്രധാന പരിമിതികൾ",
+        "interest_food": "ഭക്ഷണം & ബേക്കറി",
+        "interest_dairy": "ക്ഷീര മേഖല",
+        "interest_tailoring": "തയ്യൽ",
+        "interest_farming": "കൃഷി",
+        "interest_repair": "റിപ്പയർ സേവനങ്ങൾ",
+        "interest_handicraft": "കൈത്തൊഴിൽ",
 
-        "financial": "ധനകാര്യ പദ്ധതി",
-        "startup_cost": "ആരംഭ ചെലവ്",
-        "monthly_revenue": "പ്രതീക്ഷിക്കുന്ന മാസ വരുമാനം",
-        "monthly_surplus": "പ്രതീക്ഷിക്കുന്ന മാസ മിച്ചം",
-        "break_even": "ബ്രേക്ക്-ഈവൻ അളവ്",
-        "working_capital": "പ്രവർത്തന മൂലധനം",
-        "financial_confidence": "ധനകാര്യ വിശ്വാസനില",
+        "risk_low": "കുറവ്",
+        "risk_medium": "ഇടത്തരം",
+        "risk_high": "ഉയർന്നത്",
 
-        "risk_dashboard": "റിസ്ക് ഡാഷ്ബോർഡ്",
-        "overall_risk": "മൊത്തം റിസ്ക്",
-
-        "what_if": "എന്ത് സംഭവിച്ചാൽ? സിമുലേറ്റർ",
-        "sales_change": "വിൽപ്പനയിലെ മാറ്റം",
-        "raw_material_change": "അസംസ്കൃത വസ്തു ചെലവിലെ മാറ്റം",
-
-        "base": "അടിസ്ഥാന സാഹചര്യം",
-        "scenario": "സാഹചര്യ കണക്ക്",
-
-        "financing": "ധനസഹായ മാർഗനിർദേശം",
-        "funding_gap": "ധനസഹായ കുറവ്",
-        "eligibility": "യോഗ്യത",
-        "verify_source": "ഔദ്യോഗിക ഉറവിടത്തിൽ പരിശോധിക്കുക",
-        "no_guarantee": "വായ്പ അംഗീകാരം ഉറപ്പില്ല. അന്തിമ യോഗ്യത വായ്പദാതാവിനെയും നിലവിലെ പദ്ധതി നിയമങ്ങളെയും ആശ്രയിച്ചിരിക്കും.",
-
-        "action_plan": "പ്രവർത്തന പദ്ധതി",
-        "monitoring": "നിരീക്ഷണം",
-
-        "data_insufficient": "മതിയായ ഡാറ്റ ലഭ്യമല്ല",
-        "derived": "കണക്കാക്കിയ ഡാറ്റ",
-        "estimate": "അനുമാനം",
-        "verified": "സ്ഥിരീകരിച്ച ഡാറ്റ",
-
-        "profile_saved": "പ്രൊഫൈൽ വിജയകരമായി സംരക്ഷിച്ചു.",
-        "location_saved": "പ്രാദേശിക മേഖല വിജയകരമായി തിരഞ്ഞെടുത്തു.",
+        "risk_low_desc": "സ്ഥിരതയുള്ളതും പ്രവചിക്കാവുന്നതുമായ ബിസിനസുകൾ ഇഷ്ടപ്പെടുന്നു.",
+        "risk_medium_desc": "മിതമായ അനിശ്ചിതത്വം സ്വീകരിക്കാൻ തയ്യാറാണ്.",
+        "risk_high_desc": "കൂടുതൽ സാധ്യതയ്ക്കായി ഉയർന്ന അനിശ്ചിതത്വവും സ്വീകരിക്കാൻ തയ്യാറാണ്.",
     },
 }
 
 
 # ============================================================
-# KERALA DISTRICTS
+# ALL 14 KERALA DISTRICTS
 # ============================================================
 
-DISTRICTS = [
+KERALA_DISTRICTS = [
     "Alappuzha",
     "Ernakulam",
     "Idukki",
@@ -267,6 +253,10 @@ DISTRICTS = [
     "Wayanad",
 ]
 
+
+# ============================================================
+# DISTRICT MALAYALAM NAMES
+# ============================================================
 
 DISTRICT_ML = {
     "Alappuzha": "ആലപ്പുഴ",
@@ -287,161 +277,255 @@ DISTRICT_ML = {
 
 
 # ============================================================
-# PROTOTYPE LOCAL BODIES
+# LOCAL BODY DATA
+#
+# Prototype data for UI behavior.
+# Replace with official LGD data later.
 # ============================================================
 
 LOCAL_BODIES = {
+
     "Alappuzha": [
         "Alappuzha Municipality",
-        "Ambalappuzha",
-        "Cherthala",
+        "Cherthala Municipality",
+        "Chengannur Municipality",
+        "Ambalappuzha South",
         "Kuttanad",
-        "Chengannur",
     ],
+
     "Ernakulam": [
-        "Kochi Corporation",
-        "Aluva",
-        "Kalamassery",
-        "Perumbavoor",
-        "Muvattupuzha",
+        "Kochi Municipal Corporation",
+        "Aluva Municipality",
+        "Angamaly Municipality",
+        "Perumbavoor Municipality",
+        "Kunnathunad",
     ],
+
     "Idukki": [
-        "Thodupuzha",
+        "Thodupuzha Municipality",
+        "Kattappana Municipality",
         "Adimali",
         "Nedumkandam",
-        "Kattappana",
-        "Munnar",
+        "Devikulam",
     ],
+
     "Kannur": [
-        "Kannur Corporation",
-        "Thalassery",
-        "Payyannur",
-        "Taliparamba",
-        "Iritty",
+        "Kannur Municipal Corporation",
+        "Thalassery Municipality",
+        "Payyannur Municipality",
+        "Mattannur Municipality",
+        "Taliparamba Municipality",
     ],
+
     "Kasaragod": [
         "Kasaragod Municipality",
-        "Kanhangad",
-        "Nileshwar",
+        "Kanhangad Municipality",
+        "Nileshwar Municipality",
         "Manjeshwar",
-        "Udma",
+        "Hosdurg",
     ],
+
     "Kollam": [
-        "Kollam Corporation",
-        "Karunagappally",
-        "Kottarakkara",
-        "Punalur",
-        "Chathannoor",
+        "Kollam Municipal Corporation",
+        "Karunagappally Municipality",
+        "Kottarakkara Municipality",
+        "Paravur Municipality",
+        "Punalur Municipality",
     ],
+
     "Kottayam": [
         "Kottayam Municipality",
-        "Changanassery",
-        "Pala",
-        "Ettumanoor",
-        "Vaikom",
+        "Changanassery Municipality",
+        "Pala Municipality",
+        "Vaikom Municipality",
+        "Ettumanoor Municipality",
     ],
+
     "Kozhikode": [
-        "Kozhikode Corporation",
-        "Vadakara",
-        "Koyilandy",
-        "Balussery",
-        "Thamarassery",
+        "Kozhikode Municipal Corporation",
+        "Vadakara Municipality",
+        "Koyilandy Municipality",
+        "Feroke Municipality",
+        "Ramanattukara",
     ],
+
     "Malappuram": [
         "Malappuram Municipality",
-        "Manjeri",
-        "Perinthalmanna",
-        "Tirur",
-        "Nilambur",
+        "Manjeri Municipality",
+        "Tirur Municipality",
+        "Perinthalmanna Municipality",
+        "Ponnani Municipality",
     ],
+
     "Palakkad": [
         "Palakkad Municipality",
-        "Ottappalam",
-        "Shoranur",
-        "Chittur",
-        "Mannarkkad",
+        "Ottapalam Municipality",
+        "Shoranur Municipality",
+        "Chittur-Thathamangalam",
+        "Mannarkkad Municipality",
     ],
+
     "Pathanamthitta": [
         "Pathanamthitta Municipality",
-        "Adoor",
-        "Thiruvalla",
+        "Adoor Municipality",
+        "Thiruvalla Municipality",
+        "Pandalam Municipality",
         "Ranni",
-        "Konni",
     ],
+
     "Thiruvananthapuram": [
-        "Thiruvananthapuram Corporation",
-        "Nedumangad",
-        "Neyyattinkara",
-        "Attingal",
-        "Varkala",
+        "Thiruvananthapuram Municipal Corporation",
+        "Neyyattinkara Municipality",
+        "Attingal Municipality",
+        "Nedumangad Municipality",
+        "Varkala Municipality",
     ],
+
     "Thrissur": [
-        "Thrissur Corporation",
-        "Chalakudy",
-        "Kunnamkulam",
-        "Irinjalakuda",
-        "Kodungallur",
+        "Thrissur Municipal Corporation",
+        "Chalakudy Municipality",
+        "Kodungallur Municipality",
+        "Kunnamkulam Municipality",
+        "Guruvayur Municipality",
     ],
+
     "Wayanad": [
-        "Kalpetta",
-        "Mananthavady",
-        "Sulthan Bathery",
+        "Kalpetta Municipality",
+        "Mananthavady Municipality",
+        "Sulthan Bathery Municipality",
         "Panamaram",
         "Meppadi",
     ],
 }
 
 
+# ============================================================
+# LOCAL BODY MALAYALAM NAMES
+# ============================================================
+
 LOCAL_BODY_ML = {
+
     "Alappuzha Municipality": "ആലപ്പുഴ മുനിസിപ്പാലിറ്റി",
-    "Kochi Corporation": "കൊച്ചി കോർപ്പറേഷൻ",
-    "Idukki": "ഇടുക്കി",
-    "Kannur Corporation": "കണ്ണൂർ കോർപ്പറേഷൻ",
+    "Cherthala Municipality": "ചേർത്തല മുനിസിപ്പാലിറ്റി",
+    "Chengannur Municipality": "ചെങ്ങന്നൂർ മുനിസിപ്പാലിറ്റി",
+    "Ambalappuzha South": "അമ്പലപ്പുഴ സൗത്ത്",
+    "Kuttanad": "കുട്ടനാട്",
+
+    "Kochi Municipal Corporation": "കൊച്ചി മുനിസിപ്പൽ കോർപ്പറേഷൻ",
+    "Aluva Municipality": "ആലുവ മുനിസിപ്പാലിറ്റി",
+    "Angamaly Municipality": "അങ്കമാലി മുനിസിപ്പാലിറ്റി",
+    "Perumbavoor Municipality": "പെരുമ്പാവൂർ മുനിസിപ്പാലിറ്റി",
+    "Kunnathunad": "കുന്നത്തുനാട്",
+
+    "Thodupuzha Municipality": "തൊടുപുഴ മുനിസിപ്പാലിറ്റി",
+    "Kattappana Municipality": "കട്ടപ്പന മുനിസിപ്പാലിറ്റി",
+    "Adimali": "അടിമാലി",
+    "Nedumkandam": "നെടുങ്കണ്ടം",
+    "Devikulam": "ദേവികുളം",
+
+    "Kannur Municipal Corporation": "കണ്ണൂർ മുനിസിപ്പൽ കോർപ്പറേഷൻ",
+    "Thalassery Municipality": "തലശ്ശേരി മുനിസിപ്പാലിറ്റി",
+    "Payyannur Municipality": "പയ്യന്നൂർ മുനിസിപ്പാലിറ്റി",
+    "Mattannur Municipality": "മട്ടന്നൂർ മുനിസിപ്പാലിറ്റി",
+    "Taliparamba Municipality": "തളിപ്പറമ്പ് മുനിസിപ്പാലിറ്റി",
+
     "Kasaragod Municipality": "കാസർഗോഡ് മുനിസിപ്പാലിറ്റി",
-    "Kollam Corporation": "കൊല്ലം കോർപ്പറേഷൻ",
+    "Kanhangad Municipality": "കാഞ്ഞങ്ങാട് മുനിസിപ്പാലിറ്റി",
+    "Nileshwar Municipality": "നീലേശ്വരം മുനിസിപ്പാലിറ്റി",
+    "Manjeshwar": "മഞ്ചേശ്വരം",
+    "Hosdurg": "ഹോസ്ദുർഗ്",
+
+    "Kollam Municipal Corporation": "കൊല്ലം മുനിസിപ്പൽ കോർപ്പറേഷൻ",
+    "Karunagappally Municipality": "കരുനാഗപ്പള്ളി മുനിസിപ്പാലിറ്റി",
+    "Kottarakkara Municipality": "കൊട്ടാരക്കര മുനിസിപ്പാലിറ്റി",
+    "Paravur Municipality": "പരവൂർ മുനിസിപ്പാലിറ്റി",
+    "Punalur Municipality": "പുനലൂർ മുനിസിപ്പാലിറ്റി",
+
     "Kottayam Municipality": "കോട്ടയം മുനിസിപ്പാലിറ്റി",
-    "Kozhikode Corporation": "കോഴിക്കോട് കോർപ്പറേഷൻ",
+    "Changanassery Municipality": "ചങ്ങനാശ്ശേരി മുനിസിപ്പാലിറ്റി",
+    "Pala Municipality": "പാലാ മുനിസിപ്പാലിറ്റി",
+    "Vaikom Municipality": "വൈക്കം മുനിസിപ്പാലിറ്റി",
+    "Ettumanoor Municipality": "ഏറ്റുമാനൂർ മുനിസിപ്പാലിറ്റി",
+
+    "Kozhikode Municipal Corporation": "കോഴിക്കോട് മുനിസിപ്പൽ കോർപ്പറേഷൻ",
+    "Vadakara Municipality": "വടകര മുനിസിപ്പാലിറ്റി",
+    "Koyilandy Municipality": "കൊയിലാണ്ടി മുനിസിപ്പാലിറ്റി",
+    "Feroke Municipality": "ഫറോക്ക് മുനിസിപ്പാലിറ്റി",
+    "Ramanattukara": "രാമനാട്ടുകര",
+
     "Malappuram Municipality": "മലപ്പുറം മുനിസിപ്പാലിറ്റി",
+    "Manjeri Municipality": "മഞ്ചേരി മുനിസിപ്പാലിറ്റി",
+    "Tirur Municipality": "തിരൂർ മുനിസിപ്പാലിറ്റി",
+    "Perinthalmanna Municipality": "പെരിന്തൽമണ്ണ മുനിസിപ്പാലിറ്റി",
+    "Ponnani Municipality": "പൊന്നാനി മുനിസിപ്പാലിറ്റി",
+
     "Palakkad Municipality": "പാലക്കാട് മുനിസിപ്പാലിറ്റി",
+    "Ottapalam Municipality": "ഒറ്റപ്പാലം മുനിസിപ്പാലിറ്റി",
+    "Shoranur Municipality": "ഷൊർണൂർ മുനിസിപ്പാലിറ്റി",
+    "Chittur-Thathamangalam": "ചിറ്റൂർ-തത്തമംഗലം",
+    "Mannarkkad Municipality": "മണ്ണാർക്കാട് മുനിസിപ്പാലിറ്റി",
+
     "Pathanamthitta Municipality": "പത്തനംതിട്ട മുനിസിപ്പാലിറ്റി",
-    "Thiruvananthapuram Corporation": "തിരുവനന്തപുരം കോർപ്പറേഷൻ",
-    "Thrissur Corporation": "തൃശ്ശൂർ കോർപ്പറേഷൻ",
-    "Kalpetta": "കൽപ്പറ്റ",
-    "Mananthavady": "മാനന്തവാടി",
-    "Sulthan Bathery": "സുൽത്താൻ ബത്തേരി",
+    "Adoor Municipality": "അടൂർ മുനിസിപ്പാലിറ്റി",
+    "Thiruvalla Municipality": "തിരുവല്ല മുനിസിപ്പാലിറ്റി",
+    "Pandalam Municipality": "പന്തളം മുനിസിപ്പാലിറ്റി",
+    "Ranni": "റാന്നി",
+
+    "Thiruvananthapuram Municipal Corporation": "തിരുവനന്തപുരം മുനിസിപ്പൽ കോർപ്പറേഷൻ",
+    "Neyyattinkara Municipality": "നെയ്യാറ്റിൻകര മുനിസിപ്പാലിറ്റി",
+    "Attingal Municipality": "ആറ്റിങ്ങൽ മുനിസിപ്പാലിറ്റി",
+    "Nedumangad Municipality": "നെടുമങ്ങാട് മുനിസിപ്പാലിറ്റി",
+    "Varkala Municipality": "വർക്കല മുനിസിപ്പാലിറ്റി",
+
+    "Thrissur Municipal Corporation": "തൃശ്ശൂർ മുനിസിപ്പൽ കോർപ്പറേഷൻ",
+    "Chalakudy Municipality": "ചാലക്കുടി മുനിസിപ്പാലിറ്റി",
+    "Kodungallur Municipality": "കൊടുങ്ങല്ലൂർ മുനിസിപ്പാലിറ്റി",
+    "Kunnamkulam Municipality": "കുന്നംകുളം മുനിസിപ്പാലിറ്റി",
+    "Guruvayur Municipality": "ഗുരുവായൂർ മുനിസിപ്പാലിറ്റി",
+
+    "Kalpetta Municipality": "കൽപ്പറ്റ മുനിസിപ്പാലിറ്റി",
+    "Mananthavady Municipality": "മാനന്തവാടി മുനിസിപ്പാലിറ്റി",
+    "Sulthan Bathery Municipality": "സുൽത്താൻ ബത്തേരി മുനിസിപ്പാലിറ്റി",
     "Panamaram": "പനമരം",
     "Meppadi": "മേപ്പാടി",
 }
 
 
 # ============================================================
-# SAFE MAP REFERENCE COORDINATES
-# ============================================================
+# APPROXIMATE DISTRICT CENTERS
 #
-# IMPORTANT:
-# These are NOT business locations.
-# They are safe reference points for the selected district.
-# We deliberately avoid randomly generating points because
-# random points around coastal districts can fall into the sea.
-#
-# Coordinates are intentionally chosen around recognizable
-# inland/urban reference areas for a stable demo.
+# Prototype coordinates.
+# Used only to make the map respond to selection.
 # ============================================================
 
 DISTRICT_COORDS = {
+
     "Alappuzha": (9.4981, 76.3388),
+
     "Ernakulam": (9.9816, 76.2999),
-    "Idukki": (9.9189, 76.9497),
+
+    "Idukki": (9.8494, 76.9724),
+
     "Kannur": (11.8745, 75.3704),
-    "Kasaragod": (12.4996, 74.9869),
+
+    "Kasaragod": (12.5102, 74.9852),
+
     "Kollam": (8.8932, 76.6141),
+
     "Kottayam": (9.5916, 76.5222),
+
     "Kozhikode": (11.2588, 75.7804),
+
     "Malappuram": (11.0510, 76.0711),
+
     "Palakkad": (10.7867, 76.6548),
+
     "Pathanamthitta": (9.2648, 76.7870),
+
     "Thiruvananthapuram": (8.5241, 76.9366),
+
     "Thrissur": (10.5276, 76.2144),
+
     "Wayanad": (11.6854, 76.1320),
 }
 
@@ -450,49 +534,153 @@ DISTRICT_COORDS = {
 # SESSION STATE
 # ============================================================
 
-if "language" not in st.session_state:
-    st.session_state.language = "English"
+DEFAULT_STATE = {
 
-if "page" not in st.session_state:
-    st.session_state.page = 1
+    "page": 1,
 
-if "profile" not in st.session_state:
-    st.session_state.profile = {}
+    "language": "en",
 
-if "selected_district" not in st.session_state:
-    st.session_state.selected_district = "Ernakulam"
+    "skills": [],
 
-if "selected_local_body" not in st.session_state:
-    st.session_state.selected_local_body = LOCAL_BODIES["Ernakulam"][0]
+    "experience": 0,
 
-if "selected_ward" not in st.session_state:
-    st.session_state.selected_ward = 1
+    "capital": 50000,
 
-if "selected_business" not in st.session_state:
-    st.session_state.selected_business = "Bakery / Snacks"
+    "interests": [],
+
+    "risk": "Medium",
+
+    "existing_business": "No",
+
+    "business_name": "",
+
+    "district": "Kozhikode",
+
+    "local_body": "Kozhikode Municipal Corporation",
+
+    "ward": 1,
+}
+
+
+for key, value in DEFAULT_STATE.items():
+
+    if key not in st.session_state:
+
+        st.session_state[key] = value
 
 
 # ============================================================
-# TRANSLATION HELPERS
+# TRANSLATION HELPER
 # ============================================================
 
 def t(key):
-    return TEXT[st.session_state.language].get(
-        key,
-        TEXT["English"].get(key, key)
+
+    language = st.session_state.language
+
+    return TEXT[language].get(key, key)
+
+
+# ============================================================
+# OPTION TRANSLATION DEFINITIONS
+# ============================================================
+
+SKILL_KEYS = [
+
+    ("Tailoring", "skill_tailoring"),
+
+    ("Baking", "skill_baking"),
+
+    ("Cooking", "skill_cooking"),
+
+    ("Farming", "skill_farming"),
+
+    ("Dairy", "skill_dairy"),
+
+    ("Handicrafts", "skill_handicraft"),
+
+    ("Repair & Maintenance", "skill_repair"),
+
+    ("Sales", "skill_sales"),
+
+    ("Digital Skills", "skill_digital"),
+
+    ("Driving", "skill_driving"),
+
+    ("Food Processing", "skill_food_processing"),
+]
+
+
+INTEREST_KEYS = [
+
+    ("Food & Bakery", "interest_food"),
+
+    ("Dairy", "interest_dairy"),
+
+    ("Tailoring", "interest_tailoring"),
+
+    ("Agriculture", "interest_farming"),
+
+    ("Repair Services", "interest_repair"),
+
+    ("Handicrafts", "interest_handicraft"),
+]
+
+
+RISK_KEYS = [
+
+    ("Low", "risk_low"),
+
+    ("Medium", "risk_medium"),
+
+    ("High", "risk_high"),
+]
+
+
+# ============================================================
+# OPTION TRANSLATION HELPERS
+# ============================================================
+
+def translated_options(option_pairs):
+
+    return [
+        t(key)
+        for _, key in option_pairs
+    ]
+
+
+def original_from_translated(selected, option_pairs):
+
+    mapping = {
+        t(key): original
+        for original, key in option_pairs
+    }
+
+    return [
+        mapping[x]
+        for x in selected
+        if x in mapping
+    ]
+
+
+def translated_risk_options():
+
+    return [
+        t(key)
+        for _, key in RISK_KEYS
+    ]
+
+
+def original_risk_from_translated(value):
+
+    mapping = {
+        t(key): original
+        for original, key in RISK_KEYS
+    }
+
+    return mapping.get(
+        value,
+        "Medium",
     )
-
-
-def district_label(district):
-    if st.session_state.language == "Malayalam":
-        return DISTRICT_ML.get(district, district)
-    return district
-
-
-def local_body_label(body):
-    if st.session_state.language == "Malayalam":
-        return LOCAL_BODY_ML.get(body, body)
-    return body
 
 
 # ============================================================
@@ -503,119 +691,279 @@ st.markdown(
     f"""
     <style>
 
+    /* ========================================================
+       GLOBAL
+       ======================================================== */
+
     .stApp {{
-        background-color: {CREAM};
-        color: {BROWN};
+        background-color: {WARM_CREAM};
+        color: {DARK_BROWN};
     }}
 
-    .block-container {{
-        max-width: 1350px;
+    .main .block-container {{
         padding-top: 1.5rem;
         padding-bottom: 3rem;
+        max-width: 1400px;
     }}
 
-    h1, h2, h3, h4 {{
-        color: {BROWN};
+    h1,
+    h2,
+    h3,
+    h4 {{
+        color: {DARK_BROWN} !important;
     }}
 
-    .brand {{
+    p,
+    label {{
+        color: {DARK_BROWN};
+    }}
+
+
+    /* ========================================================
+       HEADER
+       ======================================================== */
+
+    .gv-header {{
+        background: {PRIMARY_GREEN};
+        padding: 22px 28px;
+        border-radius: 18px;
+        margin-bottom: 22px;
+    }}
+
+    .gv-header-title {{
+        color: white !important;
         font-size: 30px;
-        font-weight: 800;
-        color: {OLIVE};
-        margin-bottom: 0;
+        font-weight: 750;
+        margin: 0;
     }}
 
-    .tagline {{
-        color: #6d705f;
-        font-size: 14px;
-        margin-top: -5px;
-    }}
-
-    .step {{
-        padding: 9px 14px;
-        border-radius: 20px;
-        text-align: center;
-        font-size: 13px;
-        font-weight: 600;
-        background: #ecebdd;
-        color: #77796e;
-    }}
-
-    .step-active {{
-        background: {OLIVE};
-        color: white;
-    }}
-
-    .card {{
-        background: {WHITE};
-        border-radius: 16px;
-        padding: 20px;
-        border: 1px solid #e7e5da;
-        box-shadow: 0 2px 8px rgba(51,53,44,0.04);
-    }}
-
-    .metric {{
-        background: {WHITE};
-        border: 1px solid #e7e5da;
-        border-radius: 14px;
-        padding: 18px;
-        min-height: 125px;
-    }}
-
-    .metric-title {{
-        font-size: 13px;
-        color: #77796e;
-        margin-bottom: 7px;
-    }}
-
-    .metric-value {{
-        font-size: 28px;
-        font-weight: 800;
-        color: {OLIVE};
-    }}
-
-    .metric-note {{
-        font-size: 12px;
-        color: #85877c;
+    .gv-header-subtitle {{
+        color: #F2F5EC !important;
+        font-size: 15px;
         margin-top: 4px;
     }}
 
-    .badge {{
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 14px;
+
+    /* ========================================================
+       STEP INDICATORS
+       ======================================================== */
+
+    .step-active {{
+        background: {PRIMARY_GREEN};
+        color: white !important;
+        border-radius: 12px;
+        padding: 10px 15px;
+        text-align: center;
+        font-weight: 700;
+    }}
+
+    .step-inactive {{
+        background: #E6E8E1;
+        color: {DARK_BROWN} !important;
+        border-radius: 12px;
+        padding: 10px 15px;
+        text-align: center;
+        font-weight: 600;
+    }}
+
+
+    /* ========================================================
+       METRIC CARDS
+       ======================================================== */
+
+    .metric-card {{
+        background: {WHITE};
+        border: 1px solid #E5E4DC;
+        border-radius: 16px;
+        padding: 20px;
+        min-height: 150px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    }}
+
+    .metric-title {{
+        color: {DARK_BROWN} !important;
+        font-size: 14px;
+        font-weight: 650;
+    }}
+
+    .metric-value {{
+        color: {PRIMARY_GREEN} !important;
+        font-size: 29px;
+        font-weight: 800;
+        margin-top: 8px;
+    }}
+
+    .metric-help {{
+        color: #696B61 !important;
         font-size: 12px;
-        font-weight: 700;
-        background: #ecebdd;
-        color: {OLIVE};
+        margin-top: 5px;
     }}
 
-    .evidence {{
-        border-left: 4px solid {ORANGE};
-        background: #fffaf2;
-        padding: 12px 15px;
-        border-radius: 8px;
-        margin: 8px 0;
-    }}
 
-    .safe {{
-        color: {OLIVE};
-        font-weight: 700;
-    }}
+    /* ========================================================
+       DATA BADGE
+       ======================================================== */
 
-    .warning {{
-        color: {ORANGE};
-        font-weight: 700;
-    }}
-
-    .danger {{
-        color: #a64b3c;
-        font-weight: 700;
-    }}
-
-    div.stButton > button {{
+    .data-badge {{
+        display: inline-block;
+        background: #DDE8EF;
+        color: {DARK_BROWN} !important;
+        padding: 8px 13px;
         border-radius: 10px;
         font-weight: 700;
+        font-size: 13px;
+        border: 1px solid #C5D5DF;
+    }}
+
+    .data-badge * {{
+        color: {DARK_BROWN} !important;
+    }}
+
+
+    /* ========================================================
+       INFO BOX
+       ======================================================== */
+
+    div[data-testid="stAlert"] {{
+        border-radius: 12px;
+    }}
+
+    div[data-testid="stAlert"] p {{
+        color: {DARK_BROWN} !important;
+    }}
+
+    div[data-testid="stAlert"] span {{
+        color: {DARK_BROWN} !important;
+    }}
+
+    div[data-testid="stAlert"] div {{
+        color: {DARK_BROWN} !important;
+    }}
+
+
+    /* ========================================================
+       BUTTONS
+       ======================================================== */
+
+    .stButton > button {{
+        border-radius: 10px;
+        border: 1px solid {PRIMARY_GREEN};
+        font-weight: 650;
+    }}
+
+    .stButton > button[kind="primary"] {{
+        background: {PRIMARY_GREEN};
+        color: white;
+    }}
+
+
+    /* ========================================================
+       FRAME 1 + FRAME 2 SELECTBOXES
+       SELECTED TEXT = WHITE
+       ======================================================== */
+
+    div[data-baseweb="select"] > div {{
+        background-color: {PRIMARY_GREEN} !important;
+        border-radius: 10px !important;
+        border: 1px solid {PRIMARY_GREEN} !important;
+    }}
+
+    /* Main selected text */
+
+    div[data-baseweb="select"] span {{
+        color: white !important;
+    }}
+
+    /* Selected value containers */
+
+    div[data-baseweb="select"] div {{
+        color: white !important;
+    }}
+
+    /* Selected value text */
+
+    div[data-baseweb="select"] input {{
+        color: white !important;
+        caret-color: white !important;
+    }}
+
+    /* Dropdown arrow */
+
+    div[data-baseweb="select"] svg {{
+        fill: white !important;
+        color: white !important;
+    }}
+
+
+    /* ========================================================
+       MULTISELECT SELECTED TAGS
+       ======================================================== */
+
+    div[data-baseweb="select"] [data-baseweb="tag"] {{
+        background-color: {PRIMARY_GREEN} !important;
+        color: white !important;
+        border-radius: 7px !important;
+    }}
+
+    div[data-baseweb="select"] [data-baseweb="tag"] span {{
+        color: white !important;
+    }}
+
+    div[data-baseweb="select"] [data-baseweb="tag"] svg {{
+        fill: white !important;
+        color: white !important;
+    }}
+
+
+    /* ========================================================
+       DROPDOWN OPTIONS
+       Keep these DARK because dropdown background is WHITE.
+       ======================================================== */
+
+    ul[role="listbox"] li {{
+        color: {DARK_BROWN} !important;
+        background-color: white !important;
+    }}
+
+    ul[role="listbox"] li span {{
+        color: {DARK_BROWN} !important;
+    }}
+
+    ul[role="listbox"] li div {{
+        color: {DARK_BROWN} !important;
+    }}
+
+    ul[role="listbox"] li:hover {{
+        background-color: {LIGHT_GREEN} !important;
+        color: {DARK_BROWN} !important;
+    }}
+
+
+    /* ========================================================
+       RADIO BUTTON LABELS
+       ======================================================== */
+
+    div[data-testid="stRadio"] label p {{
+        color: {DARK_BROWN} !important;
+    }}
+
+
+    /* ========================================================
+       SLIDER
+       ======================================================== */
+
+    div[data-testid="stSlider"] {{
+        padding-bottom: 10px;
+    }}
+
+
+    /* ========================================================
+       NUMBER INPUT
+       ======================================================== */
+
+    div[data-testid="stNumberInput"] input {{
+        color: {DARK_BROWN} !important;
+        background-color: white !important;
     }}
 
     </style>
@@ -630,166 +978,424 @@ st.markdown(
 
 def render_header():
 
-    col1, col2 = st.columns([5, 1])
+    col1, col2 = st.columns([4, 1])
 
     with col1:
+
         st.markdown(
-            f'<div class="brand">🌾 {t("app_name")}</div>',
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            f'<div class="tagline">{t("tagline")}</div>',
-            unsafe_allow_html=True
+            f"""
+            <div class="gv-header">
+
+                <div class="gv-header-title">
+                    🌱 {t("app_title")}
+                </div>
+
+                <div class="gv-header-subtitle">
+                    {t("tagline")}
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
     with col2:
-        language_options = ["English", "Malayalam"]
 
-        current_index = language_options.index(
-            st.session_state.language
+        language_options = [
+            "English",
+            "Malayalam",
+        ]
+
+        current_language_display = (
+            "English"
+            if st.session_state.language == "en"
+            else "Malayalam"
         )
 
         selected_language = st.selectbox(
+
             t("language"),
+
             language_options,
-            index=current_index,
-            format_func=lambda x: "English" if x == "English" else "മലയാളം",
-            key="language_selector"
+
+            index=language_options.index(
+                current_language_display
+            ),
+
+            key="language_selector_v4",
         )
 
-        if selected_language != st.session_state.language:
-            st.session_state.language = selected_language
+        new_language = (
+            "en"
+            if selected_language == "English"
+            else "ml"
+        )
+
+        if new_language != st.session_state.language:
+
+            st.session_state.language = new_language
+
             st.rerun()
 
 
 # ============================================================
-# STEPS
+# STEP NAVIGATION
 # ============================================================
 
 def render_steps():
 
+    cols = st.columns(3)
+
     steps = [
-        t("step_profile"),
-        t("step_local"),
-        t("step_opportunity"),
-        t("step_finance"),
+
+        (1, t("step1")),
+
+        (2, t("step2")),
+
+        (3, t("step3")),
     ]
 
-    cols = st.columns(4)
+    for col, (number, label) in zip(
+        cols,
+        steps,
+    ):
 
-    for i, step in enumerate(steps, start=1):
+        with col:
 
-        with cols[i - 1]:
+            if st.session_state.page == number:
 
-            active_class = "step-active" if st.session_state.page == i else ""
+                st.markdown(
+                    f"""
+                    <div class="step-active">
+                        {label}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
 
-            st.markdown(
-                f"""
-                <div class="step {active_class}">
-                    {i}. {step}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+            else:
+
+                st.markdown(
+                    f"""
+                    <div class="step-inactive">
+                        {label}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
 
     st.write("")
 
 
 # ============================================================
-# FRAME 1 — PROFILE
+# FRAME 1
+# PROFILE INPUT
 # ============================================================
 
 def render_frame_1():
 
-    st.title(t("profile_title"))
+    st.markdown(
+        f"## {t('profile_title')}"
+    )
 
-    st.write(t("profile_subtitle"))
+    st.caption(
+        t("profile_subtitle")
+    )
+
+
+    # --------------------------------------------------------
+    # SKILLS
+    # --------------------------------------------------------
+
+    st.markdown(
+        f"### {t('skills_title')}"
+    )
+
+    skill_options = translated_options(
+        SKILL_KEYS
+    )
+
+    valid_saved_skills = [
+
+        skill
+
+        for skill in st.session_state.skills
+
+        if any(
+            original == skill
+            for original, _ in SKILL_KEYS
+        )
+    ]
+
+    translated_saved_skills = [
+
+        t(key)
+
+        for original, key in SKILL_KEYS
+
+        if original in valid_saved_skills
+    ]
+
+    selected_skills = st.multiselect(
+
+        t("select_skills"),
+
+        skill_options,
+
+        default=translated_saved_skills,
+
+        key="skills_input_v4",
+    )
+
+    st.session_state.skills = (
+        original_from_translated(
+            selected_skills,
+            SKILL_KEYS,
+        )
+    )
+
+
+    # --------------------------------------------------------
+    # EXPERIENCE
+    # --------------------------------------------------------
+
+    st.markdown(
+        f"### {t('experience_title')}"
+    )
+
+    experience = st.number_input(
+
+        t("experience_help"),
+
+        min_value=0,
+
+        max_value=50,
+
+        value=int(
+            st.session_state.experience
+        ),
+
+        step=1,
+
+        key="experience_input_v4",
+    )
+
+    st.session_state.experience = experience
+
+    st.caption(
+        f"{experience} {t('years')}"
+    )
+
+
+    # --------------------------------------------------------
+    # CAPITAL
+    # --------------------------------------------------------
+
+    st.markdown(
+        f"### {t('capital_title')}"
+    )
+
+    capital = st.slider(
+
+        t("capital_help"),
+
+        min_value=0,
+
+        max_value=500000,
+
+        value=int(
+            st.session_state.capital
+        ),
+
+        step=5000,
+
+        key="capital_input_v4",
+    )
+
+    st.session_state.capital = capital
+
+    st.write(
+        f"**₹{capital:,.0f}**"
+    )
+
+
+    # --------------------------------------------------------
+    # BUSINESS INTERESTS
+    # --------------------------------------------------------
+
+    interest_options = translated_options(
+        INTEREST_KEYS
+    )
+
+    valid_saved_interests = [
+
+        interest
+
+        for interest in st.session_state.interests
+
+        if any(
+            original == interest
+            for original, _ in INTEREST_KEYS
+        )
+    ]
+
+    translated_saved_interests = [
+
+        t(key)
+
+        for original, key in INTEREST_KEYS
+
+        if original in valid_saved_interests
+    ]
+
+    interests = st.multiselect(
+
+        t("business_interest_question"),
+
+        interest_options,
+
+        default=translated_saved_interests,
+
+        key="interests_input_v4",
+    )
+
+    st.session_state.interests = (
+        original_from_translated(
+            interests,
+            INTEREST_KEYS,
+        )
+    )
+
+
+    # --------------------------------------------------------
+    # RISK
+    # --------------------------------------------------------
+
+    st.markdown(
+        f"### {t('risk_title')}"
+    )
+
+    risk_options = translated_risk_options()
+
+    current_risk_display = t(
+
+        {
+            "Low": "risk_low",
+
+            "Medium": "risk_medium",
+
+            "High": "risk_high",
+
+        }.get(
+            st.session_state.risk,
+            "risk_medium",
+        )
+    )
+
+    selected_risk = st.radio(
+
+        t("risk_title"),
+
+        risk_options,
+
+        index=risk_options.index(
+            current_risk_display
+        ),
+
+        horizontal=True,
+
+        key="risk_input_v4",
+    )
+
+    st.session_state.risk = (
+        original_risk_from_translated(
+            selected_risk
+        )
+    )
+
+
+    # --------------------------------------------------------
+    # EXISTING BUSINESS
+    # --------------------------------------------------------
+
+    st.markdown(
+        f"### {t('existing_business_question')}"
+    )
+
+    existing_options = [
+
+        t("yes"),
+
+        t("no"),
+    ]
+
+    current_existing_display = (
+
+        t("yes")
+
+        if st.session_state.existing_business == "Yes"
+
+        else t("no")
+    )
+
+    existing_business = st.radio(
+
+        t("existing_business_question"),
+
+        existing_options,
+
+        index=existing_options.index(
+            current_existing_display
+        ),
+
+        horizontal=True,
+
+        key="existing_business_v4",
+    )
+
+    st.session_state.existing_business = (
+
+        "Yes"
+
+        if existing_business == t("yes")
+
+        else "No"
+    )
+
+
+    if st.session_state.existing_business == "Yes":
+
+        business_name = st.text_input(
+
+            t("business_name"),
+
+            value=st.session_state.business_name,
+
+            key="business_name_v4",
+        )
+
+        st.session_state.business_name = (
+            business_name
+        )
+
 
     st.write("")
 
-    col1, col2 = st.columns(2)
 
-    with col1:
-
-        skill_options = [
-            "Cooking",
-            "Baking",
-            "Tailoring",
-            "Farming",
-            "Dairy",
-            "Handicraft",
-            "Retail",
-            "Food Processing",
-            "Repair",
-        ]
-
-        selected_skills = st.multiselect(
-            t("skills"),
-            skill_options,
-            key="skills_input_v5",
-            help=t("skills_help")
-        )
-
-        experience = st.number_input(
-            t("experience"),
-            min_value=0,
-            max_value=40,
-            value=0,
-            step=1
-        )
-
-        capital = st.slider(
-            t("capital"),
-            min_value=0,
-            max_value=500000,
-            value=50000,
-            step=5000,
-            format="₹%d"
-        )
-
-    with col2:
-
-        interest_options = [
-            t("bakery"),
-            t("dairy"),
-            t("tailoring"),
-            t("grocery"),
-            t("food_processing"),
-        ]
-
-        interests = st.multiselect(
-            t("interests"),
-            interest_options
-        )
-
-        risk = st.radio(
-            t("risk"),
-            ["Low", "Medium", "High"],
-            horizontal=True
-        )
-
-        existing_business = st.radio(
-            t("existing_business"),
-            ["No", "Yes"],
-            horizontal=True
-        )
-
-    st.write("")
+    # --------------------------------------------------------
+    # CONTINUE
+    # --------------------------------------------------------
 
     if st.button(
-        t("continue"),
-        type="primary",
-        use_container_width=True
-    ):
 
-        st.session_state.profile = {
-            "skills": selected_skills,
-            "experience": experience,
-            "capital": capital,
-            "interests": interests,
-            "risk": risk,
-            "existing_business": existing_business,
-        }
+        t("continue"),
+
+        type="primary",
+
+        use_container_width=True,
+
+        key="continue_frame1_v4",
+    ):
 
         st.session_state.page = 2
 
@@ -797,66 +1403,308 @@ def render_frame_1():
 
 
 # ============================================================
-# LOCAL DATA GENERATOR
+# FRAME 2 DATA GENERATOR
 # ============================================================
 
-def generate_location_data(district, local_body, ward):
+def generate_location_data(
+    district,
+    local_body,
+    ward,
+):
+
+    """
+    Prototype deterministic location engine.
+
+    This is NOT official data.
+
+    It exists so the prototype visibly responds to:
+        District
+        Local Body
+        Ward
+
+    Real datasets will replace this later.
+    """
+
+    district_index = (
+
+        KERALA_DISTRICTS.index(
+            district
+        )
+
+        if district in KERALA_DISTRICTS
+
+        else 0
+    )
+
+    body_list = LOCAL_BODIES.get(
+        district,
+        [],
+    )
+
+    body_index = (
+
+        body_list.index(
+            local_body
+        )
+
+        if local_body in body_list
+
+        else 0
+    )
 
     seed = (
-        sum(ord(c) for c in district)
-        + sum(ord(c) for c in local_body)
-        + int(ward) * 17
+
+        district_index * 1000
+
+        + body_index * 100
+
+        + int(ward)
     )
 
-    rng = np.random.default_rng(seed)
+    rng = np.random.default_rng(
+        seed
+    )
+
+
+    # --------------------------------------------------------
+    # POPULATION
+    # --------------------------------------------------------
+
+    base_population = (
+        18000
+        + district_index * 900
+    )
 
     population = int(
-        8500
-        + rng.integers(0, 12000)
+
+        base_population
+
+        + body_index * 1700
+
+        + int(ward) * 120
+
+        + rng.integers(
+            -500,
+            501,
+        )
     )
+
+
+    # --------------------------------------------------------
+    # BUSINESS DENSITY
+    # --------------------------------------------------------
 
     business_density = round(
-        3.5 + rng.random() * 5.5,
-        1
+
+        8.5
+
+        + district_index * 0.35
+
+        + body_index * 0.6
+
+        + (int(ward) % 10) * 0.15
+
+        + rng.uniform(
+            -0.4,
+            0.4,
+        ),
+
+        1,
     )
+
+
+    # --------------------------------------------------------
+    # SEASONAL DEMAND
+    # --------------------------------------------------------
 
     seasonal_demand = int(
-        55 + rng.integers(0, 40)
+
+        np.clip(
+
+            55
+
+            + district_index * 1.7
+
+            + body_index * 3
+
+            + (int(ward) % 12)
+
+            + rng.integers(
+                -4,
+                5,
+            ),
+
+            0,
+
+            100,
+        )
     )
+
+
+    # --------------------------------------------------------
+    # RESOURCE AVAILABILITY
+    # --------------------------------------------------------
 
     resource_availability = int(
-        60 + rng.integers(0, 35)
+
+        np.clip(
+
+            58
+
+            + body_index * 4
+
+            + (int(ward) % 8)
+
+            + rng.integers(
+                -5,
+                6,
+            ),
+
+            0,
+
+            100,
+        )
     )
 
+
     return {
+
         "population": population,
+
         "business_density": business_density,
+
         "seasonal_demand": seasonal_demand,
+
         "resource_availability": resource_availability,
     }
 
 
 # ============================================================
-# SAFE MAP
+# MAP DATA GENERATOR
 # ============================================================
 
-def generate_safe_map(district):
+def generate_business_points(
+    district,
+    local_body,
+    ward,
+):
 
-    lat, lon = DISTRICT_COORDS.get(
+    """
+    Generate tightly clustered prototype points.
+
+    The previous version used a spread that was too large,
+    which caused points to appear in the sea for some districts.
+
+    This version keeps the points close to the selected center.
+    """
+
+    lat, lon = DISTRICT_COORDS[
+        district
+    ]
+
+    body_list = LOCAL_BODIES.get(
         district,
-        DISTRICT_COORDS["Ernakulam"]
+        [],
     )
 
-    # ONE deterministic reference marker.
-    # No random scatter.
+    body_index = (
+
+        body_list.index(
+            local_body
+        )
+
+        if local_body in body_list
+
+        else 0
+    )
+
+
+    # --------------------------------------------------------
+    # DETERMINISTIC SEED
+    # --------------------------------------------------------
+
+    seed = (
+
+        KERALA_DISTRICTS.index(
+            district
+        ) * 100
+
+        + body_index * 10
+
+        + int(ward)
+    )
+
+    rng = np.random.default_rng(
+        seed
+    )
+
+
+    # --------------------------------------------------------
+    # VERY SMALL LOCATION OFFSET
+    # --------------------------------------------------------
     #
-    # This prevents demo markers from appearing in the ocean.
+    # We deliberately keep these offsets small.
+    # This prevents the prototype points from drifting
+    # into the Arabian Sea.
+    #
+
+    center_lat = (
+
+        lat
+
+        + (body_index - 2) * 0.0025
+
+        + (int(ward) % 10) * 0.00015
+    )
+
+    center_lon = (
+
+        lon
+
+        + (body_index - 2) * 0.0025
+
+        + (int(ward) % 8) * 0.00015
+    )
+
+
+    # --------------------------------------------------------
+    # CREATE POINTS
+    # --------------------------------------------------------
+
+    points = []
+
+    for i in range(10):
+
+        point_lat = (
+
+            center_lat
+
+            + rng.normal(
+                0,
+                0.0018,
+            )
+        )
+
+        point_lon = (
+
+            center_lon
+
+            + rng.normal(
+                0,
+                0.0018,
+            )
+        )
+
+        points.append({
+
+            "lat": point_lat,
+
+            "lon": point_lon,
+        })
+
 
     return pd.DataFrame(
-        {
-            "lat": [lat],
-            "lon": [lon],
-        }
+        points
     )
 
 
@@ -864,11 +1712,16 @@ def generate_safe_map(district):
 # METRIC CARD
 # ============================================================
 
-def metric_card(title, value, note):
+def metric_card(
+    title,
+    value,
+    help_text,
+):
 
     st.markdown(
+
         f"""
-        <div class="metric">
+        <div class="metric-card">
 
             <div class="metric-title">
                 {title}
@@ -878,1086 +1731,534 @@ def metric_card(title, value, note):
                 {value}
             </div>
 
-            <div class="metric-note">
-                {note}
+            <div class="metric-help">
+                {help_text}
             </div>
 
         </div>
         """,
-        unsafe_allow_html=True
+
+        unsafe_allow_html=True,
     )
 
 
 # ============================================================
-# FRAME 2 — LOCAL DASHBOARD
+# FRAME 2
+# LOCAL DASHBOARD
 # ============================================================
 
 def render_frame_2():
 
-    st.title(t("location_title"))
+    st.markdown(
+        f"## {t('local_title')}"
+    )
 
-    st.write(t("location_subtitle"))
+    st.caption(
+        t("local_subtitle")
+    )
 
-    st.write("")
 
-    col1, col2, col3 = st.columns([1.2, 1.4, 0.7])
-
-    with col1:
-
-        district_names = DISTRICTS
-
-        current_district_index = district_names.index(
-            st.session_state.selected_district
-        )
-
-        selected_district = st.selectbox(
-            t("district"),
-            district_names,
-            index=current_district_index,
-            format_func=district_label,
-            key="district_selector_v5"
-        )
-
-    with col2:
-
-        body_options = LOCAL_BODIES[selected_district]
-
-        previous_body = st.session_state.selected_local_body
-
-        if previous_body in body_options:
-            body_index = body_options.index(previous_body)
-        else:
-            body_index = 0
-
-        selected_local_body = st.selectbox(
-            t("local_body"),
-            body_options,
-            index=body_index,
-            format_func=local_body_label,
-            key="local_body_selector_v5"
-        )
-
-    with col3:
-
-        selected_ward = st.number_input(
-            t("ward"),
-            min_value=1,
-            max_value=100,
-            value=int(st.session_state.selected_ward),
-            step=1
-        )
-
-    st.session_state.selected_district = selected_district
-    st.session_state.selected_local_body = selected_local_body
-    st.session_state.selected_ward = selected_ward
-
-    st.write("")
-
-    # --------------------------------------------------------
-    # DATA LEVEL
-    # --------------------------------------------------------
+    # ========================================================
+    # LOCATION SELECTORS
+    # ========================================================
 
     st.markdown(
-        f"""
-        <span class="badge">
-            {t("data_level")}: {t("district_fallback")}
-        </span>
-        """,
-        unsafe_allow_html=True
+        "### 📍 Location"
     )
 
-    st.info(
-        (
-            "This prototype currently uses district-level fallback "
-            "data where ward-level verified data is unavailable."
-            if st.session_state.language == "English"
-            else
-            "വാർഡ് തലത്തിലുള്ള സ്ഥിരീകരിച്ച ഡാറ്റ ലഭ്യമല്ലാത്തിടത്ത് "
-            "ഈ പ്രോട്ടോടൈപ്പ് ജില്ലാ തലത്തിലുള്ള പകരം ഡാറ്റയാണ് ഉപയോഗിക്കുന്നത്."
+    location_col1, location_col2, location_col3 = st.columns(
+        [1, 1.4, 0.7]
+    )
+
+
+    # ========================================================
+    # DISTRICT
+    # ========================================================
+
+    with location_col1:
+
+        district_display_options = [
+
+            DISTRICT_ML[district]
+
+            if st.session_state.language == "ml"
+
+            else district
+
+            for district in KERALA_DISTRICTS
+        ]
+
+        current_district = (
+            st.session_state.district
         )
+
+        current_district_display = (
+
+            DISTRICT_ML[
+                current_district
+            ]
+
+            if st.session_state.language == "ml"
+
+            else current_district
+        )
+
+        selected_district_display = st.selectbox(
+
+            t("district"),
+
+            district_display_options,
+
+            index=district_display_options.index(
+                current_district_display
+            ),
+
+            key="district_selector_v5",
+        )
+
+
+        # Reverse translation
+
+        reverse_district = {
+
+            (
+                DISTRICT_ML[district]
+
+                if st.session_state.language == "ml"
+
+                else district
+            ): district
+
+            for district in KERALA_DISTRICTS
+        }
+
+
+        selected_district = reverse_district[
+            selected_district_display
+        ]
+
+
+    # ========================================================
+    # LOCAL BODY
+    # ========================================================
+
+    available_local_bodies = LOCAL_BODIES.get(
+
+        selected_district,
+
+        [],
     )
 
-    # --------------------------------------------------------
-    # DATA
-    # --------------------------------------------------------
 
-    data = generate_location_data(
-        selected_district,
-        selected_local_body,
+    # If district changes, make sure the local body
+    # belongs to that district.
+
+    if (
+
+        st.session_state.local_body
+
+        not in available_local_bodies
+    ):
+
+        st.session_state.local_body = (
+
+            available_local_bodies[0]
+
+            if available_local_bodies
+
+            else ""
+        )
+
+
+    with location_col2:
+
+        local_body_display_options = [
+
+            LOCAL_BODY_ML.get(
+                local_body,
+                local_body,
+            )
+
+            if st.session_state.language == "ml"
+
+            else local_body
+
+            for local_body
+            in available_local_bodies
+        ]
+
+
+        current_local_body = (
+            st.session_state.local_body
+        )
+
+
+        current_local_body_display = (
+
+            LOCAL_BODY_ML.get(
+
+                current_local_body,
+
+                current_local_body,
+            )
+
+            if st.session_state.language == "ml"
+
+            else current_local_body
+        )
+
+
+        selected_local_body_display = st.selectbox(
+
+            t("local_body"),
+
+            local_body_display_options,
+
+            index=local_body_display_options.index(
+
+                current_local_body_display
+
+            )
+
+            if current_local_body_display
+            in local_body_display_options
+
+            else 0,
+
+            key="local_body_selector_v5",
+        )
+
+
+        # Reverse translation
+
+        reverse_local_body = {
+
+            (
+                LOCAL_BODY_ML.get(
+                    local_body,
+                    local_body,
+                )
+
+                if st.session_state.language == "ml"
+
+                else local_body
+            ): local_body
+
+            for local_body
+            in available_local_bodies
+        }
+
+
+        selected_local_body = reverse_local_body[
+            selected_local_body_display
+        ]
+
+
+    # ========================================================
+    # WARD
+    # ========================================================
+
+    with location_col3:
+
+        selected_ward = st.number_input(
+
+            t("ward"),
+
+            min_value=1,
+
+            max_value=100,
+
+            value=int(
+                st.session_state.ward
+            ),
+
+            step=1,
+
+            key="ward_selector_v5",
+        )
+
+
+    # ========================================================
+    # SAVE CURRENT LOCATION
+    # ========================================================
+
+    st.session_state.district = (
+        selected_district
+    )
+
+    st.session_state.local_body = (
+        selected_local_body
+    )
+
+    st.session_state.ward = int(
         selected_ward
     )
 
-    st.subheader(t("market_snapshot"))
 
-    c1, c2, c3, c4 = st.columns(4)
+    # ========================================================
+    # DATA LEVEL BADGE
+    # ========================================================
 
-    with c1:
+    st.write("")
+
+    st.markdown(
+
+        f"""
+        <div class="data-badge">
+
+            🟢 {t("district_data")}
+
+        </div>
+        """,
+
+        unsafe_allow_html=True,
+    )
+
+    st.write("")
+
+
+    # ========================================================
+    # INFO BOX
+    # ========================================================
+
+    st.info(
+        t("location_note")
+    )
+
+
+    # ========================================================
+    # LOCATION-SPECIFIC DATA
+    # ========================================================
+
+    location_data = generate_location_data(
+
+        st.session_state.district,
+
+        st.session_state.local_body,
+
+        st.session_state.ward,
+    )
+
+
+    # ========================================================
+    # FOUR METRIC CARDS
+    # ========================================================
+
+    metric_cols = st.columns(4)
+
+
+    with metric_cols[0]:
+
         metric_card(
+
             t("business_density"),
-            f'{data["business_density"]}/km²',
-            t("estimate")
+
+            f"{location_data['business_density']}",
+
+            t("business_density_help"),
         )
 
-    with c2:
+
+    with metric_cols[1]:
+
         metric_card(
+
             t("population"),
-            f'{data["population"]:,}',
-            "Prototype estimate"
-            if st.session_state.language == "English"
-            else "പ്രോട്ടോടൈപ്പ് അനുമാനം"
+
+            f"{location_data['population']:,}",
+
+            t("population_help"),
         )
 
-    with c3:
+
+    with metric_cols[2]:
+
         metric_card(
+
             t("seasonal_demand"),
-            f'{data["seasonal_demand"]}%',
-            t("derived")
+
+            f"{location_data['seasonal_demand']}/100",
+
+            t("seasonal_demand_help"),
         )
 
-    with c4:
+
+    with metric_cols[3]:
+
         metric_card(
+
             t("resource_availability"),
-            f'{data["resource_availability"]}%',
-            t("derived")
+
+            f"{location_data['resource_availability']}/100",
+
+            t("resource_help"),
         )
+
 
     st.write("")
 
-    # --------------------------------------------------------
+
+    # ========================================================
     # MAP
-    # --------------------------------------------------------
+    # ========================================================
 
-    map_col, info_col = st.columns([2.3, 1])
+    st.markdown(
+        f"### {t('map_title')}"
+    )
 
-    with map_col:
 
-        st.subheader(t("reference_map"))
+    st.caption(
 
-        map_df = generate_safe_map(selected_district)
+        f"{st.session_state.district} → "
 
-        st.map(
-            map_df,
-            latitude="lat",
-            longitude="lon",
-            size=100,
-            zoom=9
-        )
+        f"{st.session_state.local_body} → "
 
-        st.caption(t("map_note"))
+        f"Ward {st.session_state.ward}"
+    )
 
-    with info_col:
+
+    map_df = generate_business_points(
+
+        st.session_state.district,
+
+        st.session_state.local_body,
+
+        st.session_state.ward,
+    )
+
+
+    st.map(
+
+        map_df,
+
+        latitude="lat",
+
+        longitude="lon",
+
+        size=80,
+    )
+
+
+    st.caption(
+        t("map_caption")
+    )
+
+
+    # ========================================================
+    # SOURCE / DATA STATUS
+    # ========================================================
+
+    source_col1, source_col2 = st.columns(2)
+
+
+    with source_col1:
 
         st.markdown(
-            f"""
-            <div class="card">
 
-                <h4>{district_label(selected_district)}</h4>
-
-                <p>
-                    <b>{t("local_body")}:</b><br>
-                    {local_body_label(selected_local_body)}
-                </p>
-
-                <p>
-                    <b>{t("ward")}:</b><br>
-                    {selected_ward}
-                </p>
-
-                <hr>
-
-                <p>
-                    <b>{t("data_level")}:</b><br>
-                    {t("district_fallback")}
-                </p>
-
-                <p>
-                    <b>{t("data_status")}:</b><br>
-                    {t("prototype_data")}
-                </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+            f"**{t('data_source')}:** "
+            f"{t('prototype_source')}"
         )
+
+
+    with source_col2:
+
+        st.markdown(
+            "**Data status:** Prototype / demo"
+        )
+
 
     st.write("")
 
-    # --------------------------------------------------------
-    # SOURCE / STATUS
-    # --------------------------------------------------------
 
-    left, right = st.columns([1, 1])
+    # ========================================================
+    # NAVIGATION
+    # ========================================================
 
-    with left:
-        st.caption(
-            f'{t("source")}: {t("prototype_source")}'
-        )
+    nav1, nav2 = st.columns(2)
 
-    with right:
-        st.markdown(
-            f"""
-            <div style="text-align:right; color:#77796e; font-size:13px;">
-                <b>{t("data_status")}:</b> {t("prototype_data")}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
 
-    st.write("")
-
-    col_back, col_continue = st.columns([1, 1])
-
-    with col_back:
+    with nav1:
 
         if st.button(
+
             t("back"),
-            use_container_width=True
+
+            use_container_width=True,
+
+            key="back_frame2_v5",
         ):
+
             st.session_state.page = 1
+
             st.rerun()
 
-    with col_continue:
+
+    with nav2:
 
         if st.button(
+
             t("continue"),
+
             type="primary",
-            use_container_width=True
+
+            use_container_width=True,
+
+            key="continue_frame2_v5",
         ):
+
             st.session_state.page = 3
+
             st.rerun()
 
 
 # ============================================================
-# BUSINESS SCORING
-# ============================================================
-
-BUSINESS_MODELS = {
-    "Bakery / Snacks": {
-        "startup": 180000,
-        "revenue": 65000,
-        "cost": 44000,
-        "risk": "Medium",
-    },
-    "Dairy": {
-        "startup": 220000,
-        "revenue": 72000,
-        "cost": 51000,
-        "risk": "Medium",
-    },
-    "Tailoring": {
-        "startup": 120000,
-        "revenue": 48000,
-        "cost": 27000,
-        "risk": "Low",
-    },
-    "Neighbourhood Grocery": {
-        "startup": 250000,
-        "revenue": 90000,
-        "cost": 71000,
-        "risk": "Medium",
-    },
-    "Food Processing": {
-        "startup": 300000,
-        "revenue": 105000,
-        "cost": 78000,
-        "risk": "Medium",
-    },
-}
-
-
-def calculate_business_score(
-    business,
-    capital,
-    skills,
-    experience,
-    risk
-):
-
-    model = BUSINESS_MODELS[business]
-
-    # Capital fit
-    if capital >= model["startup"] * 0.50:
-        capital_score = 90
-    elif capital >= model["startup"] * 0.25:
-        capital_score = 70
-    else:
-        capital_score = 50
-
-    # Skill fit
-    skill_map = {
-        "Bakery / Snacks": ["Baking", "Cooking"],
-        "Dairy": ["Dairy", "Farming"],
-        "Tailoring": ["Tailoring"],
-        "Neighbourhood Grocery": ["Retail"],
-        "Food Processing": ["Food Processing", "Cooking"],
-    }
-
-    matching_skills = [
-        s for s in skills
-        if s in skill_map[business]
-    ]
-
-    skill_score = 90 if matching_skills else 55
-
-    # Experience
-    experience_score = min(
-        95,
-        55 + experience * 5
-    )
-
-    # Simple prototype local demand
-    demand_score = {
-        "Bakery / Snacks": 78,
-        "Dairy": 74,
-        "Tailoring": 69,
-        "Neighbourhood Grocery": 82,
-        "Food Processing": 72,
-    }[business]
-
-    # Competition fit
-    competition_score = {
-        "Bakery / Snacks": 68,
-        "Dairy": 73,
-        "Tailoring": 76,
-        "Neighbourhood Grocery": 61,
-        "Food Processing": 71,
-    }[business]
-
-    # Risk
-    if risk == "Low":
-        risk_score = 85 if model["risk"] == "Low" else 65
-    elif risk == "Medium":
-        risk_score = 80
-    else:
-        risk_score = 90
-
-    total = (
-        0.25 * demand_score
-        + 0.20 * competition_score
-        + 0.20 * skill_score
-        + 0.20 * capital_score
-        + 0.15 * risk_score
-    )
-
-    return round(total)
-
-
-# ============================================================
-# FRAME 3 — OPPORTUNITY RADAR
+# FRAME 3 PLACEHOLDER
 # ============================================================
 
 def render_frame_3():
 
-    st.title(t("opportunity_title"))
-
-    st.write(t("opportunity_subtitle"))
-
-    profile = st.session_state.profile
-
-    capital = profile.get("capital", 50000)
-    skills = profile.get("skills", [])
-    experience = profile.get("experience", 0)
-    risk = profile.get("risk", "Medium")
-
-    businesses = list(BUSINESS_MODELS.keys())
-
-    scored = []
-
-    for business in businesses:
-
-        score = calculate_business_score(
-            business,
-            capital,
-            skills,
-            experience,
-            risk
-        )
-
-        scored.append(
-            {
-                "business": business,
-                "score": score,
-            }
-        )
-
-    scored = sorted(
-        scored,
-        key=lambda x: x["score"],
-        reverse=True
-    )
-
-    for rank, item in enumerate(scored, start=1):
-
-        business = item["business"]
-        score = item["score"]
-
-        model = BUSINESS_MODELS[business]
-
-        st.markdown(
-            f"""
-            <div class="card">
-
-                <div style="display:flex; justify-content:space-between;">
-
-                    <div>
-                        <h3 style="margin-bottom:4px;">
-                            #{rank} {business}
-                        </h3>
-
-                        <span class="badge">
-                            {t("confidence")}: {score}%
-                        </span>
-                    </div>
-
-                    <div style="font-size:32px; font-weight:800; color:{OLIVE};">
-                        {score}
-                    </div>
-
-                </div>
-
-                <br>
-
-                <b>{t("demand")}</b>
-                <div style="background:#ecebdd;border-radius:10px;height:8px;">
-                    <div style="width:{score}%;background:{GREEN};height:8px;border-radius:10px;"></div>
-                </div>
-
-                <br>
-
-                <b>{t("skill")}</b>
-                <div style="background:#ecebdd;border-radius:10px;height:8px;">
-                    <div style="width:{min(score + 5, 100)}%;background:{GREEN};height:8px;border-radius:10px;"></div>
-                </div>
-
-                <br>
-
-                <b>{t("capital_fit")}</b>
-                <div style="background:#ecebdd;border-radius:10px;height:8px;">
-                    <div style="width:{min(score - 5, 100)}%;background:{ORANGE};height:8px;border-radius:10px;"></div>
-                </div>
-
-                <br>
-
-                <b>{t("why_fit")}</b>
-
-                <p>
-                    {business} shows a prototype opportunity score of
-                    <b>{score}/100</b> based on local demand,
-                    competition fit, skill fit, capital fit and risk fit.
-                </p>
-
-                <p style="color:#77796e;font-size:13px;">
-                    Startup estimate: ₹{model["startup"]:,}
-                </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.write("")
-
-    st.subheader(t("business_detail"))
-
-    selected = scored[0]["business"]
-
-    if st.session_state.language == "Malayalam":
-        display_selected = {
-            "Bakery / Snacks": t("bakery"),
-            "Dairy": t("dairy"),
-            "Tailoring": t("tailoring"),
-            "Neighbourhood Grocery": t("grocery"),
-            "Food Processing": t("food_processing"),
-        }.get(selected, selected)
-    else:
-        display_selected = selected
-
-    st.success(
-        f"{t('opportunity_title')}: {display_selected}"
-    )
-
     st.markdown(
-        f"""
-        <div class="evidence">
-
-        <b>{t("local_evidence")}</b>
-
-        <br><br>
-
-        • Prototype demand estimate based on business category<br>
-        • District-level market fallback<br>
-        • Capital-fit calculation based on user-entered capital<br>
-        • Skill-fit calculation based on selected skills
-
-        </div>
-        """,
-        unsafe_allow_html=True
+        f"## {t('step3')}"
     )
-
-    st.warning(
-        (
-            "Prototype data is for demonstration. It must be replaced "
-            "with verified local datasets before real-world lending decisions."
-            if st.session_state.language == "English"
-            else
-            "പ്രോട്ടോടൈപ്പ് ഡാറ്റ ഡെമോ ആവശ്യത്തിനുള്ളതാണ്. യഥാർത്ഥ വായ്പാ "
-            "തീരുമാനങ്ങൾക്ക് മുമ്പ് ഇത് സ്ഥിരീകരിച്ച പ്രാദേശിക ഡാറ്റ ഉപയോഗിച്ച് മാറ്റണം."
-        )
-    )
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        if st.button(
-            t("back"),
-            use_container_width=True
-        ):
-            st.session_state.page = 2
-            st.rerun()
-
-    with col2:
-
-        if st.button(
-            t("financial"),
-            type="primary",
-            use_container_width=True
-        ):
-
-            st.session_state.selected_business = selected
-            st.session_state.page = 4
-            st.rerun()
-
-
-# ============================================================
-# FINANCIAL CALCULATIONS
-# ============================================================
-
-def calculate_financials(
-    business,
-    sales_change=0,
-    raw_material_change=0
-):
-
-    model = BUSINESS_MODELS[business]
-
-    revenue = model["revenue"] * (
-        1 + sales_change / 100
-    )
-
-    base_cost = model["cost"]
-
-    adjusted_cost = base_cost * (
-        1 + raw_material_change / 100
-    )
-
-    surplus = revenue - adjusted_cost
-
-    startup = model["startup"]
-
-    break_even = (
-        startup / max(revenue, 1)
-    )
-
-    return {
-        "startup": startup,
-        "revenue": revenue,
-        "cost": adjusted_cost,
-        "surplus": surplus,
-        "break_even": break_even,
-    }
-
-
-# ============================================================
-# FRAME 4 — FINANCE
-# ============================================================
-
-def render_frame_4():
-
-    business = st.session_state.selected_business
-
-    if st.session_state.language == "Malayalam":
-
-        display_business = {
-            "Bakery / Snacks": t("bakery"),
-            "Dairy": t("dairy"),
-            "Tailoring": t("tailoring"),
-            "Neighbourhood Grocery": t("grocery"),
-            "Food Processing": t("food_processing"),
-        }.get(business, business)
-
-    else:
-        display_business = business
-
-    st.title(t("financial"))
-
-    st.write(
-        f"{display_business} — "
-        + (
-            "prototype financial model"
-            if st.session_state.language == "English"
-            else
-            "പ്രോട്ടോടൈപ്പ് ധനകാര്യ മാതൃക"
-        )
-    )
-
-    st.write("")
-
-    financials = calculate_financials(business)
-
-    c1, c2, c3 = st.columns(3)
-
-    with c1:
-
-        metric_card(
-            t("startup_cost"),
-            f'₹{financials["startup"]:,.0f}',
-            t("estimate")
-        )
-
-    with c2:
-
-        metric_card(
-            t("monthly_revenue"),
-            f'₹{financials["revenue"]:,.0f}',
-            t("estimate")
-        )
-
-    with c3:
-
-        surplus_value = financials["surplus"]
-
-        metric_card(
-            t("monthly_surplus"),
-            f'₹{surplus_value:,.0f}',
-            t("derived")
-        )
-
-    st.write("")
-
-    # --------------------------------------------------------
-    # FINANCIAL FLOW
-    # --------------------------------------------------------
-
-    st.subheader(
-        (
-            "Monthly financial flow"
-            if st.session_state.language == "English"
-            else
-            "മാസ ധനകാര്യ പ്രവാഹം"
-        )
-    )
-
-    flow1, flow2, flow3 = st.columns(3)
-
-    with flow1:
-
-        st.markdown(
-            f"""
-            <div class="card">
-
-            <h4>Revenue</h4>
-
-            <h2>
-            ₹{financials["revenue"]:,.0f}
-            </h2>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    with flow2:
-
-        st.markdown(
-            f"""
-            <div class="card">
-
-            <h4>Expenses</h4>
-
-            <h2>
-            ₹{financials["cost"]:,.0f}
-            </h2>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    with flow3:
-
-        st.markdown(
-            f"""
-            <div class="card">
-
-            <h4>Surplus</h4>
-
-            <h2>
-            ₹{financials["surplus"]:,.0f}
-            </h2>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    st.write("")
-
-    # --------------------------------------------------------
-    # BREAK EVEN
-    # --------------------------------------------------------
-
-    st.subheader(t("break_even"))
 
     st.info(
-        (
-            f"Prototype break-even indicator: "
-            f"{financials['break_even']:.1f} months of revenue coverage."
-            if st.session_state.language == "English"
-            else
-            f"പ്രോട്ടോടൈപ്പ് ബ്രേക്ക്-ഈവൻ സൂചിക: "
-            f"{financials['break_even']:.1f} മാസത്തെ വരുമാന കവറേജ്."
-        )
+        "Frame 3 will be built after Frame 2 is verified."
     )
 
-    # --------------------------------------------------------
-    # RISK
-    # --------------------------------------------------------
-
-    st.subheader(t("risk_dashboard"))
-
-    if financials["surplus"] > 20000:
-        risk_level = "Low"
-        risk_class = "safe"
-    elif financials["surplus"] > 5000:
-        risk_level = "Medium"
-        risk_class = "warning"
-    else:
-        risk_level = "High"
-        risk_class = "danger"
-
-    st.markdown(
-        f"""
-        <div class="card">
-
-        <h3>{t("overall_risk")}</h3>
-
-        <h2 class="{risk_class}">
-            {risk_level}
-        </h2>
-
-        <p>
-        {
-            "Monthly surplus remains positive under the base prototype assumptions."
-            if st.session_state.language == "English"
-            else
-            "അടിസ്ഥാന പ്രോട്ടോടൈപ്പ് കണക്കുകൾ പ്രകാരം മാസ മിച്ചം പോസിറ്റീവ് ആണ്."
-        }
-        </p>
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.write("")
-
-    # --------------------------------------------------------
-    # WHAT IF
-    # --------------------------------------------------------
-
-    st.subheader(t("what_if"))
-
-    sales_change = st.slider(
-        t("sales_change"),
-        min_value=-50,
-        max_value=50,
-        value=0,
-        step=5
-    )
-
-    raw_material_change = st.slider(
-        t("raw_material_change"),
-        min_value=-30,
-        max_value=50,
-        value=0,
-        step=5
-    )
-
-    scenario = calculate_financials(
-        business,
-        sales_change,
-        raw_material_change
-    )
-
-    base_col, scenario_col = st.columns(2)
-
-    with base_col:
-
-        st.markdown(
-            f"""
-            <div class="card">
-
-            <h3>{t("base")}</h3>
-
-            <p>
-            Revenue: ₹{financials["revenue"]:,.0f}
-            </p>
-
-            <p>
-            Expenses: ₹{financials["cost"]:,.0f}
-            </p>
-
-            <p>
-            Surplus: <b>₹{financials["surplus"]:,.0f}</b>
-            </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    with scenario_col:
-
-        scenario_class = (
-            "safe"
-            if scenario["surplus"] > 0
-            else "danger"
-        )
-
-        st.markdown(
-            f"""
-            <div class="card">
-
-            <h3>{t("scenario")}</h3>
-
-            <p>
-            Revenue: ₹{scenario["revenue"]:,.0f}
-            </p>
-
-            <p>
-            Expenses: ₹{scenario["cost"]:,.0f}
-            </p>
-
-            <p>
-            Surplus:
-            <b class="{scenario_class}">
-            ₹{scenario["surplus"]:,.0f}
-            </b>
-            </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    st.write("")
-
-    if scenario["surplus"] <= 0:
-
-        st.error(
-            (
-                "NOT FINANCIALLY SAFE — reduce project size, "
-                "increase own contribution or consider another business."
-                if st.session_state.language == "English"
-                else
-                "സാമ്പത്തികമായി സുരക്ഷിതമല്ല — പദ്ധതിയുടെ വലുപ്പം കുറയ്ക്കുക, "
-                "സ്വന്തം മൂലധനം വർധിപ്പിക്കുക, അല്ലെങ്കിൽ മറ്റൊരു ബിസിനസ് പരിഗണിക്കുക."
-            )
-        )
-
-    else:
-
-        st.success(
-            (
-                "Scenario remains financially positive under the selected assumptions."
-                if st.session_state.language == "English"
-                else
-                "തിരഞ്ഞെടുത്ത സാഹചര്യത്തിലും പദ്ധതി സാമ്പത്തികമായി പോസിറ്റീവ് ആണ്."
-            )
-        )
-
-    # --------------------------------------------------------
-    # FINANCING
-    # --------------------------------------------------------
-
-    st.subheader(t("financing"))
-
-    own_capital = st.session_state.profile.get(
-        "capital",
-        50000
-    )
-
-    funding_gap = max(
-        0,
-        financials["startup"] - own_capital
-    )
-
-    st.metric(
-        t("funding_gap"),
-        f"₹{funding_gap:,.0f}"
-    )
-
-    st.markdown(
-        f"""
-        <div class="card">
-
-        <h3>
-        {
-            "Potential financing route"
-            if st.session_state.language == "English"
-            else
-            "സാധ്യതയുള്ള ധനസഹായ മാർഗം"
-        }
-        </h3>
-
-        <p>
-        {
-            "Micro / small enterprise financing may be explored depending on project size and eligibility."
-            if st.session_state.language == "English"
-            else
-            "പദ്ധതിയുടെ വലുപ്പവും യോഗ്യതയും അനുസരിച്ച് മൈക്രോ / ചെറുകിട സംരംഭ ധനസഹായം പരിശോധിക്കാം."
-        }
-        </p>
-
-        <p>
-        <b>{t("eligibility")}:</b>
-        {t("verify_source")}
-        </p>
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.warning(t("no_guarantee"))
-
-    st.write("")
-
-    # --------------------------------------------------------
-    # ACTION PLAN
-    # --------------------------------------------------------
-
-    st.subheader(t("action_plan"))
-
-    actions = [
-        "1. Validate local customer demand",
-        "2. Verify supplier and raw-material costs",
-        "3. Run a small pilot",
-        "4. Collect customer feedback",
-        "5. Launch at controlled scale",
-        "6. Monitor sales and expenses monthly",
-    ]
-
-    if st.session_state.language == "Malayalam":
-
-        actions = [
-            "1. പ്രാദേശിക ഉപഭോക്തൃ ആവശ്യം പരിശോധിക്കുക",
-            "2. വിതരണക്കാരുടെയും അസംസ്കൃത വസ്തുക്കളുടെയും ചെലവ് സ്ഥിരീകരിക്കുക",
-            "3. ചെറിയ പൈലറ്റ് നടത്തുക",
-            "4. ഉപഭോക്തൃ അഭിപ്രായം ശേഖരിക്കുക",
-            "5. നിയന്ത്രിത രീതിയിൽ ആരംഭിക്കുക",
-            "6. മാസത്തിൽ വിൽപ്പനയും ചെലവുകളും നിരീക്ഷിക്കുക",
-        ]
-
-    for action in actions:
-        st.markdown(
-            f"""
-            <div class="card" style="margin-bottom:8px;">
-                {action}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    st.write("")
-
-    # --------------------------------------------------------
-    # MONITORING
-    # --------------------------------------------------------
-
-    st.subheader(t("monitoring"))
-
-    monitor_col1, monitor_col2, monitor_col3 = st.columns(3)
-
-    with monitor_col1:
-        st.number_input(
-            (
-                "Actual sales"
-                if st.session_state.language == "English"
-                else
-                "യഥാർത്ഥ വിൽപ്പന"
-            ),
-            min_value=0,
-            value=0,
-            step=1000
-        )
-
-    with monitor_col2:
-        st.number_input(
-            (
-                "Actual expenses"
-                if st.session_state.language == "English"
-                else
-                "യഥാർത്ഥ ചെലവ്"
-            ),
-            min_value=0,
-            value=0,
-            step=1000
-        )
-
-    with monitor_col3:
-        st.number_input(
-            (
-                "Orders"
-                if st.session_state.language == "English"
-                else
-                "ഓർഡറുകൾ"
-            ),
-            min_value=0,
-            value=0,
-            step=1
-        )
-
-    st.info(
-        (
-            "Future backend integration can store monthly actuals and compare them with predictions."
-            if st.session_state.language == "English"
-            else
-            "ഭാവിയിലെ backend integration വഴി മാസത്തിലെ യഥാർത്ഥ കണക്കുകൾ സൂക്ഷിച്ച് പ്രവചനങ്ങളുമായി താരതമ്യം ചെയ്യാം."
-        )
-    )
-
-    st.write("")
 
     if st.button(
+
         t("back"),
-        use_container_width=True
+
+        use_container_width=True,
+
+        key="back_frame3_v4",
     ):
-        st.session_state.page = 3
+
+        st.session_state.page = 2
+
         st.rerun()
 
 
 # ============================================================
-# MAIN APP
+# MAIN APP ROUTER
 # ============================================================
 
 render_header()
 
 render_steps()
 
+
 if st.session_state.page == 1:
 
     render_frame_1()
+
 
 elif st.session_state.page == 2:
 
     render_frame_2()
 
+
 elif st.session_state.page == 3:
 
     render_frame_3()
-
-elif st.session_state.page == 4:
-
-    render_frame_4()
