@@ -1361,4 +1361,4 @@ elif st.session_state.page == 2:
 
 elif st.session_state.page == 3:
 
-    render_frame3())
+    render_frame3()
