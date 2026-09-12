@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+from frames.frame3_opportunity import render_frame3
 
 # ============================================================
 # PAGE CONFIG
@@ -1337,33 +1337,6 @@ def render_frame_2():
             st.rerun()
 
 
-# ============================================================
-# FRAME 3 — TEMPORARY
-# ============================================================
-
-def render_frame_3():
-
-    st.markdown(
-        "## Business Planning"
-    )
-
-    st.info(
-        "Frame 3 will contain the opportunity radar, "
-        "business detail, financial dashboard, risk analysis, "
-        "what-if simulator, financing guidance, action plan "
-        "and monitoring workflow."
-    )
-
-    st.write("")
-
-    if st.button(
-        t("back"),
-        use_container_width=True,
-        key="back_frame3_v4",
-    ):
-
-        st.session_state.page = 2
-        st.rerun()
 
 
 # ============================================================
@@ -1388,4 +1361,4 @@ elif st.session_state.page == 2:
 
 elif st.session_state.page == 3:
 
-    render_frame_3()
+    render_frame3())
