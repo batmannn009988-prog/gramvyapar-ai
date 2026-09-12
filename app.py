@@ -123,6 +123,40 @@ TEXT = {
         "risk_low": "Low",
         "risk_medium": "Medium",
         "risk_high": "High",
+
+        # ----------------------------------------------------
+        # FRAME 3
+        # ----------------------------------------------------
+
+        "opportunity_title": "Opportunity Radar",
+        "opportunity_subtitle": "Explore business opportunities that match your profile and local market.",
+
+        "your_location": "Your selected location",
+        "your_profile": "Your profile",
+
+        "opportunity_score": "Opportunity Score",
+        "demand": "Demand",
+        "competition": "Competition",
+        "skill_fit": "Skill Fit",
+        "capital_fit": "Capital Fit",
+        "risk_fit": "Risk Fit",
+
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low",
+
+        "why_fit": "Why this fits you",
+        "confidence": "Confidence",
+        "prototype_confidence": "Prototype estimate",
+
+        "rank_1": "Strongest match",
+        "rank_2": "Good match",
+        "rank_3": "Potential match",
+
+        "opportunity_note": "These rankings are prototype recommendations. They are not loan approval or guaranteed business success.",
+
+        "view_business": "View Business",
+        "frame3_back": "Back",
     },
 
     "ml": {
@@ -212,6 +246,40 @@ TEXT = {
         "risk_low": "കുറവ്",
         "risk_medium": "മിതമായ",
         "risk_high": "ഉയർന്ന",
+
+        # ----------------------------------------------------
+        # FRAME 3
+        # ----------------------------------------------------
+
+        "opportunity_title": "ബിസിനസ് അവസരങ്ങൾ",
+        "opportunity_subtitle": "നിങ്ങളുടെ പ്രൊഫൈലിനും പ്രാദേശിക വിപണിക്കും അനുയോജ്യമായ ബിസിനസ് അവസരങ്ങൾ കണ്ടെത്തുക.",
+
+        "your_location": "തിരഞ്ഞെടുത്ത സ്ഥലം",
+        "your_profile": "നിങ്ങളുടെ പ്രൊഫൈൽ",
+
+        "opportunity_score": "അവസര സ്കോർ",
+        "demand": "ആവശ്യകത",
+        "competition": "മത്സരം",
+        "skill_fit": "കഴിവ് അനുയോജ്യത",
+        "capital_fit": "മൂലധന അനുയോജ്യത",
+        "risk_fit": "റിസ്ക് അനുയോജ്യത",
+
+        "high": "ഉയർന്ന",
+        "medium": "മിതമായ",
+        "low": "കുറവ്",
+
+        "why_fit": "ഇത് നിങ്ങൾക്ക് അനുയോജ്യമാകുന്നത് എന്തുകൊണ്ട്",
+        "confidence": "വിശ്വാസ്യത",
+        "prototype_confidence": "പ്രോട്ടോടൈപ്പ് കണക്ക്",
+
+        "rank_1": "ഏറ്റവും ശക്തമായ പൊരുത്തം",
+        "rank_2": "നല്ല പൊരുത്തം",
+        "rank_3": "സാധ്യതയുള്ള പൊരുത്തം",
+
+        "opportunity_note": "ഈ റാങ്കിംഗുകൾ പ്രോട്ടോടൈപ്പ് ശുപാർശകളാണ്. ഇവ വായ്പാ അംഗീകാരമോ ബിസിനസ് വിജയത്തിനുള്ള ഉറപ്പോ അല്ല.",
+
+        "view_business": "ബിസിനസ് കാണുക",
+        "frame3_back": "തിരികെ",
     },
 }
 
@@ -377,11 +445,14 @@ DEFAULT_STATE = {
     "district": "Kozhikode",
     "local_body": "Kozhikode Municipal Corporation",
     "ward": 1,
+    "selected_opportunity": None,
 }
 
 
 for key, value in DEFAULT_STATE.items():
+
     if key not in st.session_state:
+
         st.session_state[key] = value
 
 
@@ -515,6 +586,134 @@ st.markdown(
         margin-bottom: 12px;
     }}
 
+    /* ========================================================
+       FRAME 3
+       ======================================================== */
+
+    .opportunity-card {{
+        background: {WHITE};
+        border-radius: 18px;
+        padding: 22px;
+        border: 1px solid #E7E4D9;
+        margin-bottom: 18px;
+    }}
+
+    .opportunity-card-top {{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }}
+
+    .opportunity-rank {{
+        color: {PRIMARY_GREEN};
+        font-size: 18px;
+        font-weight: 800;
+    }}
+
+    .opportunity-name {{
+        color: {DARK_BROWN};
+        font-size: 23px;
+        font-weight: 800;
+        margin-bottom: 3px;
+    }}
+
+    .opportunity-match {{
+        color: #66685F;
+        font-size: 13px;
+        margin-bottom: 15px;
+    }}
+
+    .score-box {{
+        background: {LIGHT_GREEN};
+        border-radius: 14px;
+        padding: 12px 18px;
+        text-align: center;
+        min-width: 105px;
+    }}
+
+    .score-number {{
+        color: {PRIMARY_GREEN};
+        font-size: 27px;
+        font-weight: 850;
+    }}
+
+    .score-label {{
+        color: {DARK_BROWN};
+        font-size: 11px;
+        font-weight: 700;
+    }}
+
+    .fit-row {{
+        margin-top: 10px;
+    }}
+
+    .fit-label {{
+        font-size: 13px;
+        font-weight: 700;
+        color: {DARK_BROWN};
+        margin-bottom: 4px;
+    }}
+
+    .fit-track {{
+        background: #E9E8E0;
+        height: 9px;
+        border-radius: 8px;
+        overflow: hidden;
+    }}
+
+    .fit-fill {{
+        background: {SECONDARY_GREEN};
+        height: 9px;
+        border-radius: 8px;
+    }}
+
+    .why-box {{
+        background: {LIGHT_ORANGE};
+        border-radius: 12px;
+        padding: 13px 15px;
+        margin-top: 17px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: {DARK_BROWN};
+    }}
+
+    .confidence-box {{
+        background: #F4F3ED;
+        border-radius: 10px;
+        padding: 9px 12px;
+        margin-top: 12px;
+        font-size: 12px;
+        color: #66685F;
+    }}
+
+    .profile-summary {{
+        background: {WHITE};
+        border: 1px solid #E7E4D9;
+        border-radius: 16px;
+        padding: 18px;
+        min-height: 130px;
+    }}
+
+    .summary-title {{
+        font-size: 13px;
+        font-weight: 700;
+        color: #66685F;
+        margin-bottom: 6px;
+    }}
+
+    .summary-main {{
+        font-size: 17px;
+        font-weight: 800;
+        color: {DARK_BROWN};
+    }}
+
+    .summary-small {{
+        font-size: 13px;
+        color: #66685F;
+        margin-top: 5px;
+    }}
+
     div.stButton > button {{
         border-radius: 10px;
         font-weight: 700;
@@ -541,14 +740,24 @@ st.markdown(
 # ============================================================
 
 def t(key):
-    return TEXT[st.session_state.language].get(key, key)
+
+    return TEXT[
+        st.session_state.language
+    ].get(key, key)
 
 
 def translated_options(items):
-    return [t(key) for _, key in items]
+
+    return [
+        t(key)
+        for _, key in items
+    ]
 
 
-def original_from_translated(selected_values, items):
+def original_from_translated(
+    selected_values,
+    items,
+):
 
     mapping = {
         t(key): original
@@ -594,10 +803,6 @@ def render_header():
     col1, col2 = st.columns([4, 1])
 
     with col1:
-
-        # IMPORTANT:
-        # No HTML is used here.
-        # This prevents raw <div> code from appearing.
 
         st.markdown(
             f"""
@@ -1338,32 +1543,847 @@ def render_frame_2():
 
 
 # ============================================================
-# FRAME 3 — TEMPORARY
+# FRAME 3 — OPPORTUNITY RADAR
 # ============================================================
 
-def render_frame_3():
+def calculate_opportunity_score(
+    business,
+    skills,
+    interests,
+    capital,
+    risk,
+    location_data,
+):
 
-    st.markdown(
-        "## Business Planning"
+    # --------------------------------------------------------
+    # Base prototype values
+    # --------------------------------------------------------
+
+    base_values = {
+
+        "Bakery / Food": {
+            "demand": 82,
+            "competition": 62,
+            "skill_fit": 55,
+            "capital_fit": 82,
+            "risk_fit": 72,
+        },
+
+        "Dairy": {
+            "demand": 78,
+            "competition": 58,
+            "skill_fit": 62,
+            "capital_fit": 60,
+            "risk_fit": 65,
+        },
+
+        "Tailoring": {
+            "demand": 72,
+            "competition": 52,
+            "skill_fit": 72,
+            "capital_fit": 88,
+            "risk_fit": 82,
+        },
+
+        "Retail": {
+            "demand": 70,
+            "competition": 45,
+            "skill_fit": 55,
+            "capital_fit": 58,
+            "risk_fit": 60,
+        },
+
+        "Agriculture": {
+            "demand": 75,
+            "competition": 60,
+            "skill_fit": 60,
+            "capital_fit": 55,
+            "risk_fit": 55,
+        },
+
+        "Repair Services": {
+            "demand": 76,
+            "competition": 65,
+            "skill_fit": 70,
+            "capital_fit": 78,
+            "risk_fit": 76,
+        },
+
+        "Beauty / Personal Care": {
+            "demand": 74,
+            "competition": 60,
+            "skill_fit": 55,
+            "capital_fit": 72,
+            "risk_fit": 74,
+        },
+
+        "Handicrafts": {
+            "demand": 64,
+            "competition": 68,
+            "skill_fit": 68,
+            "capital_fit": 80,
+            "risk_fit": 70,
+        },
+    }
+
+    values = base_values.get(
+        business,
+        {
+            "demand": 65,
+            "competition": 60,
+            "skill_fit": 60,
+            "capital_fit": 60,
+            "risk_fit": 60,
+        },
+    ).copy()
+
+    # --------------------------------------------------------
+    # Demand adjustment from local market
+    # --------------------------------------------------------
+
+    demand_adjustment = (
+        location_data["seasonal_demand"] - 60
+    ) * 0.25
+
+    values["demand"] = int(
+        np.clip(
+            values["demand"] + demand_adjustment,
+            0,
+            100,
+        )
     )
 
-    st.info(
-        "Frame 3 will contain the opportunity radar, "
-        "business detail, financial dashboard, risk analysis, "
-        "what-if simulator, financing guidance, action plan "
-        "and monitoring workflow."
+    # --------------------------------------------------------
+    # Competition adjustment
+    #
+    # Higher competition means lower opportunity fit.
+    # --------------------------------------------------------
+
+    competition_pressure = (
+        location_data["business_density"] - 40
+    ) * 0.25
+
+    values["competition"] = int(
+        np.clip(
+            values["competition"] - competition_pressure,
+            0,
+            100,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Skill matching
+    # --------------------------------------------------------
+
+    skill_matches = {
+
+        "Bakery / Food": [
+            "Cooking",
+            "Sales",
+        ],
+
+        "Dairy": [
+            "Farming",
+            "Sales",
+        ],
+
+        "Tailoring": [
+            "Tailoring",
+        ],
+
+        "Retail": [
+            "Sales",
+            "Accounting",
+        ],
+
+        "Agriculture": [
+            "Farming",
+        ],
+
+        "Repair Services": [
+            "Repair / Technical",
+        ],
+
+        "Beauty / Personal Care": [
+            "Sales",
+        ],
+
+        "Handicrafts": [
+            "Handicrafts",
+            "Sales",
+        ],
+    }
+
+    matching_skills = [
+        skill
+        for skill in skills
+        if skill in skill_matches.get(
+            business,
+            [],
+        )
+    ]
+
+    if matching_skills:
+
+        values["skill_fit"] = int(
+            np.clip(
+                values["skill_fit"] + 25,
+                0,
+                100,
+            )
+        )
+
+    # --------------------------------------------------------
+    # Interest matching
+    # --------------------------------------------------------
+
+    if business in interests:
+
+        values["demand"] = int(
+            np.clip(
+                values["demand"] + 10,
+                0,
+                100,
+            )
+        )
+
+    # --------------------------------------------------------
+    # Capital matching
+    # --------------------------------------------------------
+
+    capital_requirements = {
+
+        "Bakery / Food": 80000,
+        "Dairy": 100000,
+        "Tailoring": 50000,
+        "Retail": 100000,
+        "Agriculture": 75000,
+        "Repair Services": 60000,
+        "Beauty / Personal Care": 70000,
+        "Handicrafts": 45000,
+    }
+
+    required_capital = capital_requirements.get(
+        business,
+        75000,
+    )
+
+    if capital >= required_capital:
+
+        values["capital_fit"] = int(
+            np.clip(
+                values["capital_fit"] + 12,
+                0,
+                100,
+            )
+        )
+
+    elif capital < required_capital * 0.5:
+
+        values["capital_fit"] = int(
+            np.clip(
+                values["capital_fit"] - 20,
+                0,
+                100,
+            )
+        )
+
+    # --------------------------------------------------------
+    # Risk preference
+    # --------------------------------------------------------
+
+    if risk == "Low":
+
+        if values["risk_fit"] >= 70:
+            values["risk_fit"] += 8
+
+        else:
+            values["risk_fit"] -= 5
+
+    elif risk == "High":
+
+        values["risk_fit"] = min(
+            100,
+            values["risk_fit"] + 8,
+        )
+
+    values["risk_fit"] = int(
+        np.clip(
+            values["risk_fit"],
+            0,
+            100,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Overall score
+    #
+    # Prototype weighting:
+    #
+    # Demand        25%
+    # Competition   20%
+    # Skill Fit     20%
+    # Capital Fit   20%
+    # Risk Fit      15%
+    # --------------------------------------------------------
+
+    score = (
+        values["demand"] * 0.25
+        + values["competition"] * 0.20
+        + values["skill_fit"] * 0.20
+        + values["capital_fit"] * 0.20
+        + values["risk_fit"] * 0.15
+    )
+
+    return values, int(round(score))
+
+
+# ============================================================
+# FRAME 3 DATA
+# ============================================================
+
+def generate_opportunities():
+
+    location_data = generate_location_data(
+        st.session_state.district,
+        st.session_state.local_body,
+        st.session_state.ward,
+    )
+
+    interests = st.session_state.interests
+    skills = st.session_state.skills
+    capital = st.session_state.capital
+    risk = st.session_state.risk
+
+    all_businesses = [
+        "Bakery / Food",
+        "Dairy",
+        "Tailoring",
+        "Retail",
+        "Agriculture",
+        "Repair Services",
+        "Beauty / Personal Care",
+        "Handicrafts",
+    ]
+
+    opportunities = []
+
+    for business in all_businesses:
+
+        values, score = calculate_opportunity_score(
+            business,
+            skills,
+            interests,
+            capital,
+            risk,
+            location_data,
+        )
+
+        opportunities.append(
+            {
+                "business": business,
+                "score": score,
+                "demand": values["demand"],
+                "competition": values["competition"],
+                "skill_fit": values["skill_fit"],
+                "capital_fit": values["capital_fit"],
+                "risk_fit": values["risk_fit"],
+            }
+        )
+
+    opportunities = sorted(
+        opportunities,
+        key=lambda x: x["score"],
+        reverse=True,
+    )
+
+    return opportunities[:3]
+
+
+# ============================================================
+# FRAME 3 CARD
+# ============================================================
+
+def render_opportunity_card(
+    opportunity,
+    rank,
+):
+
+    business = opportunity["business"]
+
+    score = opportunity["score"]
+
+    rank_labels = {
+        1: t("rank_1"),
+        2: t("rank_2"),
+        3: t("rank_3"),
+    }
+
+    st.markdown(
+        f"""
+        <div class="opportunity-card">
+
+            <div class="opportunity-card-top">
+
+                <div>
+
+                    <div class="opportunity-rank">
+                        #{rank} · {rank_labels.get(rank, "")}
+                    </div>
+
+                    <div class="opportunity-name">
+                        {business}
+                    </div>
+
+                    <div class="opportunity-match">
+                        {t("opportunity_score")}: {score}/100
+                    </div>
+
+                </div>
+
+                <div class="score-box">
+
+                    <div class="score-number">
+                        {score}
+                    </div>
+
+                    <div class="score-label">
+                        {t("opportunity_score")}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # --------------------------------------------------------
+    # Fit metrics
+    # --------------------------------------------------------
+
+    metric_col1, metric_col2 = st.columns(2)
+
+    with metric_col1:
+
+        st.markdown(
+            f"""
+            <div class="fit-row">
+
+                <div class="fit-label">
+                    {t("demand")} · {opportunity["demand"]}%
+                </div>
+
+                <div class="fit-track">
+
+                    <div
+                        class="fit-fill"
+                        style="width:{opportunity["demand"]}%"
+                    ></div>
+
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with metric_col2:
+
+        st.markdown(
+            f"""
+            <div class="fit-row">
+
+                <div class="fit-label">
+                    {t("competition")} · {opportunity["competition"]}%
+                </div>
+
+                <div class="fit-track">
+
+                    <div
+                        class="fit-fill"
+                        style="width:{opportunity["competition"]}%"
+                    ></div>
+
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    metric_col3, metric_col4 = st.columns(2)
+
+    with metric_col3:
+
+        st.markdown(
+            f"""
+            <div class="fit-row">
+
+                <div class="fit-label">
+                    {t("skill_fit")} · {opportunity["skill_fit"]}%
+                </div>
+
+                <div class="fit-track">
+
+                    <div
+                        class="fit-fill"
+                        style="width:{opportunity["skill_fit"]}%"
+                    ></div>
+
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with metric_col4:
+
+        st.markdown(
+            f"""
+            <div class="fit-row">
+
+                <div class="fit-label">
+                    {t("capital_fit")} · {opportunity["capital_fit"]}%
+                </div>
+
+                <div class="fit-track">
+
+                    <div
+                        class="fit-fill"
+                        style="width:{opportunity["capital_fit"]}%"
+                    ></div>
+
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown(
+        f"""
+        <div class="fit-row">
+
+            <div class="fit-label">
+                {t("risk_fit")} · {opportunity["risk_fit"]}%
+            </div>
+
+            <div class="fit-track">
+
+                <div
+                    class="fit-fill"
+                    style="width:{opportunity["risk_fit"]}%"
+                ></div>
+
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # --------------------------------------------------------
+    # Why this fits
+    # --------------------------------------------------------
+
+    matching_skills = []
+
+    skill_matches = {
+
+        "Bakery / Food": [
+            "Cooking",
+            "Sales",
+        ],
+
+        "Dairy": [
+            "Farming",
+            "Sales",
+        ],
+
+        "Tailoring": [
+            "Tailoring",
+        ],
+
+        "Retail": [
+            "Sales",
+            "Accounting",
+        ],
+
+        "Agriculture": [
+            "Farming",
+        ],
+
+        "Repair Services": [
+            "Repair / Technical",
+        ],
+
+        "Beauty / Personal Care": [
+            "Sales",
+        ],
+
+        "Handicrafts": [
+            "Handicrafts",
+            "Sales",
+        ],
+    }
+
+    for skill in st.session_state.skills:
+
+        if skill in skill_matches.get(
+            business,
+            [],
+        ):
+
+            matching_skills.append(skill)
+
+    if matching_skills:
+
+        skill_text = ", ".join(
+            matching_skills
+        )
+
+        why_text = (
+            f"{business} matches your "
+            f"skills ({skill_text}) and "
+            f"your selected local-market profile."
+        )
+
+    elif business in st.session_state.interests:
+
+        why_text = (
+            f"{business} is one of your selected "
+            f"business interests and shows a "
+            f"promising prototype opportunity score "
+            f"for the selected location."
+        )
+
+    else:
+
+        why_text = (
+            f"{business} shows a relatively strong "
+            f"balance of local demand, competition, "
+            f"capital fit and risk fit in this prototype."
+        )
+
+    st.markdown(
+        f"""
+        <div class="why-box">
+
+            <strong>
+                {t("why_fit")}
+            </strong>
+
+            <br>
+
+            {why_text}
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # --------------------------------------------------------
+    # Confidence
+    # --------------------------------------------------------
+
+    st.markdown(
+        f"""
+        <div class="confidence-box">
+
+            <strong>
+                {t("confidence")}:
+            </strong>
+
+            {t("prototype_confidence")}
+
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     st.write("")
 
     if st.button(
-        t("back"),
+        t("view_business"),
         use_container_width=True,
-        key="back_frame3_v4",
+        key=f"view_business_{rank}_{business}",
     ):
 
-        st.session_state.page = 2
-        st.rerun()
+        st.session_state.selected_opportunity = business
+
+        st.info(
+            f"{business} selected. "
+            "The detailed business analysis will be connected in Frame 4."
+        )
+
+
+# ============================================================
+# FRAME 3
+# ============================================================
+
+def render_frame_3():
+
+    st.markdown(
+        f"## {t('opportunity_title')}"
+    )
+
+    st.caption(
+        t("opportunity_subtitle")
+    )
+
+    st.write("")
+
+    # ========================================================
+    # PROFILE / LOCATION SUMMARY
+    # ========================================================
+
+    summary_col1, summary_col2, summary_col3 = st.columns(3)
+
+    with summary_col1:
+
+        interests = (
+            ", ".join(
+                st.session_state.interests
+            )
+            if st.session_state.interests
+            else "No interests selected"
+        )
+
+        st.markdown(
+            f"""
+            <div class="profile-summary">
+
+                <div class="summary-title">
+                    {t("your_profile")}
+                </div>
+
+                <div class="summary-main">
+                    ₹{st.session_state.capital:,.0f}
+                </div>
+
+                <div class="summary-small">
+                    {st.session_state.experience}
+                    {t("years")} experience
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with summary_col2:
+
+        st.markdown(
+            f"""
+            <div class="profile-summary">
+
+                <div class="summary-title">
+                    {t("your_location")}
+                </div>
+
+                <div class="summary-main">
+                    {st.session_state.district}
+                </div>
+
+                <div class="summary-small">
+                    {st.session_state.local_body}
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with summary_col3:
+
+        st.markdown(
+            f"""
+            <div class="profile-summary">
+
+                <div class="summary-title">
+                    {t("business_interest_question")}
+                </div>
+
+                <div class="summary-main">
+                    {interests}
+                </div>
+
+                <div class="summary-small">
+                    Risk preference:
+                    {st.session_state.risk}
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.write("")
+
+    # ========================================================
+    # EXPLANATION
+    # ========================================================
+
+    st.info(
+        t("opportunity_note")
+    )
+
+    # ========================================================
+    # OPPORTUNITIES
+    # ========================================================
+
+    opportunities = generate_opportunities()
+
+    for rank, opportunity in enumerate(
+        opportunities,
+        start=1,
+    ):
+
+        render_opportunity_card(
+            opportunity,
+            rank,
+        )
+
+    # ========================================================
+    # NAVIGATION
+    # ========================================================
+
+    st.write("")
+
+    back_col, continue_col = st.columns(2)
+
+    with back_col:
+
+        if st.button(
+            t("back"),
+            use_container_width=True,
+            key="back_frame3_v4",
+        ):
+
+            st.session_state.page = 2
+
+            st.rerun()
+
+    with continue_col:
+
+        if st.button(
+            t("continue"),
+            type="primary",
+            use_container_width=True,
+            key="continue_frame3_v4",
+        ):
+
+            # ------------------------------------------------
+            # Frame 4 will be connected here next.
+            # ------------------------------------------------
+
+            st.session_state.page = 4
+
+            st.rerun()
 
 
 # ============================================================
@@ -1378,14 +2398,37 @@ render_steps()
 
 st.write("")
 
+
 if st.session_state.page == 1:
 
     render_frame_1()
+
 
 elif st.session_state.page == 2:
 
     render_frame_2()
 
+
 elif st.session_state.page == 3:
 
     render_frame_3()
+
+
+elif st.session_state.page == 4:
+
+    # Temporary placeholder until we build Frame 4.
+    st.markdown("## Business Detail")
+
+    st.info(
+        "Frame 4 will be built next."
+    )
+
+    if st.button(
+        t("back"),
+        use_container_width=True,
+        key="back_frame4_temp",
+    ):
+
+        st.session_state.page = 3
+
+        st.rerun()
