@@ -42,6 +42,7 @@ TEXT = {
 
         "step1": "Step 1 of 10",
         "step2": "Step 2 of 10",
+        "step3": "Step 3 of 10",
 
         "profile_title": "Tell us about yourself",
         "profile_desc":
@@ -151,6 +152,7 @@ TEXT = {
         "prototype_radius": "Prototype target radius",
 
         "frame3": "Opportunity Radar",
+
         "frame3_desc":
             "Frame 3 will rank business opportunities using "
             "Demand, Competition, Skills, Capital and Risk.",
@@ -180,6 +182,7 @@ TEXT = {
 
         "step1": "ഘട്ടം 1 / 10",
         "step2": "ഘട്ടം 2 / 10",
+        "step3": "ഘട്ടം 3 / 10",
 
         "profile_title": "നിങ്ങളെക്കുറിച്ച് പറയൂ",
 
@@ -375,7 +378,10 @@ def t(key):
 
     language = st.session_state.language
 
-    return TEXT.get(language, TEXT["English"]).get(
+    return TEXT.get(
+        language,
+        TEXT["English"]
+    ).get(
         key,
         TEXT["English"].get(key, key)
     )
@@ -412,9 +418,10 @@ st.markdown(
         color: {BROWN};
     }}
 
-    /* ================================================
-       PRIMARY BUTTONS
-       ================================================ */
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
 
     div.stButton > button {{
         background-color: {OLIVE};
@@ -432,9 +439,9 @@ st.markdown(
     }}
 
 
-    /* ================================================
+    /* =====================================================
        SELECT BOX
-       ================================================ */
+       ===================================================== */
 
     div[data-baseweb="select"] > div {{
         background-color: white !important;
@@ -447,9 +454,9 @@ st.markdown(
     }}
 
 
-    /* ================================================
-       TEXT INPUT
-       ================================================ */
+    /* =====================================================
+       TEXT INPUTS
+       ===================================================== */
 
     input {{
         color: {BROWN} !important;
@@ -462,9 +469,9 @@ st.markdown(
     }}
 
 
-    /* ================================================
+    /* =====================================================
        NUMBER INPUT
-       ================================================ */
+       ===================================================== */
 
     div[data-testid="stNumberInput"] input {{
         color: {BROWN} !important;
@@ -472,9 +479,9 @@ st.markdown(
     }}
 
 
-    /* ================================================
+    /* =====================================================
        CHECKBOX
-       ================================================ */
+       ===================================================== */
 
     div[data-testid="stCheckbox"] {{
         background-color: {LIGHT_GREY};
@@ -487,10 +494,14 @@ st.markdown(
         color: {BROWN} !important;
     }}
 
+    div[data-testid="stCheckbox"] label p {{
+        color: {BROWN} !important;
+    }}
 
-    /* ================================================
+
+    /* =====================================================
        RADIO
-       ================================================ */
+       ===================================================== */
 
     div[data-testid="stRadio"] {{
         color: {BROWN} !important;
@@ -505,9 +516,9 @@ st.markdown(
     }}
 
 
-    /* ================================================
+    /* =====================================================
        SLIDER
-       ================================================ */
+       ===================================================== */
 
     div[data-testid="stSlider"] {{
         padding-top: 5px;
@@ -517,10 +528,14 @@ st.markdown(
         color: {BROWN} !important;
     }}
 
+    div[data-testid="stSlider"] p {{
+        color: {BROWN} !important;
+    }}
 
-    /* ================================================
+
+    /* =====================================================
        METRIC CARDS
-       ================================================ */
+       ===================================================== */
 
     div[data-testid="stMetric"] {{
         background-color: white;
@@ -538,10 +553,10 @@ st.markdown(
     }}
 
 
-    /* ================================================
-       BLUE STREAMLIT INFO BOX
-       MAKE ALL TEXT WHITE
-       ================================================ */
+    /* =====================================================
+       INFO / BLUE BOXES
+       White text for readability
+       ===================================================== */
 
     div[data-testid="stAlert"] {{
         border-radius: 10px;
@@ -560,9 +575,9 @@ st.markdown(
     }}
 
 
-    /* ================================================
-       HELP TEXT
-       ================================================ */
+    /* =====================================================
+       WIDGET LABELS
+       ===================================================== */
 
     [data-testid="stWidgetLabel"] p {{
         color: {BROWN} !important;
@@ -597,7 +612,7 @@ def render_header():
                 if st.session_state.language == "English"
                 else 1
             ),
-            key="language_selector",
+            key="language_selector_v2",
         )
 
         if selected_language != st.session_state.language:
@@ -641,24 +656,35 @@ def render_frame_1():
         "Driving",
     ]
 
+    # Remove any old values that are no longer valid.
+    valid_saved_skills = [
+        skill
+        for skill in st.session_state.skills
+        if skill in skill_options
+    ]
+
+    st.session_state.skills = valid_saved_skills
+
     skills = st.multiselect(
         t("select_skills"),
         skill_options,
-        default=st.session_state.skills,
-        key="skills_input",
+        default=valid_saved_skills,
+        key="skills_input_v2",
     )
 
     custom_skill = st.text_input(
         t("other_skill"),
         placeholder=t("other_skill_placeholder"),
-        key="custom_skill",
+        key="custom_skill_v2",
     )
 
     if custom_skill.strip():
 
         if custom_skill.strip() not in skills:
 
-            skills = skills + [custom_skill.strip()]
+            skills = skills + [
+                custom_skill.strip()
+            ]
 
     st.session_state.skills = skills
 
@@ -675,7 +701,7 @@ def render_frame_1():
         max_value=50,
         value=int(st.session_state.experience),
         step=1,
-        key="experience_input",
+        key="experience_input_v2",
     )
 
     st.session_state.experience = experience
@@ -694,7 +720,7 @@ def render_frame_1():
         value=int(st.session_state.capital),
         step=5000,
         format="₹%d",
-        key="capital_input",
+        key="capital_input_v2",
     )
 
     st.session_state.capital = capital
@@ -722,17 +748,25 @@ def render_frame_1():
         "Small Manufacturing",
     ]
 
+    valid_saved_interests = [
+        interest
+        for interest in st.session_state.interests
+        if interest in interest_options
+    ]
+
+    st.session_state.interests = valid_saved_interests
+
     interests = st.multiselect(
         t("business_interest_question"),
         interest_options,
-        default=st.session_state.interests,
-        key="interests_input",
+        default=valid_saved_interests,
+        key="interests_input_v2",
     )
 
     custom_interest = st.text_input(
         t("other_interest"),
         placeholder=t("other_interest_placeholder"),
-        key="custom_interest",
+        key="custom_interest_v2",
     )
 
     if custom_interest.strip():
@@ -772,7 +806,7 @@ def render_frame_1():
         risk_options,
         index=current_risk_index,
         horizontal=True,
-        key="risk_input",
+        key="risk_input_v2",
     )
 
     reverse_risk = {
@@ -781,7 +815,9 @@ def render_frame_1():
         t("high"): "High",
     }
 
-    st.session_state.risk = reverse_risk[selected_risk]
+    st.session_state.risk = reverse_risk[
+        selected_risk
+    ]
 
 
     # =====================================================
@@ -793,7 +829,7 @@ def render_frame_1():
     existing = st.checkbox(
         t("existing_checkbox"),
         value=st.session_state.existing_business,
-        key="existing_business_input",
+        key="existing_business_input_v2",
     )
 
     st.session_state.existing_business = existing
@@ -804,7 +840,7 @@ def render_frame_1():
             t("business_name"),
             value=st.session_state.business_name,
             placeholder=t("business_name_placeholder"),
-            key="business_name_input",
+            key="business_name_input_v2",
         )
 
         st.session_state.business_name = business_name
@@ -816,7 +852,9 @@ def render_frame_1():
 
     st.divider()
 
-    col1, col2, col3 = st.columns([1, 2, 1])
+    col1, col2, col3 = st.columns(
+        [1, 2, 1]
+    )
 
     with col2:
 
@@ -824,6 +862,7 @@ def render_frame_1():
             t("continue"),
             use_container_width=True,
             type="primary",
+            key="frame1_continue_v2",
         ):
 
             st.session_state.page = 2
@@ -839,9 +878,13 @@ def render_frame_2():
 
     st.subheader(t("step2"))
 
-    st.title("📍 " + t("local_market"))
+    st.title(
+        "📍 " + t("local_market")
+    )
 
-    st.write(t("local_market_desc"))
+    st.write(
+        t("local_market_desc")
+    )
 
     st.divider()
 
@@ -850,7 +893,9 @@ def render_frame_2():
     # LOCATION
     # =====================================================
 
-    st.subheader(t("choose_location"))
+    st.subheader(
+        t("choose_location")
+    )
 
     # ALL 14 KERALA DISTRICTS
 
@@ -874,9 +919,9 @@ def render_frame_2():
     col1, col2, col3 = st.columns(3)
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # DISTRICT
-    # -----------------------------------------------------
+    # =====================================================
 
     with col1:
 
@@ -884,13 +929,13 @@ def render_frame_2():
             t("district"),
             kerala_districts,
             index=1,
-            key="district_selection",
+            key="district_selection_v2",
         )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # LOCAL BODY
-    # -----------------------------------------------------
+    # =====================================================
 
     with col2:
 
@@ -901,13 +946,13 @@ def render_frame_2():
                 "Sample Municipality",
                 "Sample Corporation",
             ],
-            key="local_body_selection",
+            key="local_body_selection_v2",
         )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # WARD NUMBER
-    # -----------------------------------------------------
+    # =====================================================
 
     with col3:
 
@@ -918,7 +963,7 @@ def render_frame_2():
             value=1,
             step=1,
             help=t("ward_help"),
-            key="ward_number",
+            key="ward_number_v2",
         )
 
 
@@ -931,7 +976,9 @@ def render_frame_2():
     # DATA COVERAGE
     # =====================================================
 
-    st.subheader(t("coverage"))
+    st.subheader(
+        t("coverage")
+    )
 
     coverage_col1, coverage_col2 = st.columns(
         [3, 1]
@@ -955,7 +1002,9 @@ def render_frame_2():
     # LOCAL MARKET SNAPSHOT
     # =====================================================
 
-    st.subheader(t("market_snapshot"))
+    st.subheader(
+        t("market_snapshot")
+    )
 
     m1, m2, m3, m4 = st.columns(4)
 
@@ -996,21 +1045,28 @@ def render_frame_2():
         )
 
 
-    st.caption(
-        "Each value should be replaced with verified local data "
-        "in the production version."
-        if st.session_state.language == "English"
-        else
-        "പ്രൊഡക്ഷൻ പതിപ്പിൽ ഓരോ മൂല്യവും പരിശോധിച്ച പ്രാദേശിക "
-        "ഡാറ്റ ഉപയോഗിച്ച് മാറ്റണം."
-    )
+    if st.session_state.language == "English":
+
+        st.caption(
+            "Each value should be replaced with verified "
+            "local data in the production version."
+        )
+
+    else:
+
+        st.caption(
+            "പ്രൊഡക്ഷൻ പതിപ്പിൽ ഓരോ മൂല്യവും പരിശോധിച്ച "
+            "പ്രാദേശിക ഡാറ്റ ഉപയോഗിച്ച് മാറ്റണം."
+        )
 
 
     # =====================================================
     # MAP
     # =====================================================
 
-    st.subheader("🗺️ " + t("map_title"))
+    st.subheader(
+        "🗺️ " + t("map_title")
+    )
 
     map_data = pd.DataFrame(
         {
@@ -1044,7 +1100,9 @@ def render_frame_2():
     # MARKET SIGNALS
     # =====================================================
 
-    st.subheader(t("market_signals"))
+    st.subheader(
+        t("market_signals")
+    )
 
     signal_col1, signal_col2 = st.columns(2)
 
@@ -1087,7 +1145,9 @@ def render_frame_2():
     # MARKET REACH
     # =====================================================
 
-    st.subheader(t("market_reach"))
+    st.subheader(
+        t("market_reach")
+    )
 
     reach_col1, reach_col2, reach_col3 = st.columns(3)
 
@@ -1150,6 +1210,7 @@ def render_frame_2():
         if st.button(
             t("back"),
             use_container_width=True,
+            key="frame2_back_v2",
         ):
 
             st.session_state.page = 1
@@ -1163,6 +1224,7 @@ def render_frame_2():
             t("continue"),
             use_container_width=True,
             type="primary",
+            key="frame2_continue_v2",
         ):
 
             st.session_state.page = 3
@@ -1176,9 +1238,13 @@ def render_frame_2():
 
 def render_frame_3():
 
-    st.subheader("Step 3 of 10")
+    st.subheader(
+        t("step3")
+    )
 
-    st.title("🎯 " + t("frame3"))
+    st.title(
+        "🎯 " + t("frame3")
+    )
 
     st.info(
         t("frame3_desc")
@@ -1186,7 +1252,9 @@ def render_frame_3():
 
     st.divider()
 
-    st.subheader(t("coming_next"))
+    st.subheader(
+        t("coming_next")
+    )
 
     col1, col2, col3 = st.columns(3)
 
@@ -1236,7 +1304,8 @@ def render_frame_3():
     st.divider()
 
     if st.button(
-        t("back_dashboard")
+        t("back_dashboard"),
+        key="frame3_back_v2",
     ):
 
         st.session_state.page = 2
