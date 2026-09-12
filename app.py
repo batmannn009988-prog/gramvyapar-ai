@@ -392,16 +392,40 @@ st.markdown(
     }}
 
     /* =====================================================
-       TOGGLE
+       EXISTING BUSINESS TOGGLE
        ===================================================== */
+
+    /*
+       OFF STATE:
+       Cream background + olive outline
+
+       ON STATE:
+       Olive background + white text
+    */
+
+    div[data-testid="stToggle"] {{
+        background-color: transparent !important;
+        border-radius: 14px !important;
+        padding: 4px 8px !important;
+    }}
 
     div[data-testid="stToggle"] label {{
         color: {TEXT} !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+    }}
+
+    div[data-testid="stToggle"] label p {{
+        color: {TEXT} !important;
+        font-weight: 700 !important;
+    }}
+
+    div[data-testid="stToggle"] button {{
+        border: 2px solid {PRIMARY} !important;
     }}
 
     /* =====================================================
-       BUTTONS
+       BUTTON
        ===================================================== */
 
     div.stButton > button {{
@@ -703,7 +727,7 @@ def render_profile():
     )
 
     # =====================================================
-    # RISK DESCRIPTION CARDS
+    # RISK CARDS
     # =====================================================
 
     risk_col1, risk_col2, risk_col3 = st.columns(3)
