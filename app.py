@@ -58,9 +58,19 @@ TEXTS = {
         "existing": "I already have a business",
         "existing_placeholder": "Example: Small tailoring shop",
         "continue": "Continue",
-        "profile_saved": "Profile saved successfully.",
+        "back": "← Back to Profile",
         "dashboard": "Local Dashboard",
         "dashboard_subtitle": "Your local business intelligence will appear here.",
+        "profile_received": "Profile received",
+        "skills_display": "Skills",
+        "experience_display": "Experience",
+        "capital_display": "Available capital",
+        "interests_display": "Business interests",
+        "risk_display": "Risk preference",
+        "existing_display": "Existing business",
+        "yes": "Yes",
+        "no": "No",
+        "business_details": "Business details",
     },
 
     "ml": {
@@ -89,15 +99,24 @@ TEXTS = {
         "existing": "എനിക്ക് ഇതിനകം ഒരു ബിസിനസ് ഉണ്ട്",
         "existing_placeholder": "ഉദാഹരണം: ചെറിയ തയ്യൽക്കട",
         "continue": "തുടരുക",
-        "profile_saved": "പ്രൊഫൈൽ വിജയകരമായി സേവ് ചെയ്തു.",
+        "back": "← പ്രൊഫൈലിലേക്ക് മടങ്ങുക",
         "dashboard": "പ്രാദേശിക ഡാഷ്ബോർഡ്",
         "dashboard_subtitle": "നിങ്ങളുടെ പ്രാദേശിക ബിസിനസ് വിവരങ്ങൾ ഇവിടെ കാണിക്കും.",
+        "profile_received": "പ്രൊഫൈൽ ലഭിച്ചു",
+        "skills_display": "കഴിവുകൾ",
+        "experience_display": "പരിചയം",
+        "capital_display": "ലഭ്യമായ മൂലധനം",
+        "interests_display": "ബിസിനസ് താൽപര്യങ്ങൾ",
+        "risk_display": "റിസ്ക് മുൻഗണന",
+        "existing_display": "നിലവിലുള്ള ബിസിനസ്",
+        "yes": "ഉണ്ട്",
+        "no": "ഇല്ല",
+        "business_details": "ബിസിനസ് വിശദാംശങ്ങൾ",
     },
 }
 
 
 def t(key):
-    """Return translated text."""
     language = st.session_state.get("language", "en")
     return TEXTS[language].get(key, key)
 
@@ -155,7 +174,7 @@ st.markdown(
     }}
 
     /* =====================================================
-       TOP LANGUAGE SELECTOR
+       LANGUAGE SELECTOR
        ===================================================== */
 
     div[data-testid="stSelectbox"] {{
@@ -183,7 +202,6 @@ st.markdown(
         background-color: {WHITE} !important;
     }}
 
-    /* Dropdown selected value */
     div[data-baseweb="select"] [role="button"] {{
         color: {TEXT} !important;
         -webkit-text-fill-color: {TEXT} !important;
@@ -266,13 +284,6 @@ st.markdown(
        NORMAL TEXT INPUTS
        ===================================================== */
 
-    /*
-       This fixes:
-       - Custom skill
-       - Custom business interest
-       - Existing business
-    */
-
     div[data-testid="stTextInput"] input,
     div[data-testid="stTextInputRootElement"] input,
     div[data-testid="stTextInput"] input[type="text"],
@@ -289,7 +300,6 @@ st.markdown(
         font-weight: 600 !important;
     }}
 
-    /* Placeholder */
     div[data-testid="stTextInput"] input::placeholder,
     div[data-testid="stTextInputRootElement"] input::placeholder {{
         color: #E8EDE1 !important;
@@ -297,7 +307,6 @@ st.markdown(
         opacity: 1 !important;
     }}
 
-    /* When clicked/focused */
     div[data-testid="stTextInput"] input:focus,
     div[data-testid="stTextInputRootElement"] input:focus {{
         background-color: {PRIMARY} !important;
@@ -332,7 +341,6 @@ st.markdown(
         border-color: {SECONDARY} !important;
     }}
 
-    /* Number input buttons */
     div[data-testid="stNumberInput"] button {{
         color: {PRIMARY} !important;
     }}
@@ -350,7 +358,7 @@ st.markdown(
     }}
 
     /* =====================================================
-       RISK DESCRIPTION CARDS
+       RISK CARDS
        ===================================================== */
 
     .risk-card {{
@@ -393,7 +401,7 @@ st.markdown(
     }}
 
     /* =====================================================
-       BUTTON
+       BUTTONS
        ===================================================== */
 
     div.stButton > button {{
@@ -425,7 +433,7 @@ st.markdown(
     }}
 
     /* =====================================================
-       SUCCESS MESSAGE
+       ALERT
        ===================================================== */
 
     div[data-testid="stAlert"] {{
@@ -500,6 +508,7 @@ def render_header():
     col1, col2 = st.columns([7, 2])
 
     with col1:
+
         st.markdown(
             f"""
             <div class="brand">{t("brand")}</div>
@@ -693,11 +702,14 @@ def render_profile():
         key="risk",
     )
 
-    # Risk descriptions
+    # =====================================================
+    # RISK DESCRIPTION CARDS
+    # =====================================================
 
     risk_col1, risk_col2, risk_col3 = st.columns(3)
 
     with risk_col1:
+
         st.markdown(
             f"""
             <div class="risk-card">
@@ -711,6 +723,7 @@ def render_profile():
         )
 
     with risk_col2:
+
         st.markdown(
             f"""
             <div class="risk-card">
@@ -724,6 +737,7 @@ def render_profile():
         )
 
     with risk_col3:
+
         st.markdown(
             f"""
             <div class="risk-card">
@@ -807,7 +821,7 @@ def render_local_dashboard():
     )
 
     st.markdown(
-        f'<div class="step-text">Step 2 of 10</div>',
+        '<div class="step-text">Step 2 of 10</div>',
         unsafe_allow_html=True,
     )
 
@@ -825,55 +839,87 @@ def render_local_dashboard():
         "Frame 2 will contain the Kerala local market dashboard."
     )
 
-    # Temporary profile display for testing
+    # =====================================================
+    # BACK BUTTON
+    # =====================================================
+
+    if st.button(t("back")):
+
+        st.session_state.page = 1
+
+        st.rerun()
+
+    # =====================================================
+    # PROFILE DATA
+    # =====================================================
 
     if st.session_state.profile:
 
-        st.markdown("### Profile received")
+        st.markdown(
+            f"### {t('profile_received')}"
+        )
 
         profile = st.session_state.profile
 
         col1, col2 = st.columns(2)
 
         with col1:
-            st.write("**Skills:**", ", ".join(profile["skills"]))
+
             st.write(
-                "**Experience:**",
+                f"**{t('skills_display')}:**",
+                ", ".join(profile["skills"])
+                if profile["skills"]
+                else "—",
+            )
+
+            st.write(
+                f"**{t('experience_display')}:**",
                 profile["experience_years"],
                 "years",
             )
+
             st.write(
-                "**Available capital:**",
+                f"**{t('capital_display')}:**",
                 f'₹{profile["available_capital"]:,}',
             )
 
         with col2:
+
             st.write(
-                "**Business interests:**",
-                ", ".join(profile["business_interests"]),
+                f"**{t('interests_display')}:**",
+                ", ".join(profile["business_interests"])
+                if profile["business_interests"]
+                else "—",
             )
+
             st.write(
-                "**Risk preference:**",
+                f"**{t('risk_display')}:**",
                 profile["risk_preference"],
             )
+
             st.write(
-                "**Existing business:**",
-                "Yes" if profile["existing_business"] else "No",
+                f"**{t('existing_display')}:**",
+                t("yes")
+                if profile["existing_business"]
+                else t("no"),
             )
 
             if profile["existing_business_details"]:
+
                 st.write(
-                    "**Business details:**",
+                    f"**{t('business_details')}:**",
                     profile["existing_business_details"],
                 )
 
 
 # =========================================================
-# ROUTER
+# PAGE ROUTER
 # =========================================================
 
 if st.session_state.page == 1:
+
     render_profile()
 
 elif st.session_state.page == 2:
+
     render_local_dashboard()
