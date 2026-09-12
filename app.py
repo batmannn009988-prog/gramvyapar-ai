@@ -21,6 +21,8 @@ ACCENT = "#C88A3D"
 BACKGROUND = "#FAF8F1"
 TEXT = "#33352C"
 WHITE = "#FFFFFF"
+LIGHT_GREY = "#F0F1ED"
+BORDER_GREY = "#B8BDB2"
 
 # =========================================================
 # LANGUAGE
@@ -38,29 +40,39 @@ TEXTS = {
         "step": "Step 1 of 10",
         "title": "Tell us about yourself",
         "subtitle": "Help us understand your skills, capital and business interests.",
+
         "skills": "Skills",
         "select_skills": "Select your skills",
         "custom_skill": "Add a custom skill",
         "custom_skill_placeholder": "Example: Mobile repair",
+
         "experience": "Years of experience",
+
         "capital": "Available capital",
+
         "interests": "Business interests",
         "select_interests": "Select your interests",
         "custom_interest": "Add a custom business interest",
         "custom_interest_placeholder": "Example: Fresh juice shop",
+
         "risk": "Risk preference",
         "low": "Low",
         "medium": "Medium",
         "high": "High",
+
         "low_desc": "Prefer safer and more predictable businesses",
         "medium_desc": "Comfortable with moderate uncertainty",
         "high_desc": "Open to higher risk for higher potential",
+
         "existing": "I already have a business",
         "existing_placeholder": "Example: Small tailoring shop",
+
         "continue": "Continue",
         "back": "← Back to Profile",
+
         "dashboard": "Local Dashboard",
         "dashboard_subtitle": "Your local business intelligence will appear here.",
+
         "profile_received": "Profile received",
         "skills_display": "Skills",
         "experience_display": "Experience",
@@ -68,9 +80,10 @@ TEXTS = {
         "interests_display": "Business interests",
         "risk_display": "Risk preference",
         "existing_display": "Existing business",
+        "business_details": "Business details",
+
         "yes": "Yes",
         "no": "No",
-        "business_details": "Business details",
     },
 
     "ml": {
@@ -79,29 +92,39 @@ TEXTS = {
         "step": "ഘട്ടം 1 / 10",
         "title": "നിങ്ങളെക്കുറിച്ച് പറയൂ",
         "subtitle": "നിങ്ങളുടെ കഴിവുകൾ, മൂലധനം, ബിസിനസ് താൽപര്യങ്ങൾ എന്നിവ മനസ്സിലാക്കാൻ സഹായിക്കൂ.",
+
         "skills": "കഴിവുകൾ",
         "select_skills": "നിങ്ങളുടെ കഴിവുകൾ തിരഞ്ഞെടുക്കുക",
         "custom_skill": "മറ്റൊരു കഴിവ് ചേർക്കുക",
         "custom_skill_placeholder": "ഉദാഹരണം: മൊബൈൽ റിപ്പയർ",
+
         "experience": "പരിചയമുള്ള വർഷങ്ങൾ",
+
         "capital": "ലഭ്യമായ മൂലധനം",
+
         "interests": "ബിസിനസ് താൽപര്യങ്ങൾ",
         "select_interests": "താൽപര്യങ്ങൾ തിരഞ്ഞെടുക്കുക",
         "custom_interest": "മറ്റൊരു ബിസിനസ് താൽപര്യം ചേർക്കുക",
         "custom_interest_placeholder": "ഉദാഹരണം: ഫ്രഷ് ജ്യൂസ് കട",
+
         "risk": "റിസ്ക് മുൻഗണന",
         "low": "കുറവ്",
         "medium": "ഇടത്തരം",
         "high": "കൂടുതൽ",
+
         "low_desc": "കൂടുതൽ സുരക്ഷിതവും സ്ഥിരതയുള്ളതുമായ ബിസിനസുകൾ",
         "medium_desc": "മിതമായ അനിശ്ചിതത്വം സ്വീകരിക്കാൻ തയ്യാറാണ്",
         "high_desc": "കൂടുതൽ സാധ്യതയ്ക്കായി കൂടുതൽ റിസ്ക് സ്വീകരിക്കാൻ തയ്യാറാണ്",
+
         "existing": "എനിക്ക് ഇതിനകം ഒരു ബിസിനസ് ഉണ്ട്",
         "existing_placeholder": "ഉദാഹരണം: ചെറിയ തയ്യൽക്കട",
+
         "continue": "തുടരുക",
         "back": "← പ്രൊഫൈലിലേക്ക് മടങ്ങുക",
+
         "dashboard": "പ്രാദേശിക ഡാഷ്ബോർഡ്",
         "dashboard_subtitle": "നിങ്ങളുടെ പ്രാദേശിക ബിസിനസ് വിവരങ്ങൾ ഇവിടെ കാണിക്കും.",
+
         "profile_received": "പ്രൊഫൈൽ ലഭിച്ചു",
         "skills_display": "കഴിവുകൾ",
         "experience_display": "പരിചയം",
@@ -109,9 +132,10 @@ TEXTS = {
         "interests_display": "ബിസിനസ് താൽപര്യങ്ങൾ",
         "risk_display": "റിസ്ക് മുൻഗണന",
         "existing_display": "നിലവിലുള്ള ബിസിനസ്",
+        "business_details": "ബിസിനസ് വിശദാംശങ്ങൾ",
+
         "yes": "ഉണ്ട്",
         "no": "ഇല്ല",
-        "business_details": "ബിസിനസ് വിശദാംശങ്ങൾ",
     },
 }
 
@@ -119,6 +143,23 @@ TEXTS = {
 def t(key):
     language = st.session_state.get("language", "en")
     return TEXTS[language].get(key, key)
+
+
+# =========================================================
+# SESSION STATE
+# =========================================================
+
+if "language" not in st.session_state:
+    st.session_state.language = "en"
+
+if "page" not in st.session_state:
+    st.session_state.page = 1
+
+if "profile" not in st.session_state:
+    st.session_state.profile = {}
+
+if "existing_business" not in st.session_state:
+    st.session_state.existing_business = False
 
 
 # =========================================================
@@ -144,10 +185,6 @@ st.markdown(
         padding-bottom: 3rem;
     }}
 
-    /* =====================================================
-       GENERAL TEXT
-       ===================================================== */
-
     h1, h2, h3, h4 {{
         color: {TEXT} !important;
     }}
@@ -155,6 +192,7 @@ st.markdown(
     p {{
         color: {TEXT};
     }}
+
 
     /* =====================================================
        BRAND
@@ -172,6 +210,7 @@ st.markdown(
         color: {SECONDARY};
         font-weight: 500;
     }}
+
 
     /* =====================================================
        LANGUAGE SELECTOR
@@ -202,10 +241,6 @@ st.markdown(
         background-color: {WHITE} !important;
     }}
 
-    div[data-baseweb="select"] [role="button"] {{
-        color: {TEXT} !important;
-        -webkit-text-fill-color: {TEXT} !important;
-    }}
 
     /* =====================================================
        PROGRESS
@@ -234,6 +269,7 @@ st.markdown(
         margin-bottom: 8px;
     }}
 
+
     /* =====================================================
        INTRO
        ===================================================== */
@@ -251,6 +287,7 @@ st.markdown(
         margin-bottom: 30px;
     }}
 
+
     /* =====================================================
        FIELD LABELS
        ===================================================== */
@@ -262,6 +299,7 @@ st.markdown(
         margin-top: 15px;
         margin-bottom: 8px;
     }}
+
 
     /* =====================================================
        MULTISELECT
@@ -279,6 +317,7 @@ st.markdown(
     div[data-baseweb="tag"] span {{
         color: {WHITE} !important;
     }}
+
 
     /* =====================================================
        NORMAL TEXT INPUTS
@@ -307,15 +346,6 @@ st.markdown(
         opacity: 1 !important;
     }}
 
-    div[data-testid="stTextInput"] input:focus,
-    div[data-testid="stTextInputRootElement"] input:focus {{
-        background-color: {PRIMARY} !important;
-        color: {WHITE} !important;
-        -webkit-text-fill-color: {WHITE} !important;
-        border-color: {SECONDARY} !important;
-        caret-color: {WHITE} !important;
-        box-shadow: 0 0 0 1px {SECONDARY} !important;
-    }}
 
     /* =====================================================
        NUMBER INPUT
@@ -341,21 +371,6 @@ st.markdown(
         border-color: {SECONDARY} !important;
     }}
 
-    div[data-testid="stNumberInput"] button {{
-        color: {PRIMARY} !important;
-    }}
-
-    /* =====================================================
-       SLIDER
-       ===================================================== */
-
-    div[data-testid="stSlider"] {{
-        padding-top: 5px;
-    }}
-
-    div[data-testid="stSlider"] p {{
-        color: {TEXT} !important;
-    }}
 
     /* =====================================================
        RISK CARDS
@@ -383,49 +398,54 @@ st.markdown(
         line-height: 1.4;
     }}
 
+
     /* =====================================================
-       RADIO BUTTON
+       RISK RADIO
        ===================================================== */
 
     div[data-testid="stRadio"] label {{
         color: {TEXT} !important;
     }}
 
+
     /* =====================================================
-       EXISTING BUSINESS TOGGLE
+       EXISTING BUSINESS CHECKBOX
        ===================================================== */
 
     /*
-       OFF STATE:
-       Cream background + olive outline
-
-       ON STATE:
-       Olive background + white text
+       We intentionally use a checkbox instead of the native
+       toggle so that the OFF state is clearly visible.
     */
 
-    div[data-testid="stToggle"] {{
-        background-color: transparent !important;
+    div[data-testid="stCheckbox"] {{
+        background-color: {LIGHT_GREY} !important;
+        border: 2px solid {BORDER_GREY} !important;
         border-radius: 14px !important;
-        padding: 4px 8px !important;
+        padding: 12px 16px !important;
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
     }}
 
-    div[data-testid="stToggle"] label {{
+    div[data-testid="stCheckbox"]:hover {{
+        border-color: {PRIMARY} !important;
+        background-color: #E8EBE3 !important;
+    }}
+
+    div[data-testid="stCheckbox"] label {{
         color: {TEXT} !important;
         font-weight: 700 !important;
         font-size: 16px !important;
     }}
 
-    div[data-testid="stToggle"] label p {{
+    div[data-testid="stCheckbox"] label p {{
         color: {TEXT} !important;
         font-weight: 700 !important;
+        font-size: 16px !important;
     }}
 
-    div[data-testid="stToggle"] button {{
-        border: 2px solid {PRIMARY} !important;
-    }}
 
     /* =====================================================
-       BUTTON
+       BUTTONS
        ===================================================== */
 
     div.stButton > button {{
@@ -446,6 +466,7 @@ st.markdown(
         color: {WHITE} !important;
     }}
 
+
     /* =====================================================
        DIVIDER
        ===================================================== */
@@ -455,6 +476,7 @@ st.markdown(
         border-top: 1px solid #E1E4D9 !important;
         margin: 30px 0 !important;
     }}
+
 
     /* =====================================================
        ALERT
@@ -468,20 +490,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-
-# =========================================================
-# SESSION STATE
-# =========================================================
-
-if "language" not in st.session_state:
-    st.session_state.language = "en"
-
-if "page" not in st.session_state:
-    st.session_state.page = 1
-
-if "profile" not in st.session_state:
-    st.session_state.profile = {}
 
 
 # =========================================================
@@ -598,6 +606,7 @@ def render_profile():
         unsafe_allow_html=True,
     )
 
+
     # =====================================================
     # SKILLS
     # =====================================================
@@ -632,6 +641,7 @@ def render_profile():
         key="custom_skill",
     )
 
+
     # =====================================================
     # EXPERIENCE
     # =====================================================
@@ -650,6 +660,7 @@ def render_profile():
         label_visibility="collapsed",
         key="experience",
     )
+
 
     # =====================================================
     # CAPITAL
@@ -670,6 +681,7 @@ def render_profile():
         label_visibility="collapsed",
         key="capital",
     )
+
 
     # =====================================================
     # BUSINESS INTERESTS
@@ -704,6 +716,7 @@ def render_profile():
         key="custom_interest",
     )
 
+
     # =====================================================
     # RISK PREFERENCE
     # =====================================================
@@ -725,6 +738,7 @@ def render_profile():
         label_visibility="collapsed",
         key="risk",
     )
+
 
     # =====================================================
     # RISK CARDS
@@ -774,15 +788,16 @@ def render_profile():
             unsafe_allow_html=True,
         )
 
+
     # =====================================================
     # EXISTING BUSINESS
     # =====================================================
 
     st.markdown("---")
 
-    existing_business = st.toggle(
+    existing_business = st.checkbox(
         t("existing"),
-        value=False,
+        value=st.session_state.existing_business,
         key="existing_business",
     )
 
@@ -796,6 +811,7 @@ def render_profile():
             label_visibility="collapsed",
             key="existing_details",
         )
+
 
     # =====================================================
     # CONTINUE
@@ -863,6 +879,7 @@ def render_local_dashboard():
         "Frame 2 will contain the Kerala local market dashboard."
     )
 
+
     # =====================================================
     # BACK BUTTON
     # =====================================================
@@ -872,6 +889,7 @@ def render_local_dashboard():
         st.session_state.page = 1
 
         st.rerun()
+
 
     # =====================================================
     # PROFILE DATA
