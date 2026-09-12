@@ -10,70 +10,264 @@ st.set_page_config(
     page_title="GramVyapar AI",
     page_icon="🌾",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 
 # ============================================================
-# SIMPLE GLOBAL STYLING
+# COLOUR THEME
+# ============================================================
+
+PRIMARY = "#526A3A"
+SECONDARY = "#7D9A55"
+ACCENT = "#C88A3D"
+BACKGROUND = "#FAF8F1"
+TEXT = "#33352C"
+CARD = "#FFFFFF"
+
+
+# ============================================================
+# CUSTOM CSS
 # ============================================================
 
 st.markdown(
-    """
+    f"""
     <style>
 
-    /* App background */
-    .stApp {
-        background: #F8FAF9;
-    }
+    /* ==============================
+       PAGE
+       ============================== */
 
-    /* Main content */
-    .block-container {
-        max-width: 1100px;
-        padding-top: 40px;
-        padding-bottom: 50px;
-    }
+    .stApp {{
+        background-color: {BACKGROUND};
+        color: {TEXT};
+    }}
 
-    /* Brand */
-    .brand-title {
-        font-size: 36px;
-        font-weight: 700;
-        color: #17483D;
-        margin-bottom: 4px;
-    }
+    .block-container {{
+        max-width: 1180px;
+        padding-top: 35px;
+        padding-bottom: 60px;
+    }}
 
-    .brand-subtitle {
-        font-size: 17px;
-        color: #66736F;
-        margin-bottom: 30px;
-    }
 
-    /* Section heading */
-    .section-title {
-        font-size: 26px;
-        font-weight: 700;
-        color: #17483D;
-        margin-top: 25px;
-        margin-bottom: 8px;
-    }
+    /* ==============================
+       TEXT
+       ============================== */
 
-    .description {
+    h1, h2, h3, h4, h5, h6 {{
+        color: {TEXT} !important;
+    }}
+
+    p {{
+        color: {TEXT};
+    }}
+
+
+    /* ==============================
+       BRAND
+       ============================== */
+
+    .brand {{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 5px;
+    }}
+
+    .brand-icon {{
+        font-size: 38px;
+    }}
+
+    .brand-name {{
+        font-size: 32px;
+        font-weight: 750;
+        color: {PRIMARY};
+        letter-spacing: -0.5px;
+    }}
+
+    .tagline {{
+        color: #6F7466;
         font-size: 16px;
-        color: #5F6B67;
-        margin-bottom: 25px;
-    }
+        margin-left: 51px;
+        margin-bottom: 30px;
+    }}
 
-    /* Small information text */
-    .small-text {
+
+    /* ==============================
+       PROGRESS
+       ============================== */
+
+    .progress-text {{
+        text-align: center;
         font-size: 14px;
-        color: #66736F;
-    }
-
-    /* Buttons */
-    .stButton > button {
-        min-height: 48px;
-        border-radius: 10px;
         font-weight: 600;
-    }
+        color: {PRIMARY};
+        margin-bottom: 6px;
+    }}
+
+    [data-testid="stProgress"] > div > div {{
+        background-color: {SECONDARY};
+    }}
+
+
+    /* ==============================
+       INTRO
+       ============================== */
+
+    .intro-title {{
+        font-size: 30px;
+        font-weight: 750;
+        color: {TEXT};
+        margin-top: 25px;
+        margin-bottom: 6px;
+    }}
+
+    .intro-description {{
+        font-size: 16px;
+        color: #6F7466;
+        margin-bottom: 30px;
+    }}
+
+
+    /* ==============================
+       FIELD LABELS
+       ============================== */
+
+    .field-label {{
+        font-size: 17px;
+        font-weight: 700;
+        color: {TEXT};
+        margin-top: 20px;
+        margin-bottom: 8px;
+    }}
+
+    .field-description {{
+        font-size: 13px;
+        color: #777A70;
+        margin-bottom: 8px;
+    }}
+
+
+    /* ==============================
+       STREAMLIT INPUT TEXT
+       ============================== */
+
+    label {{
+        color: {TEXT} !important;
+    }}
+
+    [data-testid="stWidgetLabel"] {{
+        color: {TEXT} !important;
+    }}
+
+    [data-testid="stWidgetLabel"] p {{
+        color: {TEXT} !important;
+    }}
+
+    input {{
+        color: {TEXT} !important;
+    }}
+
+    textarea {{
+        color: {TEXT} !important;
+    }}
+
+
+    /* ==============================
+       SELECT / MULTISELECT
+       ============================== */
+
+    [data-baseweb="select"] {{
+        color: {TEXT} !important;
+    }}
+
+    [data-baseweb="select"] > div {{
+        background-color: {CARD};
+        border-radius: 12px;
+        border: 1px solid #D9DED1;
+        min-height: 48px;
+    }}
+
+    [data-baseweb="tag"] {{
+        background-color: #E8EEDC !important;
+        color: {PRIMARY} !important;
+        border-radius: 20px !important;
+    }}
+
+
+    /* ==============================
+       NUMBER INPUT
+       ============================== */
+
+    [data-testid="stNumberInput"] {{
+        background-color: {CARD};
+        border-radius: 12px;
+    }}
+
+
+    /* ==============================
+       SLIDER
+       ============================== */
+
+    [data-testid="stSlider"] {{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }}
+
+
+    /* ==============================
+       RISK CARDS
+       ============================== */
+
+    .risk-description {{
+        background-color: {CARD};
+        border: 1px solid #E1E3DB;
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin-top: 10px;
+        color: #62665C;
+        font-size: 14px;
+    }}
+
+
+    /* ==============================
+       CONTINUE BUTTON
+       ============================== */
+
+    div.stButton > button {{
+        background-color: {PRIMARY};
+        color: white;
+        border: none;
+        border-radius: 12px;
+        min-height: 52px;
+        font-size: 16px;
+        font-weight: 700;
+        transition: 0.2s;
+    }}
+
+    div.stButton > button:hover {{
+        background-color: #43572F;
+        color: white;
+        border: none;
+    }}
+
+
+    /* ==============================
+       DIVIDER
+       ============================== */
+
+    hr {{
+        border-color: #E4E5DD;
+    }}
+
+
+    /* ==============================
+       INFO / WARNING
+       ============================== */
+
+    [data-testid="stAlert"] {{
+        border-radius: 12px;
+    }}
 
     </style>
     """,
@@ -93,10 +287,17 @@ if "profile" not in st.session_state:
 
 
 # ============================================================
-# PROFILE STORAGE
+# BACKEND-READY PROFILE STORAGE
 # ============================================================
 
 def save_profile(profile_data):
+    """
+    Temporary frontend storage.
+
+    Later this function can send the same structured data
+    to our Python backend/API.
+    """
+
     st.session_state.profile = profile_data
 
 
@@ -107,16 +308,21 @@ def save_profile(profile_data):
 def render_profile():
 
     # --------------------------------------------------------
-    # HEADER
+    # BRAND
     # --------------------------------------------------------
 
     st.markdown(
-        '<div class="brand-title">🌾 GramVyapar AI</div>',
+        """
+        <div class="brand">
+            <div class="brand-icon">🌾</div>
+            <div class="brand-name">GramVyapar AI</div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="brand-subtitle">Know Before You Borrow</div>',
+        '<div class="tagline">Know Before You Borrow</div>',
         unsafe_allow_html=True,
     )
 
@@ -125,22 +331,25 @@ def render_profile():
     # PROGRESS
     # --------------------------------------------------------
 
-    st.caption("Step 1 of 6")
+    st.markdown(
+        '<div class="progress-text">Step 1 of 6</div>',
+        unsafe_allow_html=True,
+    )
 
     st.progress(1 / 6)
 
 
     # --------------------------------------------------------
-    # INTRODUCTION
+    # INTRO
     # --------------------------------------------------------
 
     st.markdown(
-        '<div class="section-title">Tell us about yourself</div>',
+        '<div class="intro-title">Tell us about yourself</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="description">'
+        '<div class="intro-description">'
         'This helps us understand which business opportunities may fit you best.'
         '</div>',
         unsafe_allow_html=True,
@@ -151,8 +360,20 @@ def render_profile():
     # SKILLS
     # --------------------------------------------------------
 
+    st.markdown(
+        '<div class="field-label">🛠️ Your skills</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="field-description">'
+        'Choose the skills you already have.'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
     skills = st.multiselect(
-        "🛠️ Your skills",
+        "Skills",
         [
             "Tailoring",
             "Cooking",
@@ -165,6 +386,7 @@ def render_profile():
             "Other",
         ],
         placeholder="Select your skills",
+        label_visibility="collapsed",
     )
 
 
@@ -172,23 +394,41 @@ def render_profile():
     # EXPERIENCE
     # --------------------------------------------------------
 
+    st.markdown(
+        '<div class="field-label">🧑‍🔧 Years of experience</div>',
+        unsafe_allow_html=True,
+    )
+
     experience = st.number_input(
-        "🧑‍🔧 Years of experience",
+        "Experience",
         min_value=0,
         max_value=50,
         value=0,
         step=1,
+        label_visibility="collapsed",
     )
+
+    st.caption("Enter the number of years you have worked in your main skill.")
 
 
     # --------------------------------------------------------
     # CAPITAL
     # --------------------------------------------------------
 
-    st.markdown("### 💰 Available capital")
+    st.markdown(
+        '<div class="field-label">💰 Available capital</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="field-description">'
+        'How much of your own money can you invest?'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
     capital = st.slider(
-        "Available capital",
+        "Capital",
         min_value=0,
         max_value=500000,
         value=100000,
@@ -198,7 +438,17 @@ def render_profile():
     )
 
     st.markdown(
-        f"**₹{capital:,.0f}**"
+        f"""
+        <div style="
+            font-size: 26px;
+            font-weight: 750;
+            color: {PRIMARY};
+            margin-top: -5px;
+        ">
+            ₹{capital:,.0f}
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     st.caption(
@@ -210,8 +460,20 @@ def render_profile():
     # BUSINESS INTERESTS
     # --------------------------------------------------------
 
+    st.markdown(
+        '<div class="field-label">💡 Business interests</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="field-description">'
+        'Choose the types of businesses you are interested in.'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
     interests = st.multiselect(
-        "💡 Business interests",
+        "Interests",
         [
             "Dairy",
             "Bakery",
@@ -222,7 +484,8 @@ def render_profile():
             "Repair Services",
             "Other",
         ],
-        placeholder="Select businesses you are interested in",
+        placeholder="Select your interests",
+        label_visibility="collapsed",
     )
 
 
@@ -230,14 +493,20 @@ def render_profile():
     # RISK PREFERENCE
     # --------------------------------------------------------
 
-    st.markdown("### ⚖️ Risk preference")
+    st.markdown(
+        '<div class="field-label">⚖️ Risk preference</div>',
+        unsafe_allow_html=True,
+    )
 
-    st.caption(
-        "How comfortable are you with uncertainty when starting a business?"
+    st.markdown(
+        '<div class="field-description">'
+        'How comfortable are you with uncertainty when starting a business?'
+        '</div>',
+        unsafe_allow_html=True,
     )
 
     risk = st.radio(
-        "Risk preference",
+        "Risk",
         [
             "Low",
             "Medium",
@@ -249,18 +518,31 @@ def render_profile():
     )
 
     if risk == "Low":
-        st.info(
-            "Low risk — Prefer stable and predictable businesses."
+
+        st.markdown(
+            '<div class="risk-description">'
+            '🟢 <b>Low risk</b> — Prefer stable and predictable businesses.'
+            '</div>',
+            unsafe_allow_html=True,
         )
 
     elif risk == "Medium":
-        st.info(
-            "Medium risk — Comfortable with some uncertainty."
+
+        st.markdown(
+            '<div class="risk-description">'
+            '🟠 <b>Medium risk</b> — Comfortable with some uncertainty.'
+            '</div>',
+            unsafe_allow_html=True,
         )
 
     else:
-        st.warning(
-            "High risk — Willing to accept more uncertainty for higher potential."
+
+        st.markdown(
+            '<div class="risk-description">'
+            '🔴 <b>High risk</b> — Willing to accept more uncertainty '
+            'for higher potential.'
+            '</div>',
+            unsafe_allow_html=True,
         )
 
 
@@ -268,8 +550,13 @@ def render_profile():
     # EXISTING BUSINESS
     # --------------------------------------------------------
 
+    st.markdown(
+        '<div class="field-label">🏪 Existing business</div>',
+        unsafe_allow_html=True,
+    )
+
     existing_business = st.toggle(
-        "🏪 I already have a business"
+        "I already have a business"
     )
 
     existing_details = ""
@@ -277,8 +564,9 @@ def render_profile():
     if existing_business:
 
         existing_details = st.text_input(
-            "Tell us about your existing business",
+            "Existing business",
             placeholder="Example: Small tailoring shop",
+            label_visibility="collapsed",
         )
 
 
@@ -318,29 +606,34 @@ def render_profile():
 def render_local_dashboard():
 
     st.markdown(
-        '<div class="brand-title">🌾 GramVyapar AI</div>',
+        """
+        <div class="brand">
+            <div class="brand-icon">🌾</div>
+            <div class="brand-name">GramVyapar AI</div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="brand-subtitle">Know Before You Borrow</div>',
+        '<div class="tagline">Know Before You Borrow</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="section-title">Local Dashboard</div>',
+        '<div class="intro-title">Local Dashboard</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="description">'
+        '<div class="intro-description">'
         'Your Kerala locality will be analyzed using available local evidence.'
         '</div>',
         unsafe_allow_html=True,
     )
 
     st.info(
-        "Frame 2 will be connected to the Kerala location and local-data engine next."
+        "Frame 2 will connect to the Kerala location and local-data engine."
     )
 
     if st.button("← Back to Profile"):
@@ -366,7 +659,7 @@ def main():
 
 
 # ============================================================
-# RUN APP
+# START APPLICATION
 # ============================================================
 
 main()
