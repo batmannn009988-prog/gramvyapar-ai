@@ -101,7 +101,6 @@ TEXT = {
         "prototype_status": "Prototype / demo",
 
         "language": "Language",
-        "profile_complete": "Profile completed",
 
         "skill_farming": "Farming",
         "skill_cooking": "Cooking",
@@ -124,10 +123,6 @@ TEXT = {
         "risk_low": "Low",
         "risk_medium": "Medium",
         "risk_high": "High",
-
-        "risk_low_desc": "Prefer safer and more predictable businesses.",
-        "risk_medium_desc": "Comfortable with moderate uncertainty.",
-        "risk_high_desc": "Comfortable taking higher business risk.",
     },
 
     "ml": {
@@ -195,7 +190,6 @@ TEXT = {
         "prototype_status": "പ്രോട്ടോടൈപ്പ് / ഡെമോ",
 
         "language": "ഭാഷ",
-        "profile_complete": "പ്രൊഫൈൽ പൂർത്തിയായി",
 
         "skill_farming": "കൃഷി",
         "skill_cooking": "പാചകം",
@@ -218,10 +212,6 @@ TEXT = {
         "risk_low": "കുറവ്",
         "risk_medium": "മിതമായ",
         "risk_high": "ഉയർന്ന",
-
-        "risk_low_desc": "കൂടുതൽ സുരക്ഷിതവും പ്രവചിക്കാവുന്നതുമായ ബിസിനസുകൾ ഇഷ്ടപ്പെടുന്നു.",
-        "risk_medium_desc": "മിതമായ അനിശ്ചിതത്വം സ്വീകരിക്കാൻ തയ്യാറാണ്.",
-        "risk_high_desc": "കൂടുതൽ ബിസിനസ് റിസ്ക് എടുക്കാൻ തയ്യാറാണ്.",
     },
 }
 
@@ -246,24 +236,6 @@ KERALA_DISTRICTS = [
     "Thrissur",
     "Wayanad",
 ]
-
-
-DISTRICT_ML = {
-    "Alappuzha": "ആലപ്പുഴ",
-    "Ernakulam": "എറണാകുളം",
-    "Idukki": "ഇടുക്കി",
-    "Kannur": "കണ്ണൂർ",
-    "Kasaragod": "കാസർഗോഡ്",
-    "Kollam": "കൊല്ലം",
-    "Kottayam": "കോട്ടയം",
-    "Kozhikode": "കോഴിക്കോട്",
-    "Malappuram": "മലപ്പുറം",
-    "Palakkad": "പാലക്കാട്",
-    "Pathanamthitta": "പത്തനംതിട്ട",
-    "Thiruvananthapuram": "തിരുവനന്തപുരം",
-    "Thrissur": "തൃശ്ശൂർ",
-    "Wayanad": "വയനാട്",
-}
 
 
 LOCAL_BODIES = {
@@ -341,10 +313,6 @@ LOCAL_BODIES = {
     ],
 }
 
-
-# ============================================================
-# DISTRICT REFERENCE COORDINATES
-# ============================================================
 
 DISTRICT_COORDS = {
     "Alappuzha": (9.4981, 76.3388),
@@ -425,32 +393,8 @@ st.markdown(
     f"""
     <style>
 
-    /* ========================================================
-       GLOBAL TEXT VISIBILITY
-       ======================================================== */
-
     .stApp {{
         background-color: {WARM_CREAM};
-        color: {DARK_BROWN};
-    }}
-
-    /* Normal headings and text on the cream background */
-    .stApp h1,
-    .stApp h2,
-    .stApp h3,
-    .stApp h4,
-    .stApp h5,
-    .stApp h6,
-    .stApp p,
-    .stApp label,
-    .stApp .stMarkdown,
-    .stApp .stCaption,
-    .stApp [data-testid="stCaptionContainer"] {{
-        color: {DARK_BROWN};
-    }}
-
-    /* Make markdown text clearly visible */
-    .stApp [data-testid="stMarkdownContainer"] {{
         color: {DARK_BROWN};
     }}
 
@@ -460,10 +404,7 @@ st.markdown(
         max-width: 1400px;
     }}
 
-    /* ========================================================
-       HEADER
-       ======================================================== */
-
+    /* Header */
     .gv-header {{
         background: {PRIMARY_GREEN};
         padding: 22px 28px;
@@ -484,10 +425,27 @@ st.markdown(
         margin-top: 4px;
     }}
 
-    /* ========================================================
-       STEP INDICATOR
-       ======================================================== */
+    /* Normal page text */
+    .stApp h1,
+    .stApp h2,
+    .stApp h3,
+    .stApp h4,
+    .stApp h5,
+    .stApp h6,
+    .stApp p,
+    .stApp label {{
+        color: {DARK_BROWN};
+    }}
 
+    .stApp [data-testid="stMarkdownContainer"] {{
+        color: {DARK_BROWN};
+    }}
+
+    .stApp [data-testid="stCaptionContainer"] {{
+        color: {DARK_BROWN} !important;
+    }}
+
+    /* Steps */
     .step-active {{
         background: {PRIMARY_GREEN};
         color: white !important;
@@ -506,11 +464,7 @@ st.markdown(
         font-weight: 600;
     }}
 
-    /* ========================================================
-       WHITE CARDS
-       Keep these unchanged
-       ======================================================== */
-
+    /* White cards */
     .metric-card {{
         background: {WHITE};
         border-radius: 16px;
@@ -561,9 +515,10 @@ st.markdown(
         margin-bottom: 12px;
     }}
 
-    /* ========================================================
-       INPUT VISIBILITY
-       ======================================================== */
+    div.stButton > button {{
+        border-radius: 10px;
+        font-weight: 700;
+    }}
 
     .stSelectbox label,
     .stMultiSelect label,
@@ -573,20 +528,6 @@ st.markdown(
     .stTextInput label {{
         color: {DARK_BROWN} !important;
         font-weight: 600;
-    }}
-
-    /* Radio option text */
-    .stRadio div[data-baseweb="radio"] label {{
-        color: {DARK_BROWN} !important;
-    }}
-
-    /* ========================================================
-       BUTTONS
-       ======================================================== */
-
-    div.stButton > button {{
-        border-radius: 10px;
-        font-weight: 700;
     }}
 
     </style>
@@ -608,6 +549,7 @@ def translated_options(items):
 
 
 def original_from_translated(selected_values, items):
+
     mapping = {
         t(key): original
         for original, key in items
@@ -621,6 +563,7 @@ def original_from_translated(selected_values, items):
 
 
 def translated_risk_options():
+
     return [
         t("risk_low"),
         t("risk_medium"),
@@ -652,16 +595,15 @@ def render_header():
 
     with col1:
 
+        # IMPORTANT:
+        # No HTML is used here.
+        # This prevents raw <div> code from appearing.
+
         st.markdown(
             f"""
             <div class="gv-header">
-                <div class="gv-header-title">
-                    🌱 {t("app_title")}
-                </div>
-
-                <div class="gv-header-subtitle">
-                    {t("tagline")}
-                </div>
+                <div class="gv-header-title">🌱 {t("app_title")}</div>
+                <div class="gv-header-subtitle">{t("tagline")}</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -1114,15 +1056,11 @@ def render_frame_2():
 
         district_options = KERALA_DISTRICTS
 
-        current_district = (
-            st.session_state.district
-        )
-
         district = st.selectbox(
             t("district"),
             district_options,
             index=district_options.index(
-                current_district
+                st.session_state.district
             ),
             key="district_input_v4",
         )
@@ -1137,10 +1075,7 @@ def render_frame_2():
         )
 
         if not body_options:
-
-            body_options = [
-                "Local Body"
-            ]
+            body_options = ["Local Body"]
 
         if (
             st.session_state.local_body
@@ -1160,9 +1095,7 @@ def render_frame_2():
             key="local_body_input_v4",
         )
 
-        st.session_state.local_body = (
-            local_body
-        )
+        st.session_state.local_body = local_body
 
     with col3:
 
@@ -1227,7 +1160,7 @@ def render_frame_2():
     )
 
     # ========================================================
-    # METRIC CARDS
+    # METRICS
     # ========================================================
 
     metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
@@ -1240,11 +1173,9 @@ def render_frame_2():
                 <div class="metric-title">
                     {t("business_density")}
                 </div>
-
                 <div class="metric-value">
                     {location_data["business_density"]}
                 </div>
-
                 <div class="metric-help">
                     {t("business_density_help")}
                 </div>
@@ -1261,11 +1192,9 @@ def render_frame_2():
                 <div class="metric-title">
                     {t("population")}
                 </div>
-
                 <div class="metric-value">
                     {location_data["population"]:,}
                 </div>
-
                 <div class="metric-help">
                     {t("population_help")}
                 </div>
@@ -1282,11 +1211,9 @@ def render_frame_2():
                 <div class="metric-title">
                     {t("seasonal_demand")}
                 </div>
-
                 <div class="metric-value">
                     {location_data["seasonal_demand"]}%
                 </div>
-
                 <div class="metric-help">
                     {t("seasonal_demand_help")}
                 </div>
@@ -1303,11 +1230,9 @@ def render_frame_2():
                 <div class="metric-title">
                     {t("resource_availability")}
                 </div>
-
                 <div class="metric-value">
                     {location_data["resource_availability"]}%
                 </div>
-
                 <div class="metric-help">
                     {t("resource_availability_help")}
                 </div>
@@ -1397,7 +1322,6 @@ def render_frame_2():
         ):
 
             st.session_state.page = 1
-
             st.rerun()
 
     with continue_col:
@@ -1410,7 +1334,6 @@ def render_frame_2():
         ):
 
             st.session_state.page = 3
-
             st.rerun()
 
 
@@ -1440,7 +1363,6 @@ def render_frame_3():
     ):
 
         st.session_state.page = 2
-
         st.rerun()
 
 
