@@ -808,6 +808,7 @@ def render_header():
             language_options,
             index=language_options.index(current_language_display),
             key="language_selector",
+            label_visibility="collapsed",
         )
 
         new_language = "en" if selected_language == "English" else "ml"
@@ -887,10 +888,6 @@ def render_frame_1():
 
     with col1:
 
-        st.markdown(
-            f"### {t('skills')}"
-        )
-
         skills = st.multiselect(
             t("skills"),
             options=SKILL_KEYS,
@@ -940,10 +937,6 @@ def render_frame_1():
         # ----------------------------------------------------
         # BUSINESS INTERESTS
         # ----------------------------------------------------
-
-        st.markdown(
-            f"### {t('interests')}"
-        )
 
         interests = st.multiselect(
             t("interests"),
@@ -1098,10 +1091,6 @@ def generate_business_points(
 # FRAME 2 — LOCAL DASHBOARD
 # ============================================================
 
-# ============================================================
-# FRAME 2 — LOCAL DASHBOARD
-# ============================================================
-
 def render_frame_2():
 
     # --------------------------------------------------------
@@ -1177,10 +1166,6 @@ def render_frame_2():
         current_local_body = available_local_bodies[0]
 
     with col2:
-
-        # A district-specific widget key prevents
-        # Streamlit from keeping the previous district's
-        # local-body selection.
 
         local_body = st.selectbox(
             t("local_body"),
@@ -1265,237 +1250,24 @@ def render_frame_2():
             unsafe_allow_html=True,
         )
 
-    st.write("")
-
-    # ========================================================
-    # METRIC CARDS
-    # ========================================================
-
-    metric1, metric2, metric3, metric4 = st.columns(4)
-
-    # --------------------------------------------------------
-    # BUSINESS DENSITY
-    # --------------------------------------------------------
-
-    with metric1:
-
-        st.markdown(
-            f"""
-            <div class="gv-metric">
-
-                <div class="gv-metric-label">
-                    {t("business_density")}
-                </div>
-
-                <div class="gv-metric-value">
-                    {data["business_density"]}/100
-                </div>
-
-                <div class="gv-metric-note">
-                    Prototype estimate
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    # --------------------------------------------------------
-    # POPULATION
-    # --------------------------------------------------------
-
-    with metric2:
-
-        st.markdown(
-            f"""
-            <div class="gv-metric">
-
-                <div class="gv-metric-label">
-                    {t("population")}
-                </div>
-
-                <div class="gv-metric-value">
-                    {data["population"]:,}
-                </div>
-
-                <div class="gv-metric-note">
-                    Prototype reference
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    # --------------------------------------------------------
-    # SEASONAL DEMAND
-    # --------------------------------------------------------
-
-    with metric3:
-
-        st.markdown(
-            f"""
-            <div class="gv-metric">
-
-                <div class="gv-metric-label">
-                    {t("seasonal_demand")}
-                </div>
-
-                <div class="gv-metric-value">
-                    {data["seasonal_demand"]}/100
-                </div>
-
-                <div class="gv-metric-note">
-                    Prototype estimate
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    # --------------------------------------------------------
-    # RESOURCE AVAILABILITY
-    # --------------------------------------------------------
-
-    with metric4:
-
-        st.markdown(
-            f"""
-            <div class="gv-metric">
-
-                <div class="gv-metric-label">
-                    {t("resource_availability")}
-                </div>
-
-                <div class="gv-metric-value">
-                    {data["resource_availability"]}/100
-                </div>
-
-                <div class="gv-metric-note">
-                    Prototype estimate
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    st.write("")
-
-    # ========================================================
-    # MAP CARD
-    # ========================================================
-
-    st.markdown(
-        f"""
-        <div class="gv-card">
-
-            <div class="gv-card-title">
-                {t("map_title")}
-            </div>
-
-            <div class="gv-card-subtitle">
-                {district} · {local_body} · Ward {ward}
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # --------------------------------------------------------
-    # MAP DATA
-    # --------------------------------------------------------
-
-    map_data = generate_business_points(
-        district=district,
-        local_body=local_body,
-        ward=ward,
-    )
-
-    st.map(
-        map_data,
-        latitude="lat",
-        longitude="lon",
-        size=80,
-    )
-
-    # --------------------------------------------------------
-    # MAP NOTE
-    # --------------------------------------------------------
-
-    st.markdown(
-        f"""
-        <div class="gv-source">
-            {t("map_note")}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.write("")
-
-    # ========================================================
-    # NAVIGATION
-    # ========================================================
-
-    col_back, col_continue = st.columns(2)
-
-    # --------------------------------------------------------
-    # BACK
-    # --------------------------------------------------------
-
-    with col_back:
-
-        if st.button(
-            t("back"),
-            use_container_width=True,
-            key="back_frame2",
-        ):
-
-            st.session_state.page = 1
-
-            st.rerun()
-
-    # --------------------------------------------------------
-    # CONTINUE
-    # --------------------------------------------------------
-
-    with col_continue:
-
-        if st.button(
-            t("continue"),
-            use_container_width=True,
-            key="continue_frame2",
-        ):
-
-            st.session_state.page = 3
-
-            st.rerun()
 
 # ============================================================
-# MAIN APP
+# MAIN ROUTER
 # ============================================================
 
-render_header()
+def main():
+    render_header()
+    render_steps()
 
-st.write("")
+    current_page = st.session_state.get("page", 1)
 
-render_steps()
+    if current_page == 1:
+        render_frame_1()
+    elif current_page == 2:
+        render_frame_2()
+    elif current_page == 3:
+        render_frame3()
 
-st.write("")
 
-
-if st.session_state.page == 1:
-
-    render_frame_1()
-
-elif st.session_state.page == 2:
-
-    render_frame_2()
-    
-elif st.session_state.page == 3:
-    
-    render_frame3()
-
+if __name__ == "__main__":
+    main()
