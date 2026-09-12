@@ -3,7 +3,7 @@ import streamlit as st
 
 # ============================================================
 # GRAMVYAPAR AI
-# "Know Before You Borrow"
+# Know Before You Borrow
 # ============================================================
 
 
@@ -27,56 +27,170 @@ st.markdown(
     """
     <style>
 
-    /* Main application background */
+    /* =====================================================
+       MAIN APPLICATION
+       ===================================================== */
+
     .stApp {
         background-color: #F8FAF9;
     }
 
-    /* Main content width */
     .block-container {
         max-width: 1200px;
         padding-top: 2rem;
         padding-bottom: 3rem;
     }
 
-    /* Brand */
+
+    /* =====================================================
+       BRAND
+       ===================================================== */
+
     .brand-title {
         font-size: 36px;
         font-weight: 700;
-        color: #17483D;
+        color: #17483D !important;
         margin-bottom: 0;
     }
 
     .brand-subtitle {
         font-size: 17px;
-        color: #66736F;
+        color: #66736F !important;
         margin-top: 2px;
         margin-bottom: 30px;
     }
 
-    /* Section headings */
+
+    /* =====================================================
+       HEADINGS
+       ===================================================== */
+
     .section-title {
         font-size: 24px;
         font-weight: 650;
-        color: #17483D;
+        color: #17483D !important;
         margin-top: 24px;
         margin-bottom: 8px;
     }
 
-    /* Small explanatory text */
     .helper-text {
         font-size: 15px;
-        color: #66736F;
+        color: #66736F !important;
         line-height: 1.5;
     }
 
-    /* Confidence badges */
+
+    /* =====================================================
+       STREAMLIT TEXT VISIBILITY
+       ===================================================== */
+
+    /* Widget labels */
+    label {
+        color: #26332F !important;
+    }
+
+    [data-testid="stWidgetLabel"] {
+        color: #26332F !important;
+    }
+
+    [data-testid="stWidgetLabel"] p {
+        color: #26332F !important;
+    }
+
+    [data-testid="stWidgetLabel"] span {
+        color: #26332F !important;
+    }
+
+
+    /* Radio button text */
+    [data-baseweb="radio"] label {
+        color: #26332F !important;
+    }
+
+    [data-baseweb="radio"] label div {
+        color: #26332F !important;
+    }
+
+    [data-baseweb="radio"] div {
+        color: #26332F !important;
+    }
+
+
+    /* Checkbox / toggle text */
+    [data-baseweb="checkbox"] label {
+        color: #26332F !important;
+    }
+
+    [data-baseweb="checkbox"] label div {
+        color: #26332F !important;
+    }
+
+
+    /* Slider text */
+    [data-baseweb="slider"] label {
+        color: #26332F !important;
+    }
+
+
+    /* Input text */
+    input {
+        color: #26332F !important;
+    }
+
+    textarea {
+        color: #26332F !important;
+    }
+
+
+    /* Selectbox text */
+    [data-baseweb="select"] {
+        color: #26332F !important;
+    }
+
+    [data-baseweb="select"] > div {
+        border-radius: 10px;
+    }
+
+
+    /* Multiselect text */
+    [data-baseweb="tag"] {
+        color: #26332F !important;
+    }
+
+
+    /* =====================================================
+       PROGRESS
+       ===================================================== */
+
+    .step-label {
+        text-align: center;
+        color: #66736F !important;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
+
+    div.stButton > button {
+        min-height: 48px;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+
+
+    /* =====================================================
+       CONFIDENCE BADGES
+       ===================================================== */
+
     .confidence-high {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         background: #E5F4EC;
-        color: #176B4D;
+        color: #176B4D !important;
         padding: 6px 12px;
         border-radius: 20px;
         font-size: 13px;
@@ -88,7 +202,7 @@ st.markdown(
         align-items: center;
         gap: 6px;
         background: #FFF3D6;
-        color: #8A6500;
+        color: #8A6500 !important;
         padding: 6px 12px;
         border-radius: 20px;
         font-size: 13px;
@@ -100,31 +214,11 @@ st.markdown(
         align-items: center;
         gap: 6px;
         background: #FBE4E4;
-        color: #A33A3A;
+        color: #A33A3A !important;
         padding: 6px 12px;
         border-radius: 20px;
         font-size: 13px;
         font-weight: 600;
-    }
-
-    /* Buttons */
-    div.stButton > button {
-        min-height: 48px;
-        border-radius: 12px;
-        font-weight: 600;
-    }
-
-    /* Form inputs */
-    div[data-baseweb="select"] > div {
-        border-radius: 10px;
-    }
-
-    /* Progress */
-    .step-label {
-        text-align: center;
-        color: #66736F;
-        font-size: 14px;
-        margin-bottom: 5px;
     }
 
     </style>
@@ -138,12 +232,6 @@ st.markdown(
 # ============================================================
 
 def initialize_session_state():
-    """
-    Creates the application's temporary frontend state.
-
-    Later, these values can be sent to a backend API instead
-    of being used only inside Streamlit.
-    """
 
     defaults = {
         "current_screen": "profile",
@@ -160,6 +248,7 @@ def initialize_session_state():
     }
 
     for key, value in defaults.items():
+
         if key not in st.session_state:
             st.session_state[key] = value
 
@@ -168,19 +257,18 @@ initialize_session_state()
 
 
 # ============================================================
-# DATA / BACKEND SERVICE LAYER
+# BACKEND / SERVICE LAYER
 # ============================================================
 
 def save_profile(profile_data):
     """
-    Temporary local implementation.
+    Temporary local storage.
 
-    Later:
-        This function can call something like:
+    Later this can be replaced with a backend API call such as:
 
         POST /api/profile
 
-    without changing the Profile UI.
+    The UI will not need to be rebuilt.
     """
 
     st.session_state.profile = profile_data
@@ -188,20 +276,18 @@ def save_profile(profile_data):
 
 def get_local_analysis(location):
     """
-    Temporary placeholder for local analysis.
+    Placeholder for the future Kerala local-data engine.
 
-    Later this will call the backend/local-data service.
+    Later this will return real information such as:
 
-    Example future response:
-
-        population
-        households
-        business_density
-        seasonal_signal
-        resource_availability
-        data_level
-        confidence
-        sources
+    - Population
+    - Households
+    - Business density
+    - Seasonal demand signals
+    - Resources
+    - Data level
+    - Confidence
+    - Sources
     """
 
     return {
@@ -216,9 +302,16 @@ def get_local_analysis(location):
 
 def get_opportunities(profile, local_data):
     """
-    Temporary opportunity service.
+    Placeholder for the future Opportunity Engine.
 
-    Later this will call the real Opportunity Engine.
+    Later this will rank businesses using:
+
+    Demand
+    Competition
+    Resources
+    Skill Match
+    Capital Fit
+    Risk
     """
 
     return []
@@ -231,14 +324,17 @@ def get_opportunities(profile, local_data):
 def confidence_badge(level="high", label="High confidence"):
 
     if level == "high":
+
         css_class = "confidence-high"
         dot = "●"
 
     elif level == "medium":
+
         css_class = "confidence-medium"
         dot = "●"
 
     else:
+
         css_class = "confidence-low"
         dot = "●"
 
@@ -256,6 +352,7 @@ def page_header(title, description=""):
     )
 
     if description:
+
         st.markdown(
             f'<div class="helper-text">{description}</div>',
             unsafe_allow_html=True,
@@ -263,12 +360,16 @@ def page_header(title, description=""):
 
 
 # ============================================================
-# FRAME 1 — PROFILE INPUT
+# FRAME 1
+# PROFILE INPUT
 # ============================================================
 
 def render_profile_screen():
 
-    # Brand
+    # --------------------------------------------------------
+    # BRAND
+    # --------------------------------------------------------
+
     st.markdown(
         '<div class="brand-title">🌾 GramVyapar AI</div>',
         unsafe_allow_html=True,
@@ -279,7 +380,11 @@ def render_profile_screen():
         unsafe_allow_html=True,
     )
 
-    # Progress
+
+    # --------------------------------------------------------
+    # PROGRESS
+    # --------------------------------------------------------
+
     st.markdown(
         '<div class="step-label">Step 1 of 6</div>',
         unsafe_allow_html=True,
@@ -287,13 +392,19 @@ def render_profile_screen():
 
     st.progress(1 / 6)
 
+
+    # --------------------------------------------------------
+    # INTRODUCTION
+    # --------------------------------------------------------
+
     page_header(
         "Tell us about yourself",
         "This helps us understand which business opportunities may fit you best.",
     )
 
+
     # --------------------------------------------------------
-    # Skills
+    # SKILLS
     # --------------------------------------------------------
 
     skills = st.multiselect(
@@ -312,8 +423,9 @@ def render_profile_screen():
         help="Select the skills you already have.",
     )
 
+
     # --------------------------------------------------------
-    # Experience
+    # EXPERIENCE
     # --------------------------------------------------------
 
     experience = st.number_input(
@@ -324,8 +436,9 @@ def render_profile_screen():
         step=1,
     )
 
+
     # --------------------------------------------------------
-    # Capital
+    # CAPITAL
     # --------------------------------------------------------
 
     capital = st.slider(
@@ -344,8 +457,9 @@ def render_profile_screen():
         "Your own funds available for starting or expanding the business."
     )
 
+
     # --------------------------------------------------------
-    # Business interests
+    # BUSINESS INTERESTS
     # --------------------------------------------------------
 
     interests = st.multiselect(
@@ -362,22 +476,33 @@ def render_profile_screen():
         ],
     )
 
+
     # --------------------------------------------------------
-    # Risk preference
+    # RISK PREFERENCE
     # --------------------------------------------------------
 
+    st.markdown(
+        "### ⚖️ Risk preference"
+    )
+
+    st.caption(
+        "How comfortable are you with uncertainty when starting a business?"
+    )
+
     risk = st.radio(
-        "⚖️ Risk preference",
+        "Select your preferred risk level",
         [
             "Low — Prefer stable and predictable businesses",
             "Medium — Comfortable with some uncertainty",
             "High — Willing to take higher risk for higher potential",
         ],
         index=1,
+        label_visibility="collapsed",
     )
 
+
     # --------------------------------------------------------
-    # Existing business
+    # EXISTING BUSINESS
     # --------------------------------------------------------
 
     existing_business = st.toggle(
@@ -393,8 +518,9 @@ def render_profile_screen():
             placeholder="Example: Small tailoring shop",
         )
 
+
     # --------------------------------------------------------
-    # Continue
+    # CONTINUE
     # --------------------------------------------------------
 
     st.divider()
@@ -417,9 +543,6 @@ def render_profile_screen():
 
         save_profile(profile_data)
 
-        # For now we simply move to Frame 2.
-        # Frame 2 will be implemented next.
-
         st.session_state.current_screen = "local_dashboard"
 
         st.success(
@@ -428,7 +551,8 @@ def render_profile_screen():
 
 
 # ============================================================
-# FRAME 2 PLACEHOLDER
+# FRAME 2
+# LOCAL DASHBOARD
 # ============================================================
 
 def render_local_dashboard():
@@ -459,51 +583,144 @@ def render_local_dashboard():
     )
 
     if st.button("← Back to Profile"):
+
         st.session_state.current_screen = "profile"
 
 
 # ============================================================
-# FUTURE SCREENS
+# FRAME 3
+# OPPORTUNITY RADAR
 # ============================================================
 
 def render_opportunity_radar():
-    page_header("Opportunity Radar")
-    st.info("Frame 3 — Opportunity Radar will be implemented next.")
 
+    page_header(
+        "Opportunity Radar",
+        "Ranked business opportunities based on local evidence and your profile.",
+    )
+
+    st.info(
+        "Frame 3 — Opportunity Radar will be implemented next."
+    )
+
+
+# ============================================================
+# FRAME 4
+# BUSINESS DETAIL
+# ============================================================
 
 def render_business_detail():
-    page_header("Business Detail")
-    st.info("Frame 4 — Business Detail will be implemented next.")
 
+    page_header(
+        "Business Detail",
+        "Understand why a particular business opportunity fits you.",
+    )
+
+    st.info(
+        "Frame 4 — Business Detail will be implemented next."
+    )
+
+
+# ============================================================
+# FRAME 5
+# FINANCIAL DASHBOARD
+# ============================================================
 
 def render_financial_dashboard():
-    page_header("Financial Dashboard")
-    st.info("Frame 5 — Financial Dashboard will be implemented next.")
 
+    page_header(
+        "Financial Dashboard",
+        "Understand startup cost, revenue, expenses, surplus and break-even.",
+    )
+
+    st.info(
+        "Frame 5 — Financial Dashboard will be implemented next."
+    )
+
+
+# ============================================================
+# FRAME 6
+# RISK DASHBOARD
+# ============================================================
 
 def render_risk_dashboard():
-    page_header("Risk Dashboard")
-    st.info("Frame 6 — Risk Dashboard will be implemented next.")
 
+    page_header(
+        "Risk Dashboard",
+        "Understand the major risks before borrowing money.",
+    )
+
+    st.info(
+        "Frame 6 — Risk Dashboard will be implemented next."
+    )
+
+
+# ============================================================
+# FRAME 7
+# WHAT-IF SIMULATOR
+# ============================================================
 
 def render_what_if():
-    page_header("What-if Simulator")
-    st.info("Frame 7 — What-if Simulator will be implemented next.")
 
+    page_header(
+        "What-if Simulator",
+        "Test how the business performs when important assumptions change.",
+    )
+
+    st.info(
+        "Frame 7 — What-if Simulator will be implemented next."
+    )
+
+
+# ============================================================
+# FRAME 8
+# FINANCING GUIDANCE
+# ============================================================
 
 def render_financing():
-    page_header("Financing Guidance")
-    st.info("Frame 8 — Financing Guidance will be implemented next.")
 
+    page_header(
+        "Financing Guidance",
+        "Understand your funding gap and potential financing routes.",
+    )
+
+    st.info(
+        "Frame 8 — Financing Guidance will be implemented next."
+    )
+
+
+# ============================================================
+# FRAME 9
+# ACTION PLAN
+# ============================================================
 
 def render_action_plan():
-    page_header("Action Plan")
-    st.info("Frame 9 — Action Plan will be implemented next.")
 
+    page_header(
+        "Action Plan",
+        "Follow a practical checklist before launching your business.",
+    )
+
+    st.info(
+        "Frame 9 — Action Plan will be implemented next."
+    )
+
+
+# ============================================================
+# FRAME 10
+# MONTHLY MONITORING
+# ============================================================
 
 def render_monitoring():
-    page_header("Monthly Monitoring")
-    st.info("Frame 10 — Monthly Monitoring will be implemented next.")
+
+    page_header(
+        "Monthly Monitoring",
+        "Compare your actual business performance with earlier predictions.",
+    )
+
+    st.info(
+        "Frame 10 — Monthly Monitoring will be implemented next."
+    )
 
 
 # ============================================================
@@ -515,37 +732,49 @@ def render_app():
     screen = st.session_state.current_screen
 
     if screen == "profile":
+
         render_profile_screen()
 
     elif screen == "local_dashboard":
+
         render_local_dashboard()
 
     elif screen == "opportunity_radar":
+
         render_opportunity_radar()
 
     elif screen == "business_detail":
+
         render_business_detail()
 
     elif screen == "financial_dashboard":
+
         render_financial_dashboard()
 
     elif screen == "risk_dashboard":
+
         render_risk_dashboard()
 
     elif screen == "what_if":
+
         render_what_if()
 
     elif screen == "financing":
+
         render_financing()
 
     elif screen == "action_plan":
+
         render_action_plan()
 
     elif screen == "monitoring":
+
         render_monitoring()
 
     else:
+
         st.session_state.current_screen = "profile"
+
         render_profile_screen()
 
 
