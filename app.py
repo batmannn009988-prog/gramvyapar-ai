@@ -342,8 +342,9 @@ LOCAL_BODIES = {
 }
 
 
-# Safe reference coordinates for the prototype map.
-# These are AREA REFERENCE POINTS, not individual businesses.
+# ============================================================
+# DISTRICT REFERENCE COORDINATES
+# ============================================================
 
 DISTRICT_COORDS = {
     "Alappuzha": (9.4981, 76.3388),
@@ -424,8 +425,32 @@ st.markdown(
     f"""
     <style>
 
+    /* ========================================================
+       GLOBAL TEXT VISIBILITY
+       ======================================================== */
+
     .stApp {{
         background-color: {WARM_CREAM};
+        color: {DARK_BROWN};
+    }}
+
+    /* Normal headings and text on the cream background */
+    .stApp h1,
+    .stApp h2,
+    .stApp h3,
+    .stApp h4,
+    .stApp h5,
+    .stApp h6,
+    .stApp p,
+    .stApp label,
+    .stApp .stMarkdown,
+    .stApp .stCaption,
+    .stApp [data-testid="stCaptionContainer"] {{
+        color: {DARK_BROWN};
+    }}
+
+    /* Make markdown text clearly visible */
+    .stApp [data-testid="stMarkdownContainer"] {{
         color: {DARK_BROWN};
     }}
 
@@ -434,6 +459,10 @@ st.markdown(
         padding-bottom: 3rem;
         max-width: 1400px;
     }}
+
+    /* ========================================================
+       HEADER
+       ======================================================== */
 
     .gv-header {{
         background: {PRIMARY_GREEN};
@@ -455,9 +484,13 @@ st.markdown(
         margin-top: 4px;
     }}
 
+    /* ========================================================
+       STEP INDICATOR
+       ======================================================== */
+
     .step-active {{
         background: {PRIMARY_GREEN};
-        color: white;
+        color: white !important;
         padding: 10px;
         border-radius: 10px;
         text-align: center;
@@ -466,12 +499,17 @@ st.markdown(
 
     .step-inactive {{
         background: #EDEDE7;
-        color: {DARK_BROWN};
+        color: {DARK_BROWN} !important;
         padding: 10px;
         border-radius: 10px;
         text-align: center;
         font-weight: 600;
     }}
+
+    /* ========================================================
+       WHITE CARDS
+       Keep these unchanged
+       ======================================================== */
 
     .metric-card {{
         background: {WHITE};
@@ -523,6 +561,29 @@ st.markdown(
         margin-bottom: 12px;
     }}
 
+    /* ========================================================
+       INPUT VISIBILITY
+       ======================================================== */
+
+    .stSelectbox label,
+    .stMultiSelect label,
+    .stNumberInput label,
+    .stSlider label,
+    .stRadio label,
+    .stTextInput label {{
+        color: {DARK_BROWN} !important;
+        font-weight: 600;
+    }}
+
+    /* Radio option text */
+    .stRadio div[data-baseweb="radio"] label {{
+        color: {DARK_BROWN} !important;
+    }}
+
+    /* ========================================================
+       BUTTONS
+       ======================================================== */
+
     div.stButton > button {{
         border-radius: 10px;
         font-weight: 700;
@@ -547,8 +608,16 @@ def translated_options(items):
 
 
 def original_from_translated(selected_values, items):
-    mapping = {t(key): original for original, key in items}
-    return [mapping[value] for value in selected_values if value in mapping]
+    mapping = {
+        t(key): original
+        for original, key in items
+    }
+
+    return [
+        mapping[value]
+        for value in selected_values
+        if value in mapping
+    ]
 
 
 def translated_risk_options():
@@ -560,12 +629,17 @@ def translated_risk_options():
 
 
 def original_risk_from_translated(value):
+
     mapping = {
         t("risk_low"): "Low",
         t("risk_medium"): "Medium",
         t("risk_high"): "High",
     }
-    return mapping.get(value, "Medium")
+
+    return mapping.get(
+        value,
+        "Medium",
+    )
 
 
 # ============================================================
@@ -577,12 +651,14 @@ def render_header():
     col1, col2 = st.columns([4, 1])
 
     with col1:
+
         st.markdown(
             f"""
             <div class="gv-header">
                 <div class="gv-header-title">
                     🌱 {t("app_title")}
                 </div>
+
                 <div class="gv-header-subtitle">
                     {t("tagline")}
                 </div>
@@ -593,7 +669,10 @@ def render_header():
 
     with col2:
 
-        language_options = ["English", "Malayalam"]
+        language_options = [
+            "English",
+            "Malayalam",
+        ]
 
         current_language_display = (
             "English"
@@ -604,7 +683,9 @@ def render_header():
         selected_language = st.selectbox(
             t("language"),
             language_options,
-            index=language_options.index(current_language_display),
+            index=language_options.index(
+                current_language_display
+            ),
             key="language_selector_v4",
         )
 
@@ -615,7 +696,9 @@ def render_header():
         )
 
         if new_language != st.session_state.language:
+
             st.session_state.language = new_language
+
             st.rerun()
 
 
@@ -628,36 +711,48 @@ def render_steps():
     col1, col2, col3 = st.columns(3)
 
     with col1:
+
         if st.session_state.page == 1:
+
             st.markdown(
                 f'<div class="step-active">{t("step1")}</div>',
                 unsafe_allow_html=True,
             )
+
         else:
+
             st.markdown(
                 f'<div class="step-inactive">{t("step1")}</div>',
                 unsafe_allow_html=True,
             )
 
     with col2:
+
         if st.session_state.page == 2:
+
             st.markdown(
                 f'<div class="step-active">{t("step2")}</div>',
                 unsafe_allow_html=True,
             )
+
         else:
+
             st.markdown(
                 f'<div class="step-inactive">{t("step2")}</div>',
                 unsafe_allow_html=True,
             )
 
     with col3:
+
         if st.session_state.page == 3:
+
             st.markdown(
                 f'<div class="step-active">{t("step3")}</div>',
                 unsafe_allow_html=True,
             )
+
         else:
+
             st.markdown(
                 f'<div class="step-inactive">{t("step3")}</div>',
                 unsafe_allow_html=True,
@@ -675,18 +770,28 @@ def render_frame_1():
     )
 
     st.caption(
-        t('profile_subtitle')
+        t("profile_subtitle")
     )
 
+    # ========================================================
     # SKILLS
-    st.markdown(f"### {t('skills_title')}")
+    # ========================================================
 
-    skill_options = translated_options(SKILL_KEYS)
+    st.markdown(
+        f"### {t('skills_title')}"
+    )
+
+    skill_options = translated_options(
+        SKILL_KEYS
+    )
 
     valid_saved_skills = [
         skill
         for skill in st.session_state.skills
-        if any(original == skill for original, _ in SKILL_KEYS)
+        if any(
+            original == skill
+            for original, _ in SKILL_KEYS
+        )
     ]
 
     translated_saved_skills = [
@@ -707,14 +812,21 @@ def render_frame_1():
         SKILL_KEYS,
     )
 
+    # ========================================================
     # EXPERIENCE
-    st.markdown(f"### {t('experience_title')}")
+    # ========================================================
+
+    st.markdown(
+        f"### {t('experience_title')}"
+    )
 
     experience = st.number_input(
         t("experience_help"),
         min_value=0,
         max_value=50,
-        value=int(st.session_state.experience),
+        value=int(
+            st.session_state.experience
+        ),
         step=1,
         key="experience_input_v4",
     )
@@ -725,14 +837,21 @@ def render_frame_1():
         f"{experience} {t('years')}"
     )
 
+    # ========================================================
     # CAPITAL
-    st.markdown(f"### {t('capital_title')}")
+    # ========================================================
+
+    st.markdown(
+        f"### {t('capital_title')}"
+    )
 
     capital = st.slider(
         t("capital_help"),
         min_value=0,
         max_value=500000,
-        value=int(st.session_state.capital),
+        value=int(
+            st.session_state.capital
+        ),
         step=5000,
         key="capital_input_v4",
     )
@@ -743,13 +862,21 @@ def render_frame_1():
         f"**₹{capital:,.0f}**"
     )
 
+    # ========================================================
     # BUSINESS INTERESTS
-    interest_options = translated_options(INTEREST_KEYS)
+    # ========================================================
+
+    interest_options = translated_options(
+        INTEREST_KEYS
+    )
 
     valid_saved_interests = [
         interest
         for interest in st.session_state.interests
-        if any(original == interest for original, _ in INTEREST_KEYS)
+        if any(
+            original == interest
+            for original, _ in INTEREST_KEYS
+        )
     ]
 
     translated_saved_interests = [
@@ -770,8 +897,13 @@ def render_frame_1():
         INTEREST_KEYS,
     )
 
+    # ========================================================
     # RISK
-    st.markdown(f"### {t('risk_title')}")
+    # ========================================================
+
+    st.markdown(
+        f"### {t('risk_title')}"
+    )
 
     risk_options = translated_risk_options()
 
@@ -789,16 +921,23 @@ def render_frame_1():
     selected_risk = st.radio(
         t("risk_title"),
         risk_options,
-        index=risk_options.index(current_risk_display),
+        index=risk_options.index(
+            current_risk_display
+        ),
         horizontal=True,
         key="risk_input_v4",
     )
 
-    st.session_state.risk = original_risk_from_translated(
-        selected_risk
+    st.session_state.risk = (
+        original_risk_from_translated(
+            selected_risk
+        )
     )
 
+    # ========================================================
     # EXISTING BUSINESS
+    # ========================================================
+
     st.markdown(
         f"### {t('existing_business_question')}"
     )
@@ -850,6 +989,7 @@ def render_frame_1():
     ):
 
         st.session_state.page = 2
+
         st.rerun()
 
 
@@ -879,9 +1019,6 @@ def generate_location_data(
     )
 
     ward = int(ward)
-
-    # Deterministic prototype values.
-    # These are NOT live official values.
 
     population = (
         2500
@@ -936,18 +1073,6 @@ def generate_business_points(
     ward,
 ):
 
-    """
-    IMPORTANT:
-
-    Previous prototype code generated random points around
-    the district centre. That could place markers in the sea.
-
-    This version deliberately uses ONE safe reference point.
-
-    It represents the selected area only.
-    It is NOT an individual business location.
-    """
-
     lat, lon = DISTRICT_COORDS.get(
         district,
         (11.2588, 75.7804),
@@ -974,12 +1099,12 @@ def render_frame_2():
     )
 
     st.caption(
-        t('local_subtitle')
+        t("local_subtitle")
     )
 
-    # --------------------------------------------------------
+    # ========================================================
     # LOCATION SELECTORS
-    # --------------------------------------------------------
+    # ========================================================
 
     col1, col2, col3 = st.columns(
         [1.2, 1.5, 0.7]
@@ -989,7 +1114,9 @@ def render_frame_2():
 
         district_options = KERALA_DISTRICTS
 
-        current_district = st.session_state.district
+        current_district = (
+            st.session_state.district
+        )
 
         district = st.selectbox(
             t("district"),
@@ -1010,6 +1137,7 @@ def render_frame_2():
         )
 
         if not body_options:
+
             body_options = [
                 "Local Body"
             ]
@@ -1018,7 +1146,10 @@ def render_frame_2():
             st.session_state.local_body
             not in body_options
         ):
-            st.session_state.local_body = body_options[0]
+
+            st.session_state.local_body = (
+                body_options[0]
+            )
 
         local_body = st.selectbox(
             t("local_body"),
@@ -1029,7 +1160,9 @@ def render_frame_2():
             key="local_body_input_v4",
         )
 
-        st.session_state.local_body = local_body
+        st.session_state.local_body = (
+            local_body
+        )
 
     with col3:
 
@@ -1037,16 +1170,18 @@ def render_frame_2():
             t("ward"),
             min_value=1,
             max_value=100,
-            value=int(st.session_state.ward),
+            value=int(
+                st.session_state.ward
+            ),
             step=1,
             key="ward_input_v4",
         )
 
         st.session_state.ward = ward
 
-    # --------------------------------------------------------
+    # ========================================================
     # DATA LEVEL
-    # --------------------------------------------------------
+    # ========================================================
 
     st.write("")
 
@@ -1081,9 +1216,9 @@ def render_frame_2():
         t("location_note")
     )
 
-    # --------------------------------------------------------
+    # ========================================================
     # LOCATION DATA
-    # --------------------------------------------------------
+    # ========================================================
 
     location_data = generate_location_data(
         st.session_state.district,
@@ -1091,9 +1226,9 @@ def render_frame_2():
         st.session_state.ward,
     )
 
-    # --------------------------------------------------------
+    # ========================================================
     # METRIC CARDS
-    # --------------------------------------------------------
+    # ========================================================
 
     metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
 
@@ -1181,11 +1316,12 @@ def render_frame_2():
             unsafe_allow_html=True,
         )
 
-    # --------------------------------------------------------
+    # ========================================================
     # MAP
-    # --------------------------------------------------------
+    # ========================================================
 
     st.write("")
+
     st.markdown(
         f"### {t('map_title')}"
     )
@@ -1212,9 +1348,9 @@ def render_frame_2():
         zoom=10,
     )
 
-    # --------------------------------------------------------
+    # ========================================================
     # SOURCE
-    # --------------------------------------------------------
+    # ========================================================
 
     st.write("")
 
@@ -1244,9 +1380,9 @@ def render_frame_2():
             unsafe_allow_html=True,
         )
 
-    # --------------------------------------------------------
+    # ========================================================
     # NAVIGATION
-    # --------------------------------------------------------
+    # ========================================================
 
     st.write("")
 
@@ -1261,6 +1397,7 @@ def render_frame_2():
         ):
 
             st.session_state.page = 1
+
             st.rerun()
 
     with continue_col:
@@ -1273,6 +1410,7 @@ def render_frame_2():
         ):
 
             st.session_state.page = 3
+
             st.rerun()
 
 
@@ -1302,6 +1440,7 @@ def render_frame_3():
     ):
 
         st.session_state.page = 2
+
         st.rerun()
 
 
