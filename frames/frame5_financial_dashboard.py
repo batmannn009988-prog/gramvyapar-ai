@@ -1,8 +1,16 @@
-
+```python
 # frames/frame5_financial_dashboard.py
 
 import math
+import requests
 import streamlit as st
+
+
+# ============================================================
+# LIVE BACKEND
+# ============================================================
+
+BACKEND_URL = "https://kerala-business-advisor.onrender.com"
 
 
 # ============================================================
@@ -65,9 +73,9 @@ T = {
         "disclaimer_title": "⚠️ Prototype Disclaimer",
         "disclaimer": (
             "Financing routes, interest rates, tenure and moratorium shown here are "
-            "illustrative prototype values based on the SIH problem-statement example. "
-            "Actual scheme rules, eligibility, interest rates, repayment terms and approval "
-            "must be verified with the relevant official source. Loan approval is not guaranteed."
+            "illustrative prototype values. Actual scheme rules, eligibility, interest "
+            "rates, repayment terms and approval must be verified with the relevant "
+            "official source. Loan approval is not guaranteed."
         ),
 
         "back": "← Back to Business Detail",
@@ -126,16 +134,15 @@ T = {
 
         "go_message": "നിലവിലെ പ്രോട്ടോടൈപ്പ് കണക്കുകൾ പ്രകാരം ഈ ബിസിനസ് പദ്ധതി സാമ്പത്തികമായി സാധ്യമാണ്.",
         "review_message": "ബിസിനസ് സാധ്യമായേക്കാം, എന്നാൽ വായ്പ എടുക്കുന്നതിന് മുമ്പ് തിരിച്ചടവ് ശേഷി ശ്രദ്ധാപൂർവ്വം പരിശോധിക്കണം.",
-        "dont_borrow_message": "പ്രതീക്ഷിക്കുന്ന മാസ മിച്ചം തിരഞ്ഞെടുത്ത വായ്പ സുരക്ഷിതമായി തിരിച്ചടയ്ക്കാൻ പര്യാപ്തമല്ല. പ്രോജക്ട് വലുപ്പം കുറയ്ക്കുകയോ സ്വന്തം മൂലധനം വർധിപ്പിക്കുകയോ ചെയ്യുക.",
+        "dont_borrow_message": "പ്രതീക്ഷിക്കുന്ന മാസ മിച്ചം തിരഞ്ഞെടുത്ത വായ്പ സുരക്ഷിതമായി തിരിച്ചടയ്ക്കാൻ പര്യാപ്തമല്ല.",
 
-        "underfunded_warning": "⚠️ തിരഞ്ഞെടുത്ത വായ്പ മുഴുവൻ ഫണ്ടിംഗ് കുറവ് നികത്തുന്നില്ല. വായ്പ വർധിപ്പിക്കുകയോ കൂടുതൽ സ്വന്തം മൂലധനം ചേർക്കുകയോ ചെയ്യുക.",
+        "underfunded_warning": "⚠️ തിരഞ്ഞെടുത്ത വായ്പ മുഴുവൻ ഫണ്ടിംഗ് കുറവ് നികത്തുന്നില്ല.",
 
         "disclaimer_title": "⚠️ പ്രോട്ടോടൈപ്പ് അറിയിപ്പ്",
         "disclaimer": (
             "ഇവിടെ കാണിക്കുന്ന ധനസഹായ മാർഗങ്ങൾ, പലിശ നിരക്ക്, കാലാവധി, മൊറട്ടോറിയം "
-            "എന്നിവ SIH പ്രശ്ന പ്രസ്താവനയിലെ ഉദാഹരണത്തെ അടിസ്ഥാനമാക്കിയുള്ള പ്രോട്ടോടൈപ്പ് "
-            "മൂല്യങ്ങളാണ്. യഥാർത്ഥ പദ്ധതി നിയമങ്ങൾ, യോഗ്യത, പലിശ, തിരിച്ചടവ് നിബന്ധനകൾ "
-            "എന്നിവ ഔദ്യോഗിക ഉറവിടത്തിൽ പരിശോധിക്കണം. വായ്പ അംഗീകാരം ഉറപ്പുനൽകുന്നില്ല."
+            "എന്നിവ പ്രോട്ടോടൈപ്പ് മൂല്യങ്ങളാണ്. യഥാർത്ഥ പദ്ധതി നിയമങ്ങളും യോഗ്യതയും "
+            "ഔദ്യോഗിക ഉറവിടത്തിൽ പരിശോധിക്കണം."
         ),
 
         "back": "← ബിസിനസ് വിശദാംശങ്ങളിലേക്ക്",
@@ -153,12 +160,10 @@ T = {
 # ============================================================
 
 def get_language():
-    """Get selected language safely."""
     return st.session_state.get("language", "en")
 
 
 def tr(key):
-    """Return translated text."""
     language = get_language()
 
     if language not in T:
@@ -168,7 +173,6 @@ def tr(key):
 
 
 def format_rupees(value):
-    """Format a number as Indian Rupees."""
     try:
         value = float(value)
     except (TypeError, ValueError):
@@ -178,19 +182,12 @@ def format_rupees(value):
 
 
 def calculate_emi(principal, annual_rate, years):
-    """
-    Calculate standard reducing-balance EMI.
 
-    This is an illustrative EMI calculation.
-    """
     principal = float(principal)
     annual_rate = float(annual_rate)
     years = float(years)
 
-    if principal <= 0:
-        return 0.0
-
-    if years <= 0:
+    if principal <= 0 or years <= 0:
         return 0.0
 
     monthly_rate = annual_rate / 12 / 100
@@ -210,13 +207,6 @@ def calculate_emi(principal, annual_rate, years):
 
 
 def get_financing_route(loan_amount):
-    """
-    Determine the indicative financing route.
-
-    Prototype rules:
-    <= ₹1.40 lakh  -> Micro Finance
-    > ₹1.40 lakh   -> Term Loan
-    """
 
     loan_amount = float(loan_amount)
 
@@ -251,9 +241,6 @@ def get_financing_route(loan_amount):
 
 
 def calculate_repayment_safety(monthly_surplus, emi):
-    """
-    Calculate repayment coverage and safety level.
-    """
 
     monthly_surplus = float(monthly_surplus)
     emi = float(emi)
@@ -284,11 +271,6 @@ def calculate_repayment_safety(monthly_surplus, emi):
 # ============================================================
 
 def render_frame5():
-    # Backend advisory result
-    backend_result = None
-    # --------------------------------------------------------
-    # Import business data from Frame 4
-    # --------------------------------------------------------
 
     try:
         from frames.frame4_business_detail import (
@@ -300,7 +282,7 @@ def render_frame5():
         calculate_financials = None
 
     # --------------------------------------------------------
-    # Get selected business
+    # SELECTED BUSINESS
     # --------------------------------------------------------
 
     selected_business = st.session_state.get(
@@ -317,18 +299,7 @@ def render_frame5():
 
         return
 
-    # --------------------------------------------------------
-    # Get business information
-    # --------------------------------------------------------
-
     business = BUSINESS_DATA.get(selected_business)
-
-    if business is None:
-        # Try matching by name in case the dictionary uses another key.
-        for key, value in BUSINESS_DATA.items():
-            if key == selected_business:
-                business = value
-                break
 
     if business is None:
         st.error("Selected business data could not be found.")
@@ -340,7 +311,7 @@ def render_frame5():
         return
 
     # --------------------------------------------------------
-    # Safe business name lookup
+    # BUSINESS NAME
     # --------------------------------------------------------
 
     if get_language() == "ml":
@@ -358,10 +329,11 @@ def render_frame5():
         business_name = selected_business
 
     # --------------------------------------------------------
-    # Calculate business financials
+    # BUSINESS FINANCIALS
     # --------------------------------------------------------
 
     try:
+
         financials = calculate_financials(business)
 
         project_cost = float(
@@ -381,7 +353,7 @@ def render_frame5():
         )
 
     except Exception:
-        # Safe fallback
+
         project_cost = float(
             business.get("startup_total", 0)
         )
@@ -399,16 +371,12 @@ def render_frame5():
         )
 
     # --------------------------------------------------------
-    # Own capital
+    # OWN CAPITAL
     # --------------------------------------------------------
 
     own_capital = float(
         st.session_state.get("capital", 0)
     )
-
-    # --------------------------------------------------------
-    # Funding gap
-    # --------------------------------------------------------
 
     funding_gap = max(
         0,
@@ -416,17 +384,15 @@ def render_frame5():
     )
 
     # --------------------------------------------------------
-    # Header
+    # HEADER
     # --------------------------------------------------------
 
     st.title(tr("title"))
-
     st.caption(tr("subtitle"))
-
     st.divider()
 
     # --------------------------------------------------------
-    # Selected Business
+    # SELECTED BUSINESS
     # --------------------------------------------------------
 
     st.subheader(tr("selected_business"))
@@ -436,7 +402,7 @@ def render_frame5():
     )
 
     # --------------------------------------------------------
-    # Financial Summary
+    # FINANCIAL SUMMARY
     # --------------------------------------------------------
 
     st.subheader(tr("financial_summary"))
@@ -484,7 +450,7 @@ def render_frame5():
     st.divider()
 
     # --------------------------------------------------------
-    # Loan Calculation
+    # LOAN CALCULATION
     # --------------------------------------------------------
 
     st.subheader(tr("loan_calculation"))
@@ -512,12 +478,11 @@ def render_frame5():
     st.divider()
 
     # --------------------------------------------------------
-    # Loan Amount Selection
+    # LOAN AMOUNT
     # --------------------------------------------------------
 
     st.subheader(tr("loan_amount"))
 
-    # Previous selected loan amount
     previous_loan = float(
         st.session_state.get(
             "loan_amount",
@@ -525,17 +490,17 @@ def render_frame5():
         )
     )
 
-    # Keep previous value inside valid range
     if funding_gap <= 0:
+
         loan_amount = 0.0
 
     else:
+
         previous_loan = min(
             max(previous_loan, 0),
             funding_gap
         )
 
-        # Slider step
         if funding_gap <= 100000:
             step = 5000
         elif funding_gap <= 500000:
@@ -552,13 +517,12 @@ def render_frame5():
             format="₹%.0f",
         )
 
-    # Save selected loan
     st.session_state.loan_amount = float(
         loan_amount
     )
 
     # --------------------------------------------------------
-    # Remaining Funding Gap
+    # REMAINING GAP
     # --------------------------------------------------------
 
     remaining_funding_gap = max(
@@ -593,7 +557,7 @@ def render_frame5():
     st.divider()
 
     # --------------------------------------------------------
-    # Financing Route
+    # FINANCING ROUTE
     # --------------------------------------------------------
 
     st.subheader(tr("financing_plan"))
@@ -637,12 +601,13 @@ def render_frame5():
         )
 
     # --------------------------------------------------------
-    # Financing Metrics
+    # FINANCING METRICS
     # --------------------------------------------------------
 
     finance_col1, finance_col2, finance_col3 = st.columns(3)
 
     with finance_col1:
+
         if route_type == "self_funded":
             st.metric(
                 tr("interest"),
@@ -655,6 +620,7 @@ def render_frame5():
             )
 
     with finance_col2:
+
         if route_type == "self_funded":
             st.metric(
                 tr("tenure"),
@@ -667,6 +633,7 @@ def render_frame5():
             )
 
     with finance_col3:
+
         if route_type == "self_funded":
             st.metric(
                 tr("moratorium"),
@@ -701,7 +668,7 @@ def render_frame5():
         )
 
     # --------------------------------------------------------
-    # Store Financial State
+    # STORE FINANCIAL STATE
     # --------------------------------------------------------
 
     st.session_state.project_cost = project_cost
@@ -718,13 +685,332 @@ def render_frame5():
     st.session_state.monthly_expenses = monthly_expenses
     st.session_state.monthly_surplus = monthly_surplus
 
+    # ========================================================
+    # LIVE BACKEND CALL
+    # ========================================================
+
+    backend_payload = {
+        "location": st.session_state.get(
+            "district",
+            "Kozhikode"
+        ),
+        "business_category": selected_business,
+        "available_capital": float(own_capital),
+        "project_cost": float(project_cost),
+        "monthly_revenue": float(monthly_revenue),
+        "monthly_expenses": float(monthly_expenses),
+        "interest_rate": float(interest_rate),
+        "tenure_years": int(tenure_years)
+        if tenure_years > 0 else 7,
+        "is_sc": False,
+        "annual_family_income": 0,
+    }
+
+    backend_result = None
+
+    try:
+
+        response = requests.post(
+            f"{BACKEND_URL}/advisory-report",
+            json=backend_payload,
+            timeout=30,
+        )
+
+        if response.status_code == 200:
+
+            backend_result = response.json()
+
+            st.session_state.backend_result = (
+                backend_result
+            )
+
+        else:
+
+            st.error(
+                f"Backend error: HTTP {response.status_code}"
+            )
+
+    except requests.exceptions.RequestException as e:
+
+        st.error(
+            f"Could not connect to RuralBiz AI backend: {e}"
+        )
+
+    # ========================================================
+    # LIVE RURALBIZ AI RESULT
+    # ========================================================
+
+    if backend_result:
+
+        if backend_result.get("status") == "success":
+
+            st.divider()
+
+            st.subheader(
+                "🤖 RuralBiz AI Analysis"
+            )
+
+            recommendation_data = (
+                backend_result.get(
+                    "recommendation",
+                    {}
+                )
+            )
+
+            decision = recommendation_data.get(
+                "decision",
+                "MODIFY"
+            )
+
+            if decision == "GO":
+
+                st.success(
+                    "🟢 GO — BUSINESS PLAN LOOKS FEASIBLE"
+                )
+
+            elif decision == "MODIFY":
+
+                st.warning(
+                    "🟠 MODIFY — CHECK BEFORE PROCEEDING"
+                )
+
+            else:
+
+                st.error(
+                    "🔴 DON'T PROCEED — HIGH FINANCIAL RISK"
+                )
+
+            st.write(
+                recommendation_data.get(
+                    "reason",
+                    "Backend analysis completed."
+                )
+            )
+
+            # ------------------------------------------------
+            # OPPORTUNITY
+            # ------------------------------------------------
+
+            opportunity = backend_result.get(
+                "opportunity",
+                {}
+            )
+
+            st.markdown(
+                "### 📍 Local Opportunity"
+            )
+
+            opp_col1, opp_col2 = st.columns(2)
+
+            with opp_col1:
+
+                st.metric(
+                    "Opportunity Score",
+                    opportunity.get(
+                        "score",
+                        "—"
+                    )
+                )
+
+            with opp_col2:
+
+                st.write(
+                    f"**Rating:** "
+                    f"{opportunity.get(
+                        'rating',
+                        'Unknown'
+                    )}"
+                )
+
+            st.caption(
+                opportunity.get(
+                    "note",
+                    opportunity.get(
+                        "data_status",
+                        "Based on available local indicators."
+                    )
+                )
+            )
+
+            # ------------------------------------------------
+            # FINANCIAL RESULT
+            # ------------------------------------------------
+
+            financial = backend_result.get(
+                "financial",
+                {}
+            )
+
+            st.markdown(
+                "### 💰 Backend Financial Analysis"
+            )
+
+            financial_col1, financial_col2, financial_col3 = (
+                st.columns(3)
+            )
+
+            with financial_col1:
+
+                st.metric(
+                    "Loan Required",
+                    format_rupees(
+                        financial.get(
+                            "loan_required",
+                            0
+                        )
+                    )
+                )
+
+            with financial_col2:
+
+                st.metric(
+                    "Estimated EMI",
+                    format_rupees(
+                        financial.get(
+                            "estimated_emi",
+                            0
+                        )
+                    )
+                )
+
+            with financial_col3:
+
+                st.metric(
+                    "Cash After EMI",
+                    format_rupees(
+                        financial.get(
+                            "remaining_cash_after_emi",
+                            0
+                        )
+                    )
+                )
+
+            # ------------------------------------------------
+            # RISK
+            # ------------------------------------------------
+
+            risk = backend_result.get(
+                "risk",
+                {}
+            )
+
+            st.markdown(
+                "### 🛡️ Repayment Risk"
+            )
+
+            st.write(
+                f"**Risk Level:** "
+                f"{risk.get(
+                    'risk',
+                    'Unknown'
+                )}"
+            )
+
+            st.write(
+                risk.get(
+                    "reason",
+                    ""
+                )
+            )
+
+            # ------------------------------------------------
+            # STRESS TEST
+            # ------------------------------------------------
+
+            stress = backend_result.get(
+                "stress_test",
+                {}
+            )
+
+            if stress:
+
+                st.markdown(
+                    "### 📉 Revenue Stress Test"
+                )
+
+                for scenario_name, scenario in stress.items():
+
+                    st.write(
+                        f"**{scenario_name.replace('_', ' ').title()}** — "
+                        f"Cash after EMI: "
+                        f"{format_rupees(
+                            scenario.get(
+                                'cash_after_emi',
+                                0
+                            )
+                        )} — "
+                        f"{scenario.get(
+                            'status',
+                            'Unknown'
+                        )}"
+                    )
+
+            # ------------------------------------------------
+            # CONFIDENCE
+            # ------------------------------------------------
+
+            confidence = backend_result.get(
+                "confidence",
+                {}
+            )
+
+            st.caption(
+                f"Confidence: "
+                f"{confidence.get(
+                    'confidence',
+                    'Unknown'
+                )} "
+                f"({confidence.get(
+                    'score',
+                    0
+                )})"
+            )
+
+            # ------------------------------------------------
+            # DATA SOURCE
+            # ------------------------------------------------
+
+            local_evidence = backend_result.get(
+                "local_evidence",
+                {}
+            )
+
+            if local_evidence:
+
+                st.caption(
+                    f"District evidence: "
+                    f"{local_evidence.get(
+                        'district',
+                        ''
+                    )} | "
+                    f"Data level: "
+                    f"{local_evidence.get(
+                        'data_level',
+                        ''
+                    )} | "
+                    f"Updated: "
+                    f"{local_evidence.get(
+                        'last_updated',
+                        ''
+                    )}"
+                )
+
+        elif backend_result.get("status") == "data_gap":
+
+            st.warning(
+                "⚠️ No verified district-level evidence "
+                "is available for this location."
+            )
+
     # --------------------------------------------------------
-    # Repayment Safety
+    # REPAYMENT SAFETY
     # --------------------------------------------------------
 
     st.divider()
 
-    st.subheader(tr("repayment_safety"))
+    st.subheader(
+        tr("repayment_safety")
+    )
 
     safety = calculate_repayment_safety(
         monthly_surplus,
@@ -740,7 +1026,10 @@ def render_frame5():
             f"🟢 {tr('self_funded_status')}"
         )
 
-        st.session_state.repayment_status = "Self-funded"
+        st.session_state.repayment_status = (
+            "Self-funded"
+        )
+
         st.session_state.repayment_coverage = 0.0
 
     else:
@@ -780,16 +1069,23 @@ def render_frame5():
 
                 status_text = "Unsafe"
 
-        st.session_state.repayment_status = status_text
-        st.session_state.repayment_coverage = coverage
+        st.session_state.repayment_status = (
+            status_text
+        )
+
+        st.session_state.repayment_coverage = (
+            coverage
+        )
 
     # --------------------------------------------------------
-    # Recommendation
+    # FRONTEND RECOMMENDATION
     # --------------------------------------------------------
 
     st.divider()
 
-    st.subheader(tr("recommendation"))
+    st.subheader(
+        tr("recommendation")
+    )
 
     if loan_amount <= 0:
 
@@ -851,26 +1147,26 @@ def render_frame5():
             tr("go_message")
         )
 
-    # --------------------------------------------------------
-    # Save Recommendation
-    # --------------------------------------------------------
-
-    st.session_state.financial_recommendation = recommendation
+    st.session_state.financial_recommendation = (
+        recommendation
+    )
 
     # --------------------------------------------------------
-    # Disclaimer
+    # DISCLAIMER
     # --------------------------------------------------------
 
     st.divider()
 
-    st.subheader(tr("disclaimer_title"))
+    st.subheader(
+        tr("disclaimer_title")
+    )
 
     st.warning(
         tr("disclaimer")
     )
 
     # --------------------------------------------------------
-    # Navigation
+    # NAVIGATION
     # --------------------------------------------------------
 
     st.divider()
@@ -896,3 +1192,4 @@ def render_frame5():
 
             st.session_state.page = 6
             st.rerun()
+```
