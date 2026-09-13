@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 
 # ============================================================
@@ -146,9 +147,6 @@ T = {
 # ============================================================
 
 def get_risk_label(level, language):
-    """
-    Convert internal risk level to displayed language.
-    """
     if language == "ml":
         mapping = {
             "Low": T["ml"]["low"],
@@ -168,10 +166,6 @@ def get_risk_label(level, language):
 
 
 def get_risk_level_from_score(score):
-    """
-    Convert a 0-100 risk score into a risk level.
-    Higher score = higher risk.
-    """
     if score <= 30:
         return "Low"
     elif score <= 55:
@@ -183,10 +177,6 @@ def get_risk_level_from_score(score):
 
 
 def get_risk_score_from_demand(demand):
-    """
-    Demand is stored as a positive indicator.
-    Higher demand = lower risk.
-    """
     demand = float(demand)
 
     if demand >= 75:
@@ -200,10 +190,6 @@ def get_risk_score_from_demand(demand):
 
 
 def get_risk_score_from_competition(competition):
-    """
-    Competition is stored as a positive competition indicator.
-    Higher competition = higher risk.
-    """
     competition = float(competition)
 
     if competition <= 40:
@@ -218,16 +204,14 @@ def get_risk_score_from_competition(competition):
 
 def calculate_financial_risk(monthly_surplus, emi, loan_amount):
     """
-    Calculate financial risk.
-
-    If self-funded, financial risk is low because there is no EMI.
-    If financed, compare monthly surplus against EMI.
+    Uses the loan amount and EMI selected/calculated in Frame 5.
     """
 
     monthly_surplus = float(monthly_surplus or 0)
     emi = float(emi or 0)
     loan_amount = float(loan_amount or 0)
 
+    # Self-funded
     if loan_amount <= 0 or emi <= 0:
         if monthly_surplus >= 20000:
             return 15
@@ -238,6 +222,7 @@ def calculate_financial_risk(monthly_surplus, emi, loan_amount):
         else:
             return 85
 
+    # Financed
     coverage = monthly_surplus / emi
 
     if coverage >= 1.5:
@@ -253,10 +238,6 @@ def calculate_financial_risk(monthly_surplus, emi, loan_amount):
 
 
 def calculate_cost_risk(project_cost, available_capital):
-    """
-    Compare project cost with available capital.
-    """
-
     project_cost = float(project_cost or 0)
     available_capital = float(available_capital or 0)
 
@@ -283,12 +264,6 @@ def calculate_cost_risk(project_cost, available_capital):
 
 
 def calculate_operational_risk(business_name):
-    """
-    Prototype operational-risk mapping.
-
-    This can later be replaced by a proper data-driven model.
-    """
-
     name = str(business_name).lower()
 
     if "tailor" in name:
@@ -304,10 +279,6 @@ def calculate_operational_risk(business_name):
 
 
 def get_factor_message(factor, level, language):
-    """
-    Return a human-readable explanation for a risk factor.
-    """
-
     lang = "ml" if language == "ml" else "en"
 
     if factor == "demand":
@@ -353,14 +324,15 @@ def get_factor_message(factor, level, language):
     return ""
 
 
-def get_recommendation(overall_score, financial_score, loan_amount, language):
-    """
-    Produce the final decision recommendation.
-    """
-
+def get_recommendation(
+    overall_score,
+    financial_score,
+    loan_amount,
+    language
+):
     lang = "ml" if language == "ml" else "en"
 
-    # Financial safety gets special priority.
+    # Financial safety has priority when borrowing.
     if loan_amount > 0 and financial_score >= 80:
         return (
             "DON'T BORROW",
@@ -386,9 +358,6 @@ def get_recommendation(overall_score, financial_score, loan_amount, language):
 
 
 def get_risk_emoji(level):
-    """
-    Visual indicator.
-    """
     if level == "Low":
         return "🟢"
     elif level == "Medium":
@@ -418,7 +387,10 @@ def render_frame6():
     # LANGUAGE
     # --------------------------------------------------------
 
-    language = st.session_state.get("language", "en")
+    language = st.session_state.get(
+        "language",
+        "en"
+    )
 
     lang = "ml" if language == "ml" else "en"
 
@@ -432,9 +404,14 @@ def render_frame6():
     )
 
     if not selected_business:
-        st.warning(T[lang]["no_business"])
 
-        if st.button(T[lang]["back"]):
+        st.warning(
+            T[lang]["no_business"]
+        )
+
+        if st.button(
+            T[lang]["back"]
+        ):
             st.session_state.page = 3
             st.rerun()
 
@@ -444,13 +421,15 @@ def render_frame6():
     # BUSINESS DATA
     # --------------------------------------------------------
 
-    # Import Frame 4 data.
     try:
+
         from frames.frame4_business_detail import (
             BUSINESS_DATA,
             calculate_financials
         )
+
     except Exception:
+
         BUSINESS_DATA = {}
         calculate_financials = None
 
@@ -464,11 +443,14 @@ def render_frame6():
     # --------------------------------------------------------
 
     if language == "ml":
+
         business_name = business.get(
             "name_ml",
             selected_business
         )
+
     else:
+
         business_name = business.get(
             "name_en",
             selected_business
@@ -488,7 +470,7 @@ def render_frame6():
         ) or 0
     )
 
-    # Try to use values stored by Frame 5 first.
+    # Frame 5 is the source of truth.
     project_cost = float(
         st.session_state.get(
             "project_cost",
@@ -503,6 +485,8 @@ def render_frame6():
         ) or 0
     )
 
+    # IMPORTANT:
+    # Read the exact loan amount selected in Frame 5.
     loan_amount = float(
         st.session_state.get(
             "loan_amount",
@@ -510,6 +494,8 @@ def render_frame6():
         ) or 0
     )
 
+    # IMPORTANT:
+    # Read the exact EMI calculated in Frame 5.
     emi = float(
         st.session_state.get(
             "emi",
@@ -537,6 +523,7 @@ def render_frame6():
             )
 
             if project_cost <= 0:
+
                 project_cost = float(
                     financials.get(
                         "startup_cost",
@@ -548,6 +535,7 @@ def render_frame6():
                 )
 
             if monthly_surplus <= 0:
+
                 monthly_surplus = float(
                     financials.get(
                         "monthly_surplus",
@@ -572,7 +560,15 @@ def render_frame6():
             project_cost - available_capital
         )
 
-    if loan_amount <= 0:
+    # IMPORTANT:
+    # Do NOT overwrite a loan amount selected in Frame 5.
+    #
+    # Only use the funding gap if Frame 5 has not stored
+    # a loan amount yet.
+    if (
+        "loan_amount" not in st.session_state
+        and funding_gap > 0
+    ):
 
         loan_amount = funding_gap
 
@@ -817,7 +813,6 @@ def render_frame6():
         )
     ]
 
-    # Two-column factor layout
     col1, col2 = st.columns(2)
 
     for index, (
@@ -903,19 +898,10 @@ def render_frame6():
 
     with finance_col2:
 
-        if loan_amount > 0:
-
-            st.metric(
-                "Estimated EMI",
-                f"₹{emi:,.0f}"
-            )
-
-        else:
-
-            st.metric(
-                "Estimated EMI",
-                "₹0"
-            )
+        st.metric(
+            "Estimated EMI",
+            f"₹{emi:,.0f}"
+        )
 
     with finance_col3:
 
@@ -971,27 +957,48 @@ def render_frame6():
 
     warnings = []
 
-    if demand_level in ["Medium", "High", "Very High"]:
+    if demand_level in [
+        "Medium",
+        "High",
+        "Very High"
+    ]:
+
         warnings.append(
             T[lang]["warning_demand"]
         )
 
-    if competition_level in ["Medium", "High", "Very High"]:
+    if competition_level in [
+        "Medium",
+        "High",
+        "Very High"
+    ]:
+
         warnings.append(
             T[lang]["warning_competition"]
         )
 
-    if cost_level in ["Medium", "High", "Very High"]:
+    if cost_level in [
+        "Medium",
+        "High",
+        "Very High"
+    ]:
+
         warnings.append(
             T[lang]["warning_cost"]
         )
 
-    if financial_level in ["Medium", "High", "Very High"]:
+    if financial_level in [
+        "Medium",
+        "High",
+        "Very High"
+    ]:
+
         warnings.append(
             T[lang]["warning_finance"]
         )
 
     if loan_amount > 0:
+
         warnings.append(
             T[lang]["warning_loan"]
         )
@@ -1079,3 +1086,4 @@ def render_frame6():
 
             st.session_state.page = 7
             st.rerun()
+```
