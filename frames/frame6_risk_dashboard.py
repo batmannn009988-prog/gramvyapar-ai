@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 
 # ============================================================
@@ -1086,4 +1085,3 @@ def render_frame6():
 
             st.session_state.page = 7
             st.rerun()
-```
