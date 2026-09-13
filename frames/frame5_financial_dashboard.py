@@ -284,7 +284,8 @@ def calculate_repayment_safety(monthly_surplus, emi):
 # ============================================================
 
 def render_frame5():
-
+    # Backend advisory result
+    backend_result = None
     # --------------------------------------------------------
     # Import business data from Frame 4
     # --------------------------------------------------------
