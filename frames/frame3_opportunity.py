@@ -982,9 +982,10 @@ def render_frame3():
             )
 
     # --------------------------------------------------------
-    # CONTINUE
+    # CONTINUE TO BUSINESS DETAIL
     # --------------------------------------------------------
- with continue_col:
+
+    with continue_col:
 
         if st.button(
             t["continue"],
