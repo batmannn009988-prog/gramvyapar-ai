@@ -4,6 +4,7 @@ import numpy as np
 from frames.frame3_opportunity import render_frame3
 from frames.frame4_business_detail import render_frame4
 from frames.frame5_financial_dashboard import render_frame5
+from frames.frame6_risk_dashboard import render_frame6
 # ============================================================
 # PAGE CONFIG
 # ============================================================
@@ -1371,3 +1372,7 @@ elif st.session_state.page == 4:
 elif st.session_state.page == 5:
     
     render_frame5()
+
+elif st.session_state.page == 6:
+    
+    render_frame6()
