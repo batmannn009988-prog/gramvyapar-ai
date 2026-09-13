@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 
 
@@ -8,128 +9,65 @@ import streamlit as st
 TEXT = {
     "en": {
         "title": "Opportunity Radar",
-        "subtitle": (
-            "Explore business opportunities that fit your skills, "
-            "capital and local market."
-        ),
-        "profile": "Your Profile",
+        "subtitle": "Business opportunities ranked for your profile and local market.",
+        "your_profile": "Your Profile",
         "capital": "Available Capital",
-        "experience": "Experience",
-        "years": "years",
         "skills": "Skills",
-        "business_interests": "Business Interests",
-        "local_market": "Local Market",
-        "district": "District",
-        "local_body": "Local Body",
-        "ward": "Ward",
-        "recommended": "Recommended Opportunities",
-        "score_note": (
-            "Prototype opportunity score calculated from demand, "
-            "competition fit, skill fit, capital fit, experience "
-            "and risk fit."
-        ),
+        "experience": "Experience",
+        "interests": "Business Interests",
+        "recommendations": "Recommended Opportunities",
+        "score": "Match Score",
         "demand": "Demand",
-        "competition": "Competition Fit",
-        "skill": "Skill Fit",
+        "competition": "Competition",
+        "skill_fit": "Skill Fit",
         "capital_fit": "Capital Fit",
         "experience_fit": "Experience Fit",
+        "interest_fit": "Interest Fit",
         "risk_fit": "Risk Fit",
-        "why": "Why this fits",
+        "why": "Why this fits you",
         "select": "Select this business",
+        "continue": "Continue to Business Detail →",
+        "no_selection": "Please select a business first.",
         "selected": "Selected",
-        "selected_message": "You selected",
-        "confidence": "Data Confidence",
-        "prototype_warning": (
-            "Prototype / demo estimates are currently being used. "
-            "These scores are calculated by the demo recommendation "
-            "engine and are NOT verified local market statistics."
-        ),
-        "engine": "Recommendation Engine Status",
-        "engine_working": (
-            "The recommendation engine is active. Your profile "
-            "inputs are being used to calculate the scores."
-        ),
-        "back": "← Back",
-        "continue": "Continue →",
-        "no_selection": (
-            "Please select a business opportunity before continuing."
-        ),
-        "select_first": "Select a business first.",
-        "high_match": "Strong match based on your profile.",
-        "medium_match": "Moderate match. Further validation is recommended.",
-        "lower_match": "Lower match for your current profile.",
-        "skill_reason": "Your skills support this business.",
-        "interest_reason": "This matches your stated business interests.",
-        "capital_reason": "Your available capital is suitable for this business.",
-        "experience_reason": "Your experience supports this type of business.",
-        "risk_reason": "The risk profile is relatively suitable for your preference.",
-        "location_reason": "This opportunity can be explored in your selected local market.",
+        "strong_match": "Strong Match",
+        "good_match": "Good Match",
+        "review": "Needs Review",
+        "local_adjustment": "Local market adjustment",
     },
 
     "ml": {
-        "title": "ബിസിനസ് അവസരങ്ങൾ",
-        "subtitle": (
-            "നിങ്ങളുടെ കഴിവുകൾ, മൂലധനം, അനുഭവം, താൽപര്യങ്ങൾ "
-            "എന്നിവയ്ക്ക് അനുയോജ്യമായ ബിസിനസ് അവസരങ്ങൾ കണ്ടെത്തുക."
-        ),
-        "profile": "നിങ്ങളുടെ പ്രൊഫൈൽ",
+        "title": "അവസര റഡാർ",
+        "subtitle": "നിങ്ങളുടെ പ്രൊഫൈലിനും പ്രാദേശിക വിപണിക്കും അനുയോജ്യമായ ബിസിനസുകൾ.",
+        "your_profile": "നിങ്ങളുടെ പ്രൊഫൈൽ",
         "capital": "ലഭ്യമായ മൂലധനം",
-        "experience": "അനുഭവം",
-        "years": "വർഷം",
         "skills": "കഴിവുകൾ",
-        "business_interests": "ബിസിനസ് താൽപര്യങ്ങൾ",
-        "local_market": "പ്രാദേശിക വിപണി",
-        "district": "ജില്ല",
-        "local_body": "തദ്ദേശ സ്ഥാപനം",
-        "ward": "വാർഡ്",
-        "recommended": "ശുപാർശ ചെയ്യുന്ന ബിസിനസ് അവസരങ്ങൾ",
-        "score_note": (
-            "ഡിമാൻഡ്, മത്സരം, കഴിവ്, മൂലധനം, അനുഭവം, "
-            "റിസ്ക് എന്നിവ അടിസ്ഥാനമാക്കി കണക്കാക്കിയ ഡെമോ സ്കോർ."
-        ),
+        "experience": "അനുഭവം",
+        "interests": "ബിസിനസ് താൽപര്യങ്ങൾ",
+        "recommendations": "ശുപാർശ ചെയ്യുന്ന അവസരങ്ങൾ",
+        "score": "പൊരുത്ത സ്കോർ",
         "demand": "ഡിമാൻഡ്",
-        "competition": "മത്സര അനുയോജ്യത",
-        "skill": "കഴിവ് അനുയോജ്യത",
-        "capital_fit": "മൂലധന അനുയോജ്യത",
-        "experience_fit": "അനുഭവ അനുയോജ്യത",
-        "risk_fit": "റിസ്ക് അനുയോജ്യത",
-        "why": "എന്തുകൊണ്ട് ഇത് അനുയോജ്യമാണ്",
+        "competition": "മത്സരം",
+        "skill_fit": "കഴിവ് പൊരുത്തം",
+        "capital_fit": "മൂലധന പൊരുത്തം",
+        "experience_fit": "അനുഭവ പൊരുത്തം",
+        "interest_fit": "താൽപര്യ പൊരുത്തം",
+        "risk_fit": "റിസ്ക് പൊരുത്തം",
+        "why": "എന്തുകൊണ്ട് ഇത് നിങ്ങൾക്ക് അനുയോജ്യം",
         "select": "ഈ ബിസിനസ് തിരഞ്ഞെടുക്കുക",
-        "selected": "തിരഞ്ഞെടുത്തു",
-        "selected_message": "നിങ്ങൾ തിരഞ്ഞെടുത്തത്",
-        "confidence": "ഡാറ്റാ വിശ്വാസ്യത",
-        "prototype_warning": (
-            "നിലവിൽ പ്രോട്ടോടൈപ്പ് / ഡെമോ കണക്കുകളാണ് ഉപയോഗിക്കുന്നത്. "
-            "ഈ സ്കോറുകൾ ഡെമോ ശുപാർശ എഞ്ചിൻ കണക്കാക്കുന്നതാണ്; "
-            "ഇവ പരിശോധിച്ച പ്രാദേശിക വിപണി കണക്കുകളല്ല."
-        ),
-        "engine": "ശുപാർശ എഞ്ചിൻ നില",
-        "engine_working": (
-            "ശുപാർശ എഞ്ചിൻ പ്രവർത്തിക്കുന്നു. നിങ്ങളുടെ പ്രൊഫൈൽ "
-            "വിവരങ്ങൾ ഉപയോഗിച്ചാണ് സ്കോറുകൾ കണക്കാക്കുന്നത്."
-        ),
-        "back": "← പിന്നിലേക്ക്",
-        "continue": "തുടരുക →",
-        "no_selection": (
-            "തുടരുന്നതിന് മുമ്പ് ഒരു ബിസിനസ് അവസരം തിരഞ്ഞെടുക്കുക."
-        ),
-        "select_first": "ആദ്യം ഒരു ബിസിനസ് തിരഞ്ഞെടുക്കുക.",
-        "high_match": "നിങ്ങളുടെ പ്രൊഫൈലുമായി വളരെ നല്ല പൊരുത്തം.",
-        "medium_match": "മിതമായ പൊരുത്തം. കൂടുതൽ പരിശോധന ശുപാർശ ചെയ്യുന്നു.",
-        "lower_match": "നിലവിലെ പ്രൊഫൈലിന് താരതമ്യേന കുറഞ്ഞ പൊരുത്തം.",
-        "skill_reason": "നിങ്ങളുടെ കഴിവുകൾ ഈ ബിസിനസിന് അനുയോജ്യമാണ്.",
-        "interest_reason": "ഇത് നിങ്ങൾ നൽകിയ ബിസിനസ് താൽപര്യവുമായി പൊരുത്തപ്പെടുന്നു.",
-        "capital_reason": "നിങ്ങളുടെ ലഭ്യമായ മൂലധനം ഈ ബിസിനസിന് അനുയോജ്യമാണ്.",
-        "experience_reason": "നിങ്ങളുടെ അനുഭവം ഈ ബിസിനസിനെ പിന്തുണയ്ക്കുന്നു.",
-        "risk_reason": "നിങ്ങളുടെ റിസ്ക് മുൻഗണനയ്ക്ക് ഇത് താരതമ്യേന അനുയോജ്യമാണ്.",
-        "location_reason": "നിങ്ങൾ തിരഞ്ഞെടുത്ത പ്രാദേശിക വിപണിയിൽ ഇത് പരിശോധിക്കാവുന്നതാണ്.",
+        "continue": "ബിസിനസ് വിശദാംശങ്ങളിലേക്ക് തുടരുക →",
+        "no_selection": "ആദ്യം ഒരു ബിസിനസ് തിരഞ്ഞെടുക്കുക.",
+        "selected": "തിരഞ്ഞെടുത്തത്",
+        "strong_match": "വളരെ നല്ല പൊരുത്തം",
+        "good_match": "നല്ല പൊരുത്തം",
+        "review": "കൂടുതൽ പരിശോധിക്കുക",
+        "local_adjustment": "പ്രാദേശിക വിപണി ക്രമീകരണം",
     },
 }
 
 
 # ============================================================
 # BUSINESS DATA
-# Prototype data only
+# Prototype / demo data
 # ============================================================
 
 BUSINESSES = [
@@ -137,30 +75,25 @@ BUSINESSES = [
         "name_en": "Bakery / Food",
         "name_ml": "ബേക്കറി / ഭക്ഷ്യ ബിസിനസ്",
 
-        # Prototype base market scores
         "demand": 82,
         "competition": 62,
+        "risk": 65,
 
-        # Recommended capital range
         "min_capital": 40000,
         "ideal_capital": 150000,
         "max_capital": 500000,
 
-        # Experience requirement
         "ideal_experience": 3,
 
-        # Relevant profile words
         "skills": [
             "Cooking / Food Preparation",
             "Business Management",
             "Sales / Marketing",
         ],
+
         "interests": [
             "Food / Bakery",
         ],
-
-        # Risk baseline
-        "risk": 65,
     },
 
     {
@@ -169,6 +102,7 @@ BUSINESSES = [
 
         "demand": 76,
         "competition": 68,
+        "risk": 80,
 
         "min_capital": 25000,
         "ideal_capital": 80000,
@@ -181,11 +115,10 @@ BUSINESSES = [
             "Design / Handicrafts",
             "Sales / Marketing",
         ],
+
         "interests": [
             "Tailoring / Fashion",
         ],
-
-        "risk": 80,
     },
 
     {
@@ -194,6 +127,7 @@ BUSINESSES = [
 
         "demand": 72,
         "competition": 58,
+        "risk": 60,
 
         "min_capital": 75000,
         "ideal_capital": 250000,
@@ -206,12 +140,11 @@ BUSINESSES = [
             "Farming / Agriculture",
             "Business Management",
         ],
+
         "interests": [
             "Dairy / Livestock",
             "Farming / Agriculture",
         ],
-
-        "risk": 60,
     },
 ]
 
@@ -220,277 +153,398 @@ BUSINESSES = [
 # HELPER FUNCTIONS
 # ============================================================
 
+def normalize_list(value):
+    """
+    Convert session-state values into a clean list.
+    Handles strings, lists, tuples and None.
+    """
+
+    if value is None:
+        return []
+
+    if isinstance(value, str):
+        return [value]
+
+    if isinstance(value, (list, tuple, set)):
+        return list(value)
+
+    return []
+
+
 def calculate_capital_fit(capital, business):
     """
-    Calculates how suitable the user's available capital is
-    for the business.
-
-    Returns 0-100.
+    Capital fit:
+    - Below minimum = low
+    - Around minimum = moderate
+    - Near ideal = high
+    - Above ideal = high
     """
 
     minimum = business["min_capital"]
     ideal = business["ideal_capital"]
     maximum = business["max_capital"]
 
+    if capital <= 0:
+        return 0
+
     if capital < minimum:
-        # Strong penalty when capital is below minimum requirement
-        ratio = capital / minimum if minimum > 0 else 0
-        return max(20, min(60, ratio * 60))
+        # Some partial credit, but clearly low
+        ratio = capital / minimum
+        return max(0, min(45, ratio * 45))
 
-    if minimum <= capital <= ideal:
-        # Excellent fit
-        return 95
+    if capital <= ideal:
+        # From 60 to 100
+        ratio = (
+            capital - minimum
+        ) / max(1, ideal - minimum)
 
-    if ideal < capital <= maximum:
-        # Still good, but extra capital does not increase fit
-        return 88
+        return round(
+            60 + (ratio * 40)
+        )
 
-    # Capital significantly above expected range
-    return 75
+    if capital <= maximum:
+        return 100
+
+    # Too much capital is not a major problem,
+    # but do not give extra advantage.
+    return 100
 
 
 def calculate_skill_fit(user_skills, business):
     """
-    Calculates skill compatibility.
+    Strong skill matching.
+
+    Exact matching skill = 100
+    Multiple matching skills can reinforce the score.
     """
+
+    user_skills = set(normalize_list(user_skills))
+    business_skills = set(business["skills"])
 
     if not user_skills:
         return 50
 
-    matches = 0
+    matches = user_skills.intersection(
+        business_skills
+    )
 
-    for skill in user_skills:
-        if skill in business["skills"]:
-            matches += 1
+    if len(matches) == 0:
+        return 25
 
-    if matches >= 2:
-        return 95
+    if len(matches) == 1:
+        return 75
 
-    if matches == 1:
-        return 82
+    if len(matches) >= 2:
+        return 100
 
-    return 45
+    return 50
 
 
 def calculate_interest_fit(user_interests, business):
     """
-    Calculates business-interest compatibility.
+    Strong interest matching.
+
+    Exact interest match = 100
+    Related interest match = 85
+    No match = 25
     """
+
+    user_interests = set(
+        normalize_list(user_interests)
+    )
+
+    business_interests = set(
+        business["interests"]
+    )
 
     if not user_interests:
         return 50
 
-    matches = 0
+    matches = user_interests.intersection(
+        business_interests
+    )
 
-    for interest in user_interests:
-        if interest in business["interests"]:
-            matches += 1
-
-    if matches >= 2:
+    if len(matches) >= 1:
         return 100
 
-    if matches == 1:
-        return 95
+    # Related farming/agriculture signal
+    # can support Dairy even when the exact
+    # Dairy / Livestock interest is not selected.
+    if (
+        "Farming / Agriculture" in user_interests
+        and business["name_en"] == "Dairy"
+    ):
+        return 85
 
-    return 35
+    return 25
 
 
 def calculate_experience_fit(experience, business):
     """
-    Calculates experience compatibility.
+    Experience is useful but should not dominate
+    the recommendation.
     """
+
+    try:
+        experience = float(experience)
+    except:
+        experience = 0
 
     ideal = business["ideal_experience"]
 
+    if experience <= 0:
+        return 50
+
     if experience >= ideal:
-        return 95
+        return 100
 
-    if experience == 0:
-        return 45
+    if experience >= ideal * 0.5:
+        return 75
 
-    # Partial experience
-    return int(45 + (experience / ideal) * 45)
+    return 50
 
 
-def calculate_risk_fit(user_risk, business):
+def calculate_risk_fit(business):
     """
-    User risk preference:
-        Low
-        Medium
-        High
-
-    Business risk is represented as a compatibility score.
+    Lower business risk = better score.
     """
 
-    if user_risk == "Low":
-        if business["risk"] >= 75:
-            return 90
-        elif business["risk"] >= 60:
-            return 70
-        else:
-            return 50
+    risk = business["risk"]
 
-    if user_risk == "High":
-        if business["risk"] >= 70:
-            return 90
-        elif business["risk"] >= 55:
-            return 75
-        else:
-            return 60
-
-    # Medium
-    if business["risk"] >= 60:
-        return 85
-
-    return 70
+    return max(
+        0,
+        min(
+            100,
+            100 - risk
+        )
+    )
 
 
-def calculate_location_bonus(local_body):
+def calculate_local_adjustment(
+    business,
+    local_body
+):
     """
-    Prototype location adjustment.
+    Small local-market adjustment.
 
-    This is intentionally small because we do not yet have
-    verified ward-level market data.
+    This is deliberately small so that local adjustment
+    cannot overpower the user's actual profile.
     """
 
     if not local_body:
-        return 50
+        return 0
 
-    # Municipality / corporation environments can support
-    # more consumer-facing businesses in this prototype.
-    if "Municipal" in local_body or "Corporation" in local_body:
-        return 80
-
-    return 70
+    # Prototype adjustment only.
+    # Keep this small until real local data is connected.
+    return 0
 
 
-def calculate_opportunity(business):
+# ============================================================
+# MAIN SCORING ENGINE
+# ============================================================
+
+def calculate_business_score(
+    business,
+    capital,
+    skills,
+    experience,
+    interests,
+    local_body,
+):
     """
-    Main recommendation engine.
+    Main opportunity scoring engine.
 
-    Final score:
+    IMPORTANT:
+    Skill + Interest = 50% combined.
 
-    20% Demand
-    15% Competition
-    20% Skill Fit
-    20% Capital Fit
-    10% Experience Fit
-    10% Interest Fit
-    5% Risk Fit
-
-    Returns all calculated components.
+    This means the system does not simply recommend
+    the business with the highest generic demand.
     """
 
-    capital = float(st.session_state.get("capital", 0))
-    experience = int(st.session_state.get("experience", 0))
-    skills = st.session_state.get("skills", [])
-    interests = st.session_state.get("interests", [])
-    risk = st.session_state.get("risk", "Medium")
-    local_body = st.session_state.get("local_body", "")
+    demand_score = business["demand"]
 
-    demand = business["demand"]
-    competition = business["competition"]
+    # Competition is treated as suitability:
+    # lower competition = better opportunity.
+    competition_score = (
+        100 - business["competition"]
+    )
 
-    skill_fit = calculate_skill_fit(
+    skill_score = calculate_skill_fit(
         skills,
         business
     )
 
-    capital_fit = calculate_capital_fit(
+    capital_score = calculate_capital_fit(
         capital,
         business
     )
 
-    experience_fit = calculate_experience_fit(
+    experience_score = calculate_experience_fit(
         experience,
         business
     )
 
-    interest_fit = calculate_interest_fit(
+    interest_score = calculate_interest_fit(
         interests,
         business
     )
 
-    risk_fit = calculate_risk_fit(
-        risk,
+    risk_score = calculate_risk_fit(
         business
     )
 
-    location_fit = calculate_location_bonus(
+    local_adjustment = calculate_local_adjustment(
+        business,
         local_body
     )
 
-    # Small local adjustment
-    adjusted_demand = int(
-        demand * 0.90 +
-        location_fit * 0.10
+    # --------------------------------------------------------
+    # NEW WEIGHTS
+    # --------------------------------------------------------
+    #
+    # Skill       = 30%
+    # Interest    = 20%
+    # Capital     = 15%
+    # Demand      = 15%
+    # Competition = 10%
+    # Experience  = 5%
+    # Risk        = 5%
+    #
+    # Total       = 100%
+    # --------------------------------------------------------
+
+    base_score = (
+        (skill_score * 0.30)
+        + (interest_score * 0.20)
+        + (capital_score * 0.15)
+        + (demand_score * 0.15)
+        + (competition_score * 0.10)
+        + (experience_score * 0.05)
+        + (risk_score * 0.05)
     )
 
-    score = (
-        adjusted_demand * 0.20
-        + competition * 0.15
-        + skill_fit * 0.20
-        + capital_fit * 0.20
-        + experience_fit * 0.10
-        + interest_fit * 0.10
-        + risk_fit * 0.05
+    final_score = (
+        base_score
+        + local_adjustment
     )
 
-    score = max(0, min(100, round(score)))
+    final_score = max(
+        0,
+        min(
+            100,
+            round(final_score)
+        )
+    )
 
     return {
-        "name_en": business["name_en"],
-        "name_ml": business["name_ml"],
-        "score": score,
-        "demand": adjusted_demand,
-        "competition": competition,
-        "skill": skill_fit,
-        "capital": capital_fit,
-        "experience": experience_fit,
-        "interest": interest_fit,
-        "risk": risk_fit,
-        "business_risk": business["risk"],
-        "business": business,
+        "score": final_score,
+        "demand_score": round(demand_score),
+        "competition_score": round(competition_score),
+        "skill_score": round(skill_score),
+        "capital_score": round(capital_score),
+        "experience_score": round(experience_score),
+        "interest_score": round(interest_score),
+        "risk_score": round(risk_score),
+        "local_adjustment": local_adjustment,
     }
 
 
-def get_match_message(score, lang):
-    if score >= 80:
-        return TEXT[lang]["high_match"]
+# ============================================================
+# MATCH LABEL
+# ============================================================
 
-    if score >= 65:
-        return TEXT[lang]["medium_match"]
+def get_match_label(score, language):
 
-    return TEXT[lang]["lower_match"]
+    if score >= 75:
+
+        return (
+            "Strong Match"
+            if language == "en"
+            else "വളരെ നല്ല പൊരുത്തം"
+        )
+
+    if score >= 55:
+
+        return (
+            "Good Match"
+            if language == "en"
+            else "നല്ല പൊരുത്തം"
+        )
+
+    return (
+        "Needs Review"
+        if language == "en"
+        else "കൂടുതൽ പരിശോധിക്കുക"
+    )
 
 
-def build_reasons(result, lang):
-    """
-    Creates dynamic explanations based on the actual
-    calculated scores.
-    """
+# ============================================================
+# WHY THIS BUSINESS
+# ============================================================
+
+def get_reasons(
+    result,
+    business,
+    language,
+):
 
     reasons = []
 
-    if result["skill"] >= 80:
-        reasons.append(TEXT[lang]["skill_reason"])
+    if result["skill_score"] >= 75:
 
-    if result["interest"] >= 80:
-        reasons.append(TEXT[lang]["interest_reason"])
+        reasons.append(
+            "Your skills strongly match this business."
+            if language == "en"
+            else
+            "നിങ്ങളുടെ കഴിവുകൾ ഈ ബിസിനസുമായി ശക്തമായി പൊരുത്തപ്പെടുന്നു."
+        )
 
-    if result["capital"] >= 80:
-        reasons.append(TEXT[lang]["capital_reason"])
+    if result["interest_score"] >= 75:
 
-    if result["experience"] >= 80:
-        reasons.append(TEXT[lang]["experience_reason"])
+        reasons.append(
+            "Your interests match this opportunity."
+            if language == "en"
+            else
+            "നിങ്ങളുടെ താൽപര്യങ്ങൾ ഈ അവസരവുമായി പൊരുത്തപ്പെടുന്നു."
+        )
 
-    if result["risk"] >= 80:
-        reasons.append(TEXT[lang]["risk_reason"])
+    if result["capital_score"] >= 75:
+
+        reasons.append(
+            "Your available capital is suitable."
+            if language == "en"
+            else
+            "നിങ്ങളുടെ ലഭ്യമായ മൂലധനം അനുയോജ്യമാണ്."
+        )
+
+    if result["demand_score"] >= 75:
+
+        reasons.append(
+            "The business has relatively strong demand potential."
+            if language == "en"
+            else
+            "ഈ ബിസിനസിന് താരതമ്യേന നല്ല ഡിമാൻഡ് സാധ്യതയുണ്ട്."
+        )
+
+    if result["competition_score"] >= 45:
+
+        reasons.append(
+            "Competition is not excessively high in the prototype model."
+            if language == "en"
+            else
+            "പ്രോട്ടോടൈപ്പ് മോഡലിൽ മത്സരം വളരെ കൂടുതലല്ല."
+        )
 
     if not reasons:
-        reasons.append(TEXT[lang]["location_reason"])
 
-    return " ".join(reasons)
+        reasons.append(
+            "This opportunity requires further validation."
+            if language == "en"
+            else
+            "ഈ അവസരത്തിന് കൂടുതൽ പരിശോധന ആവശ്യമാണ്."
+        )
+
+    return reasons[:3]
 
 
 # ============================================================
@@ -503,7 +557,10 @@ def render_frame3():
     # LANGUAGE
     # --------------------------------------------------------
 
-    language = st.session_state.get("language", "en")
+    language = st.session_state.get(
+        "language",
+        "en"
+    )
 
     if language not in TEXT:
         language = "en"
@@ -511,111 +568,132 @@ def render_frame3():
     t = TEXT[language]
 
     # --------------------------------------------------------
+    # GET USER PROFILE
+    # --------------------------------------------------------
+
+    capital = st.session_state.get(
+        "capital",
+        0
+    )
+
+    skills = normalize_list(
+        st.session_state.get(
+            "skills",
+            []
+        )
+    )
+
+    experience = st.session_state.get(
+        "experience",
+        0
+    )
+
+    interests = normalize_list(
+        st.session_state.get(
+            "interests",
+            []
+        )
+    )
+
+    local_body = st.session_state.get(
+        "local_body",
+        ""
+    )
+
+    # --------------------------------------------------------
     # HEADER
     # --------------------------------------------------------
 
-    st.markdown(f"## {t['title']}")
+    st.markdown(
+        f"## {t['title']}"
+    )
 
-    st.caption(t["subtitle"])
+    st.caption(
+        t["subtitle"]
+    )
 
     st.write("")
 
     # --------------------------------------------------------
-    # USER PROFILE SUMMARY
+    # PROFILE SUMMARY
     # --------------------------------------------------------
 
-    st.markdown(f"### {t['profile']}")
+    st.markdown(
+        f"### {t['your_profile']}"
+    )
 
-    col1, col2, col3, col4 = st.columns(4)
+    profile_col1, profile_col2, profile_col3 = st.columns(3)
 
-    with col1:
-        capital = st.session_state.get("capital", 0)
+    with profile_col1:
 
         st.metric(
             t["capital"],
             f"₹{capital:,.0f}"
         )
 
-    with col2:
-        experience = st.session_state.get("experience", 0)
+    with profile_col2:
 
-        st.metric(
-            t["experience"],
-            f"{experience} {t['years']}"
+        st.write(
+            f"**{t['skills']}**"
         )
 
-    with col3:
-        skills = st.session_state.get("skills", [])
+        if skills:
+            st.write(
+                ", ".join(skills)
+            )
+        else:
+            st.write("-")
 
-        st.metric(
-            t["skills"],
-            len(skills)
+    with profile_col3:
+
+        st.write(
+            f"**{t['experience']}**"
         )
 
-    with col4:
-        interests = st.session_state.get("interests", [])
-
-        st.metric(
-            t["business_interests"],
-            len(interests)
+        st.write(
+            f"{experience}"
         )
 
     st.write("")
 
-    # --------------------------------------------------------
-    # LOCATION
-    # --------------------------------------------------------
-
-    st.markdown(f"### {t['local_market']}")
-
-    location_col1, location_col2, location_col3 = st.columns(3)
-
-    with location_col1:
-        st.write(f"**{t['district']}**")
-        st.write(
-            st.session_state.get(
-                "district",
-                "-"
-            )
+    st.write(
+        f"**{t['interests']}:** "
+        + (
+            ", ".join(interests)
+            if interests
+            else "-"
         )
-
-    with location_col2:
-        st.write(f"**{t['local_body']}**")
-        st.write(
-            st.session_state.get(
-                "local_body",
-                "-"
-            )
-        )
-
-    with location_col3:
-        st.write(f"**{t['ward']}**")
-        st.write(
-            st.session_state.get(
-                "ward",
-                "-"
-            )
-        )
+    )
 
     st.write("")
 
     # --------------------------------------------------------
-    # CALCULATE RECOMMENDATIONS
+    # CALCULATE ALL RECOMMENDATIONS
     # --------------------------------------------------------
 
-    results = []
+    ranked_businesses = []
 
     for business in BUSINESSES:
 
-        result = calculate_opportunity(
-            business
+        result = calculate_business_score(
+            business=business,
+            capital=capital,
+            skills=skills,
+            experience=experience,
+            interests=interests,
+            local_body=local_body,
         )
 
-        results.append(result)
+        ranked_businesses.append(
+            {
+                "business": business,
+                "result": result,
+            }
+        )
 
     # Highest score first
-    results.sort(
-        key=lambda x: x["score"],
+    ranked_businesses.sort(
+        key=lambda x: x["result"]["score"],
         reverse=True
     )
 
@@ -624,235 +702,246 @@ def render_frame3():
     # --------------------------------------------------------
 
     st.markdown(
-        f"### {t['recommended']}"
+        f"### {t['recommendations']}"
     )
-
-    st.caption(
-        t["score_note"]
-    )
-
-    st.write("")
 
     # --------------------------------------------------------
     # BUSINESS CARDS
     # --------------------------------------------------------
 
-    for index, result in enumerate(results):
+    for index, item in enumerate(
+        ranked_businesses
+    ):
 
-        business = result["business"]
+        business = item["business"]
+        result = item["result"]
 
-        if language == "ml":
-            business_name = result["name_ml"]
-        else:
-            business_name = result["name_en"]
-
-        # Rank heading
-        st.markdown(
-            f"### #{index + 1}  {business_name}"
+        business_name = (
+            business["name_ml"]
+            if language == "ml"
+            else business["name_en"]
         )
 
-        # Main score
-        score_col1, score_col2 = st.columns(
-            [1, 4]
-        )
+        score = result["score"]
 
-        with score_col1:
-            st.metric(
-                "Score",
-                f"{result['score']}/100"
-            )
-
-        with score_col2:
-            st.progress(
-                result["score"] / 100
-            )
-
-            st.caption(
-                get_match_message(
-                    result["score"],
-                    language
-                )
-            )
-
-        st.write("")
-
-        # Five/six scoring factors
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-
-            st.write(
-                f"**{t['demand']}**"
-            )
-
-            st.progress(
-                result["demand"] / 100
-            )
-
-            st.caption(
-                f"{result['demand']}%"
-            )
-
-        with col2:
-
-            st.write(
-                f"**{t['competition']}**"
-            )
-
-            st.progress(
-                result["competition"] / 100
-            )
-
-            st.caption(
-                f"{result['competition']}%"
-            )
-
-        with col3:
-
-            st.write(
-                f"**{t['skill']}**"
-            )
-
-            st.progress(
-                result["skill"] / 100
-            )
-
-            st.caption(
-                f"{result['skill']}%"
-            )
-
-        col4, col5, col6 = st.columns(3)
-
-        with col4:
-
-            st.write(
-                f"**{t['capital_fit']}**"
-            )
-
-            st.progress(
-                result["capital"] / 100
-            )
-
-            st.caption(
-                f"{result['capital']}%"
-            )
-
-        with col5:
-
-            st.write(
-                f"**{t['experience_fit']}**"
-            )
-
-            st.progress(
-                result["experience"] / 100
-            )
-
-            st.caption(
-                f"{result['experience']}%"
-            )
-
-        with col6:
-
-            st.write(
-                f"**{t['risk_fit']}**"
-            )
-
-            st.progress(
-                result["risk"] / 100
-            )
-
-            st.caption(
-                f"{result['risk']}%"
-            )
-
-        st.write("")
-
-        # ----------------------------------------------------
-        # WHY THIS FITS
-        # ----------------------------------------------------
-
-        reasons = build_reasons(
-            result,
+        match_label = get_match_label(
+            score,
             language
         )
 
-        st.info(
-            f"**{t['why']}:** {reasons}"
-        )
-
-        st.write("")
-
         # ----------------------------------------------------
-        # SELECT BUSINESS
+        # Card container
         # ----------------------------------------------------
 
-        selected_business = st.session_state.get(
-            "selected_business",
-            None
-        )
+        with st.container(border=True):
 
-        is_selected = (
-            selected_business
-            == result["name_en"]
-        )
+            title_col, score_col = st.columns(
+                [3, 1]
+            )
 
-        if is_selected:
+            with title_col:
 
-            st.success(
-                f"✓ {t['selected']}: "
+                if index == 0:
+
+                    st.markdown(
+                        f"### 🥇 {business_name}"
+                    )
+
+                else:
+
+                    st.markdown(
+                        f"### {index + 1}. {business_name}"
+                    )
+
+                st.caption(
+                    match_label
+                )
+
+            with score_col:
+
+                st.metric(
+                    t["score"],
+                    f"{score}/100"
+                )
+
+            st.progress(
+                score / 100
+            )
+
+            st.write("")
+
+            # ------------------------------------------------
+            # Score components
+            # ------------------------------------------------
+
+            metric_col1, metric_col2, metric_col3 = st.columns(3)
+
+            with metric_col1:
+
+                st.write(
+                    f"**{t['skill_fit']}**"
+                )
+
+                st.progress(
+                    result["skill_score"] / 100
+                )
+
+                st.caption(
+                    f"{result['skill_score']}/100"
+                )
+
+            with metric_col2:
+
+                st.write(
+                    f"**{t['interest_fit']}**"
+                )
+
+                st.progress(
+                    result["interest_score"] / 100
+                )
+
+                st.caption(
+                    f"{result['interest_score']}/100"
+                )
+
+            with metric_col3:
+
+                st.write(
+                    f"**{t['capital_fit']}**"
+                )
+
+                st.progress(
+                    result["capital_score"] / 100
+                )
+
+                st.caption(
+                    f"{result['capital_score']}/100"
+                )
+
+            metric_col4, metric_col5, metric_col6 = st.columns(3)
+
+            with metric_col4:
+
+                st.write(
+                    f"**{t['demand']}**"
+                )
+
+                st.progress(
+                    result["demand_score"] / 100
+                )
+
+                st.caption(
+                    f"{result['demand_score']}/100"
+                )
+
+            with metric_col5:
+
+                st.write(
+                    f"**{t['competition']}**"
+                )
+
+                st.progress(
+                    result["competition_score"] / 100
+                )
+
+                st.caption(
+                    f"{result['competition_score']}/100"
+                )
+
+            with metric_col6:
+
+                st.write(
+                    f"**{t['experience_fit']}**"
+                )
+
+                st.progress(
+                    result["experience_score"] / 100
+                )
+
+                st.caption(
+                    f"{result['experience_score']}/100"
+                )
+
+            st.write("")
+
+            # ------------------------------------------------
+            # Why
+            # ------------------------------------------------
+
+            st.markdown(
+                f"**{t['why']}**"
+            )
+
+            reasons = get_reasons(
+                result,
+                business,
+                language
+            )
+
+            for reason in reasons:
+
+                st.write(
+                    f"✓ {reason}"
+                )
+
+            # ------------------------------------------------
+            # Select button
+            # ------------------------------------------------
+
+            button_label = (
+                f"{t['select']}: "
                 f"{business_name}"
             )
 
-        else:
-
             if st.button(
-                f"{t['select']} — {business_name}",
-                use_container_width=True,
+                button_label,
                 key=f"select_business_{index}",
+                use_container_width=True,
             ):
 
                 st.session_state.selected_business = (
-                    result["name_en"]
+                    business["name_en"]
                 )
 
                 st.session_state.selected_business_ml = (
-                    result["name_ml"]
+                    business["name_ml"]
                 )
 
                 st.session_state.selected_business_score = (
-                    result["score"]
+                    score
+                )
+
+                st.session_state.selected_business_rank = (
+                    index + 1
+                )
+
+                st.session_state.selected_business_scores = (
+                    result
                 )
 
                 st.rerun()
 
-        st.divider()
+            # ------------------------------------------------
+            # Show currently selected
+            # ------------------------------------------------
+
+            if (
+                st.session_state.get(
+                    "selected_business",
+                    None
+                )
+                == business["name_en"]
+            ):
+
+                st.success(
+                    f"✓ {t['selected']}: "
+                    f"{business_name}"
+                )
+
+    st.write("")
 
     # --------------------------------------------------------
-    # ENGINE STATUS
-    # --------------------------------------------------------
-
-    st.markdown(
-        f"### {t['engine']}"
-    )
-
-    st.success(
-        f"✓ {t['engine_working']}"
-    )
-
-    # --------------------------------------------------------
-    # DATA CONFIDENCE
-    # --------------------------------------------------------
-
-    st.markdown(
-        f"### {t['confidence']}"
-    )
-
-    st.warning(
-        t["prototype_warning"]
-    )
-
-    # --------------------------------------------------------
-    # SELECTED BUSINESS SUMMARY
+    # SELECTED BUSINESS
     # --------------------------------------------------------
 
     selected_business = st.session_state.get(
@@ -862,46 +951,43 @@ def render_frame3():
 
     if selected_business:
 
-        if language == "ml":
+        selected_item = None
 
-            selected_display = st.session_state.get(
-                "selected_business_ml",
-                selected_business
+        for item in ranked_businesses:
+
+            if (
+                item["business"]["name_en"]
+                == selected_business
+            ):
+
+                selected_item = item
+                break
+
+        if selected_item:
+
+            selected_score = (
+                selected_item["result"]["score"]
             )
 
-        else:
+            selected_name = (
+                selected_item["business"]["name_ml"]
+                if language == "ml"
+                else selected_item["business"]["name_en"]
+            )
 
-            selected_display = selected_business
-
-        selected_score = st.session_state.get(
-            "selected_business_score",
-            0
-        )
-
-        st.info(
-            f"**{t['selected_message']}:** "
-            f"{selected_display} "
-            f"({selected_score}/100)"
-        )
+            st.success(
+                f"✓ {t['selected']}: "
+                f"**{selected_name}** — "
+                f"{selected_score}/100"
+            )
 
     # --------------------------------------------------------
-    # NAVIGATION
+    # CONTINUE
     # --------------------------------------------------------
 
     st.write("")
 
-    back_col, continue_col = st.columns(2)
-
-    with back_col:
-
-        if st.button(
-            t["back"],
-            use_container_width=True,
-            key="back_frame3",
-        ):
-
-            st.session_state.page = 2
-            st.rerun()
+    continue_col = st.columns(1)[0]
 
     with continue_col:
 
@@ -920,11 +1006,6 @@ def render_frame3():
 
             else:
 
-                # Store everything Frame 4 will need
-                st.session_state.selected_business = (
-                    selected_business
-                )
-
                 st.session_state.page = 4
-
                 st.rerun()
+```
