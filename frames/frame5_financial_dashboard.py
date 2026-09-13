@@ -1,4 +1,3 @@
-```python
 # frames/frame5_financial_dashboard.py
 
 import math
@@ -1192,4 +1191,3 @@ def render_frame5():
 
             st.session_state.page = 6
             st.rerun()
-```
