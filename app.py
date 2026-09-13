@@ -1,35 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import requests
 from frames.frame3_opportunity import render_frame3
 from frames.frame4_business_detail import render_frame4
 from frames.frame5_financial_dashboard import render_frame5
 from frames.frame6_risk_dashboard import render_frame6
+ app.py
 
-BACKEND_URL = "https://kerala-business-advisor.onrender.com"
-
-def get_backend_advisory(payload):
-    try:
-        response = requests.post(
-            f"{BACKEND_URL}/advisory-report",
-            json=payload,
-            timeout=30
-        )
-
-        if response.status_code == 200:
-            return response.json()
-
-        st.error(
-            f"Backend error: HTTP {response.status_code}"
-        )
-        return None
-
-    except requests.exceptions.RequestException as e:
-        st.error(
-            f"Could not connect to backend: {e}"
-        )
-        return None
 # ============================================================
 # PAGE CONFIG
 # ============================================================
