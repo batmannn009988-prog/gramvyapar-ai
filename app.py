@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from frames.frame3_opportunity import render_frame3
 from frames.frame4_business_detail import render_frame4
+from frames.frame5_financial_dashboard import render_frame5
 # ============================================================
 # PAGE CONFIG
 # ============================================================
@@ -1366,3 +1367,7 @@ elif st.session_state.page == 3:
 elif st.session_state.page == 4:
     
     render_frame4()
+
+elif st.session_state.page == 5:
+    
+    render_frame5()
