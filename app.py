@@ -5,7 +5,7 @@ from frames.frame3_opportunity import render_frame3
 from frames.frame4_business_detail import render_frame4
 from frames.frame5_financial_dashboard import render_frame5
 from frames.frame6_risk_dashboard import render_frame6
- app.py
+
 
 # ============================================================
 # PAGE CONFIG
