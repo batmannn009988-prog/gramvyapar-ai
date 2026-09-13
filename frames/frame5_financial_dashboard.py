@@ -124,7 +124,6 @@ def get_financing_route(loan_amount):
     """
 
     if loan_amount <= 0:
-
         return {
             "scheme": "No Loan Required",
             "interest_rate": 0,
@@ -134,7 +133,6 @@ def get_financing_route(loan_amount):
         }
 
     if loan_amount <= 140000:
-
         return {
             "scheme": "Micro Finance",
             "interest_rate": 6.5,
@@ -170,14 +168,12 @@ def calculate_repayment_safety(monthly_surplus, emi):
     ratio = monthly_surplus / emi
 
     if ratio >= 1.5:
-
         return {
             "status": "comfortable",
             "ratio": ratio,
         }
 
     if ratio >= 1.0:
-
         return {
             "status": "manageable",
             "ratio": ratio,
@@ -219,11 +215,9 @@ def render_frame5():
     )
 
     if not selected_business:
-
         st.error(
             t["no_business"]
         )
-
         return
 
     # --------------------------------------------------------
@@ -235,11 +229,9 @@ def render_frame5():
     )
 
     if business is None:
-
         st.error(
             t["no_business"]
         )
-
         return
 
     # --------------------------------------------------------
@@ -253,7 +245,7 @@ def render_frame5():
 
     try:
         own_capital = float(own_capital)
-    except:
+    except (TypeError, ValueError):
         own_capital = 0
 
     # --------------------------------------------------------
@@ -352,11 +344,25 @@ def render_frame5():
     # SELECTED BUSINESS
     # --------------------------------------------------------
 
-    business_name = (
-        business["name_ml"]
-        if language == "ml"
-        else business["name_en"]
-    )
+    # FIX:
+    # Use .get() instead of ["name_en"] / ["name_ml"]
+    # so the app does not crash if a business record
+    # uses a different key structure.
+
+    if language == "ml":
+        business_name = business.get(
+            "name_ml",
+            selected_business
+        )
+    else:
+        business_name = business.get(
+            "name_en",
+            selected_business
+        )
+
+    # Final fallback in case the value exists but is empty.
+    if not business_name:
+        business_name = selected_business
 
     st.info(
         f"**{t['selected_business']}:** "
@@ -376,21 +382,18 @@ def render_frame5():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-
         st.metric(
             t["own_capital"],
             f"₹{own_capital:,.0f}"
         )
 
     with col2:
-
         st.metric(
             t["project_cost"],
             f"₹{project_cost:,.0f}"
         )
 
     with col3:
-
         st.metric(
             t["funding_gap"],
             f"₹{funding_gap:,.0f}"
@@ -399,21 +402,18 @@ def render_frame5():
     col4, col5, col6 = st.columns(3)
 
     with col4:
-
         st.metric(
             t["monthly_revenue"],
             f"₹{monthly_revenue:,.0f}"
         )
 
     with col5:
-
         st.metric(
             t["monthly_expenses"],
             f"₹{monthly_expenses:,.0f}"
         )
 
     with col6:
-
         st.metric(
             t["monthly_surplus"],
             f"₹{monthly_surplus:,.0f}"
@@ -669,3 +669,4 @@ def render_frame5():
 
             st.session_state.page = 6
             st.rerun()
+
