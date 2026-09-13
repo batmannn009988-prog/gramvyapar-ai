@@ -985,10 +985,6 @@ def render_frame3():
     # CONTINUE
     # --------------------------------------------------------
 
-    st.write("")
-
-    continue_col = st.columns(1)[0]
-
     with continue_col:
 
         if st.button(
@@ -1006,5 +1002,7 @@ def render_frame3():
 
             else:
 
+                st.session_state.page = 4
+                st.rerun()
                 st.session_state.page = 4
                 st.rerun()
