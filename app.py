@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from frames.frame3_opportunity import render_frame3
-
+from frames.frame4_business_detail import render_frame4
 # ============================================================
 # PAGE CONFIG
 # ============================================================
@@ -1362,3 +1362,7 @@ elif st.session_state.page == 2:
 elif st.session_state.page == 3:
 
     render_frame3()
+
+elif st.session_state.page == 4:
+    
+    render_frame4()
