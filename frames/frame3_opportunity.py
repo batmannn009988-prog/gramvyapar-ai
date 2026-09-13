@@ -980,10 +980,26 @@ def render_frame3():
                 f"**{selected_name}** — "
                 f"{selected_score}/100"
             )
+    # --------------------------------------------------------
+    # NAVIGATION
+    # --------------------------------------------------------
 
-    # --------------------------------------------------------
-    # CONTINUE TO BUSINESS DETAIL
-    # --------------------------------------------------------
+    st.write("")
+
+    back_col, continue_col = st.columns(2)
+
+    with back_col:
+
+        if st.button(
+            "← Back to Local Dashboard"
+            if language == "en"
+            else "← പ്രാദേശിക ഡാഷ്ബോർഡിലേക്ക് മടങ്ങുക",
+            use_container_width=True,
+            key="back_frame3",
+        ):
+
+            st.session_state.page = 2
+            st.rerun()
 
     with continue_col:
 
