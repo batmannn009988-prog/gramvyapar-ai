@@ -10,7 +10,7 @@ from frames.frame6_risk_dashboard import render_frame6
 # ============================================================
 
 st.set_page_config(
-    page_title="GramVyapar AI",
+    page_title="NaatuBiz",
     page_icon="🌱",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -39,7 +39,7 @@ LIGHT_BLUE = "#E7F1F7"
 
 TEXT = {
     "en": {
-        "app_title": "GramVyapar AI",
+        "app_title": "NaatuBiz",
         "tagline": "Know Before You Borrow",
 
         "step1": "1. Profile",
@@ -47,7 +47,7 @@ TEXT = {
         "step3": "3. Business Plan",
 
         "profile_title": "Tell us about yourself",
-        "profile_subtitle": "This helps GramVyapar AI understand your skills, capital and business interests.",
+        "profile_subtitle": "This helps NaatuBiz understand your skills, capital and business interests.",
 
         "skills_title": "What skills do you have?",
         "select_skills": "Select your skills",
